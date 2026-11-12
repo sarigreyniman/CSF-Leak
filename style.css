@@ -1,0 +1,48 @@
+/* Tailwind configuration script handles styling, but custom utility/state styles go here */
+body {
+    background-color: #FAF8F4;
+    color: #0E2338;
+    font-family: 'Assistant', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* מצב קריאה מותאם (רגישות לאור / פוטופוביה / כאבי ראש) */
+body.calm-mode {
+    background-color: #F1ECE1 !important;
+    color: #07121C !important;
+    font-size: 108%;
+}
+
+body.calm-mode header {
+    background-color: #E8E2D5 !important;
+}
+
+body.calm-mode .calm-target-card {
+    background-color: #F8F5EE !important;
+    border-color: #D6CABA !important;
+}
+
+/* מחוון קישור פעיל בניווט */
+.nav-link.active {
+    color: #0284C7;
+    font-weight: 700;
+    border-bottom: 2.5px solid #0284C7;
+}
+
+/* טאבים */
+.tab-btn.active {
+    background-color: #0E2338;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(14, 35, 56, 0.15);
+}
+
+/* עיצוב ייעודי למדור מחקרים וארגונים בינלאומיים */
+.research-org-card {
+    transition: all 0.25s ease-in-out;
+}
+
+.research-org-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px -5px rgba(2, 132, 199, 0.1);
+    background-color: #ffffff !important;
+}

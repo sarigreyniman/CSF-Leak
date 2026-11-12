@@ -2,9 +2,10 @@
 <html lang="he" dir="rtl" class="scroll-smooth">
 
 <head>
+    <meta name="google-site-verification" content="google8c739a2b46051f97" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ביחד • קהילת מתמודדי דליפת CSF בישראל</title>
+    <title>CSF Leak IL • קהילת מתמודדי דליפת CSF בישראל</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Assistant & Rubik -->
@@ -85,9 +86,9 @@
 
         /* מחוון קישור פעיל בניווט */
         .nav-link.active {
-            color: #0E2338;
+            color: #0284C7;
             font-weight: 700;
-            border-bottom: 2.5px solid #CCA86E;
+            border-bottom: 2.5px solid #0284C7;
         }
 
         /* תצוגת דפים נפרדים (Client-side routing) */
@@ -125,125 +126,98 @@
     <!-- בר עליון: נגישות, רגישות לאור ומענה חירום -->
     <div class="bg-navy-900 text-cream-200 text-xs py-2 px-4 border-b border-navy-700/60">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2 text-gold">
+            <div class="flex items-center gap-2 text-sky-400">
                 <i class="fa-solid fa-shield-heart"></i>
                 <span class="hidden sm:inline">מרחב בטוח, נטול אינטרסים מסחריים, למתמודדים עם דליפת נוזל מוח-שדרה</span>
                 <span class="sm:hidden">מרחב תמיכה לדליפת CSF</span>
             </div>
             <div class="flex items-center gap-4">
                 <button onclick="toggleCalmMode()" id="calmToggleBtn"
-                    class="hover:text-gold transition flex items-center gap-1.5 cursor-pointer font-medium">
-                    <i class="fa-solid fa-eye-slash text-tealBrand-accent"></i>
+                    class="hover:text-white transition flex items-center gap-1.5 cursor-pointer font-medium">
+                    <i class="fa-solid fa-eye-slash text-sky-400"></i>
                     <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>
                 </button>
                 <span class="text-navy-600">|</span>
-                <a href="#contact" class="hover:text-gold transition font-bold">סיוע מיידי</a>
+                <a href="#contact" class="hover:text-white transition font-bold">סיוע מיידי</a>
             </div>
         </div>
     </div>
 
-    <!-- Header & Sticky Navigation עם הלוגו המדויק והיוקרתי -->
-    <header class="sticky top-0 z-40 bg-cream-100/95 backdrop-blur-md border-b border-gold/25 transition-all">
+    <!-- Header & Sticky Navigation בהשראת עיצוב האתר שבתמונה -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
 
-            <!-- לוגו וקטורי מלוטש -->
-            <a href="#home" class="flex items-center gap-3.5 group">
-                <div class="w-13 h-13 flex-shrink-0 relative">
-                    <svg viewBox="0 0 100 100" class="w-12 h-12 transition-transform duration-300 group-hover:scale-105"
-                        fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <!-- ענף/יד עוטפת תחתונה (טורקיז עמוק מלוטש) -->
-                        <path d="M16 66C26 78 48 83 66 74C78 67 86 52 80 38C76 47 68 55 58 60C43 66 28 62 16 66Z"
-                            fill="url(#brandTealGrad)" />
-                        <!-- זרוע עוטפת חיצונית (זהב שמפניה חם) -->
-                        <path d="M22 61C30 57 44 63 56 55C67 47 72 34 68 18C64 30 56 39 46 44C34 49 26 49 22 61Z"
-                            fill="url(#brandGoldGrad)" />
-                        <!-- טיפת נוזל מוח-שדרה צלולה -->
-                        <path
-                            d="M50 25C50 25 65 44 65 54C65 62.28 58.28 69 50 69C41.72 69 35 62.28 35 54C35 44 50 25 50 25Z"
-                            fill="url(#brandDropGrad)" opacity="0.95" />
-                        <ellipse cx="46" cy="50" rx="3.5" ry="7" transform="rotate(-28 46 50)" fill="#FFFFFF"
-                            opacity="0.8" />
-
-                        <defs>
-                            <linearGradient id="brandTealGrad" x1="16" y1="50" x2="80" y2="80"
-                                gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#0E2338" />
-                                <stop offset="0.5" stop-color="#147D80" />
-                                <stop offset="1" stop-color="#1FA2A6" />
-                            </linearGradient>
-                            <linearGradient id="brandGoldGrad" x1="20" y1="18" x2="70" y2="60"
-                                gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#E7CD96" />
-                                <stop offset="0.6" stop-color="#CCA86E" />
-                                <stop offset="1" stop-color="#A68449" />
-                            </linearGradient>
-                            <linearGradient id="brandDropGrad" x1="50" y1="25" x2="50" y2="69"
-                                gradientUnits="userSpaceOnUse">
-                                <stop stop-color="#C2F3F1" />
-                                <stop offset="0.5" stop-color="#3BB4B8" />
-                                <stop offset="1" stop-color="#1FA2A6" />
-                            </linearGradient>
-                        </defs>
+            <!-- לוגו מדויק בסגנון התמונה (רשת עגולה וטקסט נקי) -->
+            <a href="#home" class="flex items-center gap-3 group">
+                <div class="w-12 h-12 flex-shrink-0 relative">
+                    <svg viewBox="0 0 100 100" class="w-12 h-12 transition-transform duration-300 group-hover:scale-105" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- רשת קהילתית מעגלית (כמו בתמונה) -->
+                        <circle cx="50" cy="50" r="42" stroke="#0284C7" stroke-width="3" stroke-dasharray="6 4" opacity="0.4"/>
+                        <circle cx="50" cy="50" r="28" stroke="#0EA5E9" stroke-width="2.5" opacity="0.6"/>
+                        <!-- נקודות חיבור וקשר ברשת -->
+                        <circle cx="50" cy="8" r="5" fill="#0284C7" />
+                        <circle cx="92" cy="50" r="4" fill="#0EA5E9" />
+                        <circle cx="50" cy="92" r="5" fill="#0284C7" />
+                        <circle cx="8" cy="50" r="4" fill="#0EA5E9" />
+                        <circle cx="20" cy="20" r="3.5" fill="#10B981" />
+                        <circle cx="80" cy="20" r="3.5" fill="#10B981" />
+                        <circle cx="80" cy="80" r="3.5" fill="#10B981" />
+                        <circle cx="20" cy="80" r="3.5" fill="#10B981" />
+                        <!-- מרכז מקושר -->
+                        <circle cx="50" cy="50" r="10" fill="#0284C7" />
+                        <path d="M50 8 L50 40 M92 50 L60 50 M50 92 L50 60 M8 50 L40 50 M20 20 L42 42 M80 20 L58 42 M80 80 L58 58 M20 80 L42 58" stroke="#0EA5E9" stroke-width="2.5" opacity="0.8"/>
                     </svg>
                 </div>
 
-                <!-- מלל המיתוג הרשמי -->
+                <!-- מלל המיתוג המבוקש: CSF Leak IL ואז קהילת מתמודדי דליפת CSF בישראל בקטן -->
                 <div class="flex flex-col">
-                    <div class="flex items-baseline gap-2">
-                        <span class="font-heading font-black text-2xl tracking-tight text-navy-800">בְּיַחַד</span>
-                    </div>
-                    <span class="text-xs font-semibold text-navy-700 tracking-tight">קהילת מתמודדי דליפת CSF
-                        בישראל</span>
-                    <span class="text-[10px] font-medium text-navy-600/80 tracking-wider">YACHAD • CSF ISRAEL
-                        COMMUNITY</span>
+                    <span class="font-heading font-black text-lg tracking-tight text-sky-700 leading-none">CSF LEAK IL</span>
+                    <span class="text-[10px] font-semibold text-slate-600 tracking-tight mt-1">קהילת מתמודדי דליפת CSF בישראל</span>
                 </div>
             </a>
 
             <!-- קישורי ניווט לעמודים השונים (Desktop) -->
-            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-navy-700">
-                <a href="#home" class="nav-link py-2 transition hover:text-tealBrand" data-page="home">בית</a>
-                <a href="#info" class="nav-link py-2 transition hover:text-tealBrand" data-page="info">מידע רפואי</a>
-                <a href="#doctors" class="nav-link py-2 transition hover:text-tealBrand" data-page="doctors">רופאים
-                    ומרכזים</a>
-                <!-- <a href="#discussions" class="nav-link py-2 transition hover:text-tealBrand"
+            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-700">
+                <a href="#home" class="nav-link py-2 transition hover:text-sky-600" data-page="home">דף הבית</a>
+                <a href="#info" class="nav-link py-2 transition hover:text-sky-600" data-page="info">מידע רפואי</a>
+                <a href="#doctors" class="nav-link py-2 transition hover:text-sky-600" data-page="doctors">רופאים ומרכזים</a>
+                <!-- <a href="#discussions" class="nav-link py-2 transition hover:text-sky-600"
                     data-page="discussions">דיונים ושאלות</a> -->
-                <a href="#support" class="nav-link py-2 transition hover:text-tealBrand" data-page="support">קבוצות
-                    תמיכה</a>
-                <a href="#contact" class="nav-link py-2 transition hover:text-tealBrand" data-page="contact">יצירת
-                    קשר</a>
+                <a href="#support" class="nav-link py-2 transition hover:text-sky-600" data-page="support">תמיכה</a>
+                <a href="#contact" class="nav-link py-2 transition hover:text-sky-600" data-page="contact">צור קשר</a>
             </nav>
 
-            <!-- כפתור הנעה לוואטסאפ (WhatsApp Button) -->
+            <!-- כפתור הנעה וקיצורי דרך -->
             <div class="hidden sm:flex items-center gap-3">
                 <a href="#support"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-navy-800 hover:bg-navy-900 text-white font-bold text-xs shadow-subtle hover:shadow transition border border-gold/30">
-                    <i class="fa-brands fa-whatsapp text-emerald-400 text-sm"></i>
+                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm transition">
+                    <i class="fa-brands fa-whatsapp text-white text-sm"></i>
                     <span>הצטרפות לקבוצה</span>
                 </a>
             </div>
 
             <!-- המבורגר במובייל -->
             <button onclick="toggleMobileNav()" aria-label="פתח תפריט"
-                class="lg:hidden p-2.5 rounded-xl text-navy-800 hover:bg-cream-200 transition">
+                class="lg:hidden p-2.5 rounded-xl text-navy-800 hover:bg-slate-100 transition">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
 
         <!-- תפריט מובייל נפתח -->
         <div id="mobileMenu"
-            class="hidden lg:hidden bg-cream-100 border-b border-gold/30 px-6 py-5 shadow-xl space-y-3">
-            <a href="#home" class="block py-2 text-base font-bold text-navy-800 hover:text-tealBrand"
-                onclick="closeMobileNav()">בית</a>
-            <a href="#info" class="block py-2 text-base font-bold text-navy-800 hover:text-tealBrand"
+            class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-5 shadow-xl space-y-3">
+            <a href="#home" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
+                onclick="closeMobileNav()">דף הבית</a>
+            <a href="#info" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
                 onclick="closeMobileNav()">מידע רפואי</a>
-            <a href="#doctors" class="block py-2 text-base font-bold text-navy-800 hover:text-tealBrand"
+            <a href="#doctors" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
                 onclick="closeMobileNav()">רופאים ומרכזים רפואיים</a>
-            <!-- <a href="#discussions" class="block py-2 text-base font-bold text-navy-800 hover:text-tealBrand"
+            <!-- <a href="#discussions" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
                 onclick="closeMobileNav()">דיונים ושאלות קהילה</a> -->
-            <a href="#support" class="block py-2 text-base font-bold text-navy-800 hover:text-tealBrand"
-                onclick="closeMobileNav()">קבוצות תמיכה</a>
-            <a href="#contact" class="block py-2 text-base font-bold text-navy-800 hover:text-tealBrand"
-                onclick="closeMobileNav()">יצירת קשר</a>
+            <a href="#support" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
+                onclick="closeMobileNav()">תמיכה</a>
+            <a href="#contact" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
+                onclick="closeMobileNav()">צור קשר</a>
         </div>
     </header>
 
@@ -251,56 +225,47 @@
     <main class="flex-grow">
 
         <!-- ==============================================
-             דף 1: עמוד הבית (#home)
+             דף 1: עמוד הבית (#home) - בהשראת תמונת ההשראה
              ============================================== -->
         <div id="page-home" class="page-view active-page">
 
-            <!-- Hero עשיר וחם -->
+            <!-- Hero בהשראת תמונת ההשראה (רקע תכלת-כחול מדורג עם כותרות בולטות) -->
             <section
-                class="relative py-16 lg:py-24 bg-gradient-to-b from-cream-100 via-cream-50 to-cream-200/50 border-b border-gold/20 overflow-hidden">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div class="max-w-3xl space-y-6">
+                class="relative py-20 lg:py-32 bg-gradient-to-b from-sky-100 via-sky-50 to-white border-b border-slate-200 overflow-hidden text-center">
+                
+                <!-- רקע רשת נוירונים דקורטיבי ברוח הלוגו -->
+                <div class="absolute inset-0 opacity-15 pointer-events-none flex items-center justify-center">
+                    <svg viewBox="0 0 800 800" class="w-full h-full max-w-4xl" fill="none">
+                        <circle cx="400" cy="400" r="320" stroke="#0284C7" stroke-width="2" stroke-dasharray="10 8"/>
+                        <circle cx="400" cy="400" r="220" stroke="#0EA5E9" stroke-width="2"/>
+                        <circle cx="400" cy="400" r="120" stroke="#0369A1" stroke-width="1.5"/>
+                        <path d="M400 80 L400 720 M80 400 L720 400 M173 173 L627 627 M173 627 L627 173" stroke="#0EA5E9" stroke-width="1.5"/>
+                    </svg>
+                </div>
 
-                        <div
-                            class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white shadow-subtle border border-gold/30 text-xs font-bold text-navy-800">
-                            <span class="w-2.5 h-2.5 rounded-full bg-tealBrand animate-ping"></span>
-                            <span>קהילת הידע והתמיכה למתמודדי דליפת CSF ו-SIH בישראל</span>
-                        </div>
-
-                        <h1
-                            class="text-3xl sm:text-5xl lg:text-6xl font-heading font-extrabold text-navy-800 leading-[1.2]">
-                            אתם לא לבד במסע הזה.<br>
-                            <span class="text-transparent bg-clip-text bg-gradient-to-l from-tealBrand to-navy-800">יש
-                                מקום של הקשבה, ידע והחלמה</span>
+                <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+                    
+                    <!-- כותרת ראשית גדולה כמו בתמונה -->
+                    <div class="space-y-4">
+                        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-heading font-black text-sky-900 tracking-tight leading-tight">
+                            קהילה תומכת ומקושרת לחולי<br>
+                            <span class="text-sky-600">דליפות CSF בישראל</span>
                         </h1>
-
-                        <p class="text-lg text-navy-700/90 leading-relaxed font-normal">
-                            דליפת נוזל מוח-שדרה (Spinal CSF Leak) היא מחלה שקופה, מכאיבה ולעיתים קרובות מאובחנת בטעות
-                            כמיגרנה או חרדה.
-                            קהילת <strong>"ביחד"</strong> הוקמה על ידי מטופלים ומלווים כדי להנגיש ידע רפואי בינלאומי
-                            עדכני, לחבר לרופאים המדויקים בישראל, ולהעניק גב חם בכל שלב.
+                        <p class="text-base sm:text-xl text-slate-700 max-w-2xl mx-auto font-medium">
+                            כאן תמצאו מידע, חיבורים ואוזן קשבת.
                         </p>
-
-                        <div class="flex flex-wrap items-center gap-4 pt-2">
-                            <a href="#info"
-                                class="px-7 py-3.5 rounded-xl bg-navy-800 hover:bg-navy-900 text-white font-bold text-sm shadow-subtle hover:shadow-card transition flex items-center gap-2">
-                                <i class="fa-solid fa-book-medical text-gold"></i>
-                                <span>המדריך המלא לדליפת CSF</span>
-                            </a>
-                            <a href="#support"
-                                class="px-7 py-3.5 rounded-xl bg-white hover:bg-cream-200 text-navy-800 font-bold text-sm border border-gold/40 shadow-subtle transition flex items-center gap-2">
-                                <i class="fa-brands fa-whatsapp text-emerald-500 text-base"></i>
-                                <span>הצטרפות לקבוצות התמיכה</span>
-                            </a>
-                        </div>
                     </div>
-                </div>
 
-                <!-- זוהר רקעי עדין -->
-                <div
-                    class="absolute -left-20 top-1/2 -translate-y-1/2 w-96 h-96 bg-tealBrand/5 rounded-full blur-3xl pointer-events-none">
-                </div>
-                <div class="absolute right-0 top-0 w-80 h-80 bg-gold/10 rounded-full blur-3xl pointer-events-none">
+                    <!-- כפתור הצטרפו אלינו עם חץ למטה כמו בתמונה -->
+                    <div class="pt-4 flex flex-col items-center justify-center gap-3">
+                        <a href="#support"
+                            class="px-8 py-4 rounded-2xl bg-sky-700 hover:bg-sky-800 text-white font-bold text-base shadow-xl shadow-sky-600/20 transition flex items-center gap-3">
+                            <span>הצטרפו אלינו</span>
+                            <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
+                                <i class="fa-solid fa-arrow-down text-xs"></i>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </section>
 
@@ -308,27 +273,27 @@
             <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-7 space-y-4">
-                        <span class="text-xs font-bold text-tealBrand-dark uppercase tracking-wider">אודות המיזם</span>
+                        <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">אודות המיזם</span>
                         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy-800">
                             קהילה שצמחה מתוך הצורך האמיתי בשטח
                         </h2>
                         <p class="text-sm text-navy-700/85 leading-relaxed">
                             ההתמודדות עם כאב ראש תנוחתי משתק והצורך לחיות בשכיבה מוחלטת מביאים עימם לעיתים בדידות עצומה
                             וספקות מצד הסביבה והמערכת הרפואית.
-                            קהילת "ביחד" פועלת ללא כוונת רווח, מתוך תחושת שליחות עמוקה, כדי לוודא שאף חולה בישראל לא
+                            קהילת <strong>CSF Leak IL</strong> פועלת ללא כוונת רווח, מתוך תחושת שליחות עמוקה, כדי לוודא שאף חולה בישראל לא
                             יצטרך לחפש תשובות לבד בחשכה.
                         </p>
                         <div class="grid sm:grid-cols-3 gap-4 pt-4">
-                            <div class="p-4 rounded-2xl bg-white border border-gold/30 shadow-subtle text-center">
-                                <div class="text-2xl font-black text-navy-800 font-heading">100%</div>
+                            <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-subtle text-center">
+                                <div class="text-2xl font-black text-sky-600 font-heading">100%</div>
                                 <div class="text-xs text-gray-500 mt-1">התנדבות ועזרה הדדית</div>
                             </div>
-                            <div class="p-4 rounded-2xl bg-white border border-gold/30 shadow-subtle text-center">
-                                <div class="text-2xl font-black text-tealBrand font-heading">ICHD-3</div>
+                            <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-subtle text-center">
+                                <div class="text-2xl font-black text-sky-700 font-heading">ICHD-3</div>
                                 <div class="text-xs text-gray-500 mt-1">פרוטוקולים בינלאומיים</div>
                             </div>
-                            <div class="p-4 rounded-2xl bg-white border border-gold/30 shadow-subtle text-center">
-                                <div class="text-2xl font-black text-gold font-heading">24/7</div>
+                            <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-subtle text-center">
+                                <div class="text-2xl font-black text-sky-800 font-heading">24/7</div>
                                 <div class="text-xs text-gray-500 mt-1">אוזן קשבת לחברים</div>
                             </div>
                         </div>
@@ -336,19 +301,18 @@
 
                     <!-- ציטוט מעצים -->
                     <div
-                        class="lg:col-span-5 bg-navy-800 text-white p-8 rounded-3xl border border-gold/30 shadow-card relative overflow-hidden">
+                        class="lg:col-span-5 bg-navy-900 text-white p-8 rounded-3xl border border-sky-500/30 shadow-card relative overflow-hidden">
                         <div
-                            class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold text-lg mb-4">
+                            class="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-400 text-lg mb-4">
                             <i class="fa-solid fa-quote-right"></i>
                         </div>
-                        <p class="text-sm leading-relaxed text-cream-100 font-normal italic mb-6">
-                            "המעבר מחוסר אונים במיטה אל תוך קהילה שמבינה כל ניואנס של הכאב, של ה-Blood Patch ושל התקווה
-                            להחלמה – זה הדבר שהחזיק אותי ואת משפחתי עד שחזרתי לעמוד על הרגליים."
+                        <p class="text-sm leading-relaxed text-slate-200 font-normal italic mb-6">
+                           צריך להעלות טקסט
                         </p>
-                        <div class="flex items-center gap-3 border-t border-navy-700/80 pt-4">
+                        <div class="flex items-center gap-3 border-t border-slate-800 pt-4">
                             <div
-                                class="w-9 h-9 rounded-full bg-tealBrand/30 flex items-center justify-center text-tealBrand-accent font-bold text-xs">
-                                ש.מ</div>
+                                class="w-9 h-9 rounded-full bg-sky-500/30 flex items-center justify-center text-sky-300 font-bold text-xs">
+                               מ.ב</div>
                             <div>
                                 <div class="text-xs font-bold text-white">חברת קהילה מחלימה</div>
                                 <div class="text-[10px] text-gray-400">לאחר סגירת דליפה מוצלחת</div>
@@ -359,10 +323,10 @@
             </section>
 
             <!-- כרטיסי ניווט ראשיים לדפים המרכזיים -->
-            <section class="py-12 bg-cream-50 border-t border-gold/20">
+            <section class="py-12 bg-sky-50/50 border-t border-slate-200">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-2xl mx-auto mb-10">
-                        <span class="text-xs font-bold text-gold-dark tracking-wider uppercase">מעבר מהיר לעמודי
+                        <span class="text-xs font-bold text-sky-700 tracking-wider uppercase">מעבר מהיר לעמודי
                             הפורטל</span>
                         <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy-800 mt-1">במה נוכל לסייע לך
                             היום?</h2>
@@ -371,10 +335,10 @@
                     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
 
                         <a href="#info"
-                            class="calm-target-card group p-6 rounded-2xl bg-white border border-gold/25 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
+                            class="calm-target-card group p-6 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
                             <div>
                                 <div
-                                    class="w-12 h-12 rounded-xl bg-cream-100 text-navy-800 flex items-center justify-center text-xl mb-4 group-hover:bg-tealBrand group-hover:text-white transition">
+                                    class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition">
                                     <i class="fa-solid fa-stethoscope"></i>
                                 </div>
                                 <h3 class="font-heading font-bold text-lg text-navy-800 mb-2">מידע רפואי מעמיק</h3>
@@ -384,17 +348,17 @@
                                 </p>
                             </div>
                             <div
-                                class="mt-6 flex items-center gap-1.5 text-xs font-bold text-tealBrand group-hover:text-navy-800">
+                                class="mt-6 flex items-center gap-1.5 text-xs font-bold text-sky-600 group-hover:text-navy-800">
                                 <span>למעבר למידע הרפואי</span>
                                 <i class="fa-solid fa-arrow-left text-[10px]"></i>
                             </div>
                         </a>
 
                         <a href="#doctors"
-                            class="calm-target-card group p-6 rounded-2xl bg-white border border-gold/25 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
+                            class="calm-target-card group p-6 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
                             <div>
                                 <div
-                                    class="w-12 h-12 rounded-xl bg-cream-100 text-navy-800 flex items-center justify-center text-xl mb-4 group-hover:bg-gold group-hover:text-navy-900 transition">
+                                    class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition">
                                     <i class="fa-solid fa-user-doctor"></i>
                                 </div>
                                 <h3 class="font-heading font-bold text-lg text-navy-800 mb-2">רופאים ומרכזים בארץ</h3>
@@ -403,17 +367,17 @@
                                 </p>
                             </div>
                             <div
-                                class="mt-6 flex items-center gap-1.5 text-xs font-bold text-gold-dark group-hover:text-navy-800">
+                                class="mt-6 flex items-center gap-1.5 text-xs font-bold text-sky-600 group-hover:text-navy-800">
                                 <span>למעבר לרופאים ומרכזים</span>
                                 <i class="fa-solid fa-arrow-left text-[10px]"></i>
                             </div>
                         </a>
 
                         <a href="#discussions"
-                            class="calm-target-card group p-6 rounded-2xl bg-white border border-gold/25 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
+                            class="calm-target-card group p-6 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
                             <div>
                                 <div
-                                    class="w-12 h-12 rounded-xl bg-cream-100 text-navy-800 flex items-center justify-center text-xl mb-4 group-hover:bg-navy-800 group-hover:text-white transition">
+                                    class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition">
                                     <i class="fa-solid fa-comments"></i>
                                 </div>
                                 <h3 class="font-heading font-bold text-lg text-navy-800 mb-2">דיונים ושאלות קהילה</h3>
@@ -422,17 +386,17 @@
                                     בשכיבה.
                                 </p>
                             </div>
-                            <div class="mt-6 flex items-center gap-1.5 text-xs font-bold text-navy-800">
+                            <div class="mt-6 flex items-center gap-1.5 text-xs font-bold text-sky-600 group-hover:text-navy-800">
                                 <span>למעבר לפורום הקהילה</span>
                                 <i class="fa-solid fa-arrow-left text-[10px]"></i>
                             </div>
                         </a>
 
                         <a href="#support"
-                            class="calm-target-card group p-6 rounded-2xl bg-white border border-gold/25 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
+                            class="calm-target-card group p-6 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
                             <div>
                                 <div
-                                    class="w-12 h-12 rounded-xl bg-cream-100 text-navy-800 flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
+                                    class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
                                     <i class="fa-brands fa-whatsapp"></i>
                                 </div>
                                 <h3 class="font-heading font-bold text-lg text-navy-800 mb-2">קבוצות וואטסאפ וקשר</h3>
@@ -460,9 +424,9 @@
         <div id="page-info" class="page-view">
 
             <!-- כותרת העמוד -->
-            <section class="py-12 bg-cream-100 border-b border-gold/20">
+            <section class="py-12 bg-sky-50 border-b border-slate-200">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <span class="text-xs font-bold uppercase tracking-wider text-tealBrand-dark">אנציקלופדיית הידע של
+                    <span class="text-xs font-bold uppercase tracking-wider text-sky-700">אנציקלופדיית הידע של
                         הקהילה</span>
                     <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">מדריך רפואי מקיף:
                         דליפת נוזל מוח-שדרה (CSF Leak)</h1>
@@ -476,18 +440,18 @@
             <section class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
 
                 <!-- טאבים אינטראקטיביים לתוכן הרפואי -->
-                <div class="flex flex-wrap items-center gap-2 border-b border-gold/30 pb-4" id="medicalTabContainer">
+                <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-4" id="medicalTabContainer">
                     <button onclick="switchMedicalTab('mechanism', this)"
                         class="tab-btn active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition">מה זה CSF,
                         גורמים וסוגים</button>
                     <button onclick="switchMedicalTab('symptoms', this)"
-                        class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cream-50 text-navy-800 hover:bg-cream-200 transition">תסמינים
+                        class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">תסמינים
                         קליניים</button>
                     <button onclick="switchMedicalTab('imaging', this)"
-                        class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cream-50 text-navy-800 hover:bg-cream-200 transition">כיצד
+                        class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">כיצד
                         מאבחנים?</button>
                     <button onclick="switchMedicalTab('treatment', this)"
-                        class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-cream-50 text-navy-800 hover:bg-cream-200 transition">דרכי
+                        class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">דרכי
                         טיפול והנחיות</button>
                 </div>
 
@@ -502,16 +466,16 @@
 
                             <!-- מה זה CSF -->
                             <div
-                                class="bg-white p-6 rounded-3xl border border-gold/30 shadow-subtle calm-target-card space-y-4">
+                                class="bg-white p-6 rounded-3xl border border-slate-200 shadow-subtle calm-target-card space-y-4">
                                 <h2 class="text-2xl font-heading font-bold text-navy-800">מה זה CSF ולמה הוא משמש?</h2>
                                 <p class="text-sm text-navy-700/90 leading-relaxed">
                                     בתוך הגולגולת ועמוד השדרה קיים נוזל צלול הנקרא <strong>CSF (Cerebrospinal Fluid –
                                         נוזל מוחי-שדרתי)</strong>. לנוזל זה שני תפקידים קריטיים:
                                 </p>
                                 <div class="grid sm:grid-cols-2 gap-4 pt-2">
-                                    <div class="p-4 rounded-2xl bg-cream-50 border border-gold/20">
+                                    <div class="p-4 rounded-2xl bg-sky-50/50 border border-sky-100">
                                         <div class="font-bold text-navy-800 text-sm mb-1 flex items-center gap-2">
-                                            <i class="fa-solid fa-feather-pointed text-tealBrand"></i>
+                                            <i class="fa-solid fa-feather-pointed text-sky-600"></i>
                                             1. "כרית אוויר" וציפה
                                         </div>
                                         <p class="text-xs text-navy-700/85 leading-relaxed">
@@ -520,9 +484,9 @@
                                             דם רגישים.
                                         </p>
                                     </div>
-                                    <div class="p-4 rounded-2xl bg-cream-50 border border-gold/20">
+                                    <div class="p-4 rounded-2xl bg-sky-50/50 border border-sky-100">
                                         <div class="font-bold text-navy-800 text-sm mb-1 flex items-center gap-2">
-                                            <i class="fa-solid fa-scale-balanced text-gold-dark"></i>
+                                            <i class="fa-solid fa-scale-balanced text-sky-700"></i>
                                             2. איזון לחצים והזנה
                                         </div>
                                         <p class="text-xs text-navy-700/85 leading-relaxed">
@@ -539,7 +503,7 @@
 
                             <!-- למה כואב הראש -->
                             <div
-                                class="bg-white p-6 rounded-3xl border border-gold/30 shadow-subtle calm-target-card space-y-4">
+                                class="bg-white p-6 rounded-3xl border border-slate-200 shadow-subtle calm-target-card space-y-4">
                                 <h2 class="text-2xl font-heading font-bold text-navy-800">למה כואב הראש?</h2>
                                 <p class="text-sm text-navy-700/90">
                                     כאב הראש המאפיין המרכזי של דליפת CSF הוא <strong>כאב ראש תנוחתי
@@ -561,8 +525,8 @@
                                     </div>
 
                                     <div
-                                        class="flex gap-3.5 items-start p-3.5 rounded-2xl bg-tealBrand-light/30 border border-tealBrand/20">
-                                        <i class="fa-solid fa-bed text-tealBrand-dark text-lg mt-1"></i>
+                                        class="flex gap-3.5 items-start p-3.5 rounded-2xl bg-sky-50/50 border border-sky-100">
+                                        <i class="fa-solid fa-bed text-sky-700 text-lg mt-1"></i>
                                         <div>
                                             <h4 class="font-bold text-navy-800 text-sm">בשכיבה:</h4>
                                             <p class="text-xs text-navy-700/85 leading-relaxed mt-0.5">
@@ -593,32 +557,32 @@
 
                             <!-- ממה נגרמת הדליפה -->
                             <div
-                                class="bg-white p-6 rounded-3xl border border-gold/30 shadow-card calm-target-card space-y-4">
-                                <div class="text-xs font-bold text-tealBrand-dark uppercase tracking-wider">גורמים</div>
+                                class="bg-white p-6 rounded-3xl border border-slate-200 shadow-card calm-target-card space-y-4">
+                                <div class="text-xs font-bold text-sky-700 uppercase tracking-wider">גורמים</div>
                                 <h3 class="text-xl font-heading font-bold text-navy-800">ממה נגרמת הדליפה?</h3>
                                 <p class="text-xs text-navy-700/80">הדליפה יכולה להיגרם ממספר גורמים עיקריים:</p>
 
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                     <div
-                                        class="p-3.5 rounded-2xl bg-cream-50 border border-gold/25 flex items-center gap-3">
+                                        class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3">
                                         <span
                                             class="w-7 h-7 rounded-lg bg-navy-800 text-white font-bold text-xs flex items-center justify-center flex-shrink-0">1</span>
                                         <span class="text-xs font-bold text-navy-800">בדיקת ניקור מותני</span>
                                     </div>
                                     <div
-                                        class="p-3.5 rounded-2xl bg-cream-50 border border-gold/25 flex items-center gap-3">
+                                        class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3">
                                         <span
                                             class="w-7 h-7 rounded-lg bg-navy-800 text-white font-bold text-xs flex items-center justify-center flex-shrink-0">2</span>
                                         <span class="text-xs font-bold text-navy-800">זריקת אפידורל</span>
                                     </div>
                                     <div
-                                        class="p-3.5 rounded-2xl bg-cream-50 border border-gold/25 flex items-center gap-3">
+                                        class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3">
                                         <span
                                             class="w-7 h-7 rounded-lg bg-navy-800 text-white font-bold text-xs flex items-center justify-center flex-shrink-0">3</span>
                                         <span class="text-xs font-bold text-navy-800">תאונה / מכה חזקה</span>
                                     </div>
                                     <div
-                                        class="p-3.5 rounded-2xl bg-cream-50 border border-gold/25 flex items-center gap-3">
+                                        class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 flex items-center gap-3">
                                         <span
                                             class="w-7 h-7 rounded-lg bg-navy-800 text-white font-bold text-xs flex items-center justify-center flex-shrink-0">4</span>
                                         <span class="text-xs font-bold text-navy-800">דליפה ספונטנית</span>
@@ -628,14 +592,14 @@
 
                             <!-- סוגי דליפות -->
                             <div
-                                class="bg-white p-6 rounded-3xl border border-gold/30 shadow-card calm-target-card space-y-4">
-                                <div class="text-xs font-bold text-gold-dark uppercase tracking-wider">סיווג אנטומי
+                                class="bg-white p-6 rounded-3xl border border-slate-200 shadow-card calm-target-card space-y-4">
+                                <div class="text-xs font-bold text-sky-700 uppercase tracking-wider">סיווג אנטומי
                                 </div>
                                 <h3 class="text-xl font-heading font-bold text-navy-800">סוגי דליפות שדרתיות</h3>
                                 <p class="text-xs text-navy-700/80">דליפות שדרתיות מתחלקות לשלושה סוגים עיקריים:</p>
 
                                 <div class="space-y-3">
-                                    <div class="p-4 rounded-2xl bg-cream-50 border border-gold/25 space-y-1">
+                                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                                         <h4 class="font-bold text-navy-800 text-sm flex items-center gap-2">
                                             <i class="fa-solid fa-burst text-amber-600"></i>
                                             1. קרע במעטפת הדורה
@@ -646,9 +610,9 @@
                                         </p>
                                     </div>
 
-                                    <div class="p-4 rounded-2xl bg-cream-50 border border-gold/25 space-y-1">
+                                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                                         <h4 class="font-bold text-navy-800 text-sm flex items-center gap-2">
-                                            <i class="fa-solid fa-circle-dot text-tealBrand"></i>
+                                            <i class="fa-solid fa-circle-dot text-sky-600"></i>
                                             2. ציסטה שנפרצה
                                         </h4>
                                         <p class="text-xs text-navy-700/85 leading-relaxed">
@@ -656,7 +620,7 @@
                                         </p>
                                     </div>
 
-                                    <div class="p-4 rounded-2xl bg-cream-50 border border-gold/25 space-y-1">
+                                    <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                                         <h4 class="font-bold text-navy-800 text-sm flex items-center gap-2">
                                             <i class="fa-solid fa-code-branch text-purple-700"></i>
                                             3. פיסטולה ורידית (CSF-Venous Fistula)
@@ -693,7 +657,7 @@
 
                             <!-- ראש -->
                             <div
-                                class="p-5 rounded-2xl bg-white border border-gold/25 shadow-subtle calm-target-card space-y-2">
+                                class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
                                 <div
                                     class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-lg">
                                     <i class="fa-solid fa-head-side-virus"></i>
@@ -706,9 +670,9 @@
 
                             <!-- אוזניים ושמיעה -->
                             <div
-                                class="p-5 rounded-2xl bg-white border border-gold/25 shadow-subtle calm-target-card space-y-2">
+                                class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
                                 <div
-                                    class="w-10 h-10 rounded-xl bg-gold-light text-gold-dark flex items-center justify-center text-lg">
+                                    class="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center text-lg">
                                     <i class="fa-solid fa-ear-listen"></i>
                                 </div>
                                 <h3 class="font-bold text-navy-800 text-sm">אוזניים ושמיעה</h3>
@@ -720,9 +684,9 @@
 
                             <!-- ראייה -->
                             <div
-                                class="p-5 rounded-2xl bg-white border border-gold/25 shadow-subtle calm-target-card space-y-2">
+                                class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
                                 <div
-                                    class="w-10 h-10 rounded-xl bg-tealBrand-light text-tealBrand flex items-center justify-center text-lg">
+                                    class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-lg">
                                     <i class="fa-solid fa-eye"></i>
                                 </div>
                                 <h3 class="font-bold text-navy-800 text-sm">ראייה</h3>
@@ -733,7 +697,7 @@
 
                             <!-- צוואר ושכמות -->
                             <div
-                                class="p-5 rounded-2xl bg-white border border-gold/25 shadow-subtle calm-target-card space-y-2">
+                                class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
                                 <div
                                     class="w-10 h-10 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center text-lg">
                                     <i class="fa-solid fa-user-injured"></i>
@@ -746,7 +710,7 @@
 
                             <!-- תחושות גוף ושיווי משקל -->
                             <div
-                                class="p-5 rounded-2xl bg-white border border-gold/25 shadow-subtle calm-target-card space-y-2">
+                                class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
                                 <div
                                     class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg">
                                     <i class="fa-solid fa-scale-unbalanced"></i>
@@ -759,7 +723,7 @@
 
                             <!-- קוגניציה ואנרגיה -->
                             <div
-                                class="p-5 rounded-2xl bg-white border border-gold/25 shadow-subtle calm-target-card space-y-2">
+                                class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
                                 <div
                                     class="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-lg">
                                     <i class="fa-solid fa-brain"></i>
@@ -772,7 +736,7 @@
 
                             <!-- תסמינים נוספים -->
                             <div
-                                class="p-5 rounded-2xl bg-white border border-gold/25 shadow-subtle calm-target-card space-y-2 sm:col-span-2">
+                                class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2 sm:col-span-2">
                                 <div class="flex items-center gap-3">
                                     <div
                                         class="w-10 h-10 rounded-xl bg-pink-50 text-pink-600 flex items-center justify-center text-lg flex-shrink-0">
@@ -791,7 +755,7 @@
 
                         <!-- תמונת האינפוגרפיקה -->
                         <div
-                            class="lg:col-span-5 bg-white p-4 rounded-3xl border border-gold/30 shadow-card calm-target-card">
+                            class="lg:col-span-5 bg-white p-4 rounded-3xl border border-slate-200 shadow-card calm-target-card">
                             <img src="WhatsApp Image 2026-11-10 at 20.58.27.jpeg"
                                 alt="אינפוגרפיקה של תסמיני דליפת נוזל מוח-שדרה: ראש, אוזניים ושמיעה, ראייה, צוואר ושכמות, קוגניציה ואנרגיה, שיווי משקל ותסמינים נוספים"
                                 class="w-full h-auto rounded-2xl object-contain" />
@@ -821,10 +785,10 @@
 
                         <!-- 1. MRI מוח -->
                         <div
-                            class="p-6 rounded-2xl bg-white border border-gold/30 shadow-subtle calm-target-card flex flex-col justify-between gap-4">
+                            class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card flex flex-col justify-between gap-4">
                             <div class="flex gap-4 items-start">
                                 <div
-                                    class="w-12 h-12 rounded-xl bg-cream-100 text-tealBrand flex items-center justify-center text-xl flex-shrink-0 font-bold">
+                                    class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl flex-shrink-0 font-bold">
                                     1
                                 </div>
                                 <div class="space-y-2">
@@ -845,9 +809,9 @@
 
                         <!-- 2. MRI עמוד שדרה מלא -->
                         <div
-                            class="p-6 rounded-2xl bg-white border border-gold/30 shadow-subtle calm-target-card flex gap-4 items-start">
+                            class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card flex gap-4 items-start">
                             <div
-                                class="w-12 h-12 rounded-xl bg-cream-100 text-gold-dark flex items-center justify-center text-xl flex-shrink-0 font-bold">
+                                class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl flex-shrink-0 font-bold">
                                 2
                             </div>
                             <div class="space-y-2">
@@ -861,9 +825,9 @@
 
                         <!-- 3. CT מילוגרפיה -->
                         <div
-                            class="p-6 rounded-2xl bg-white border border-gold/30 shadow-subtle calm-target-card flex gap-4 items-start">
+                            class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card flex gap-4 items-start">
                             <div
-                                class="w-12 h-12 rounded-xl bg-cream-100 text-navy-800 flex items-center justify-center text-xl flex-shrink-0 font-bold">
+                                class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl flex-shrink-0 font-bold">
                                 3
                             </div>
                             <div class="space-y-2">
@@ -877,9 +841,9 @@
 
                         <!-- 4. DSM -->
                         <div
-                            class="p-6 rounded-2xl bg-white border border-gold/30 shadow-subtle calm-target-card flex gap-4 items-start">
+                            class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card flex gap-4 items-start">
                             <div
-                                class="w-12 h-12 rounded-xl bg-cream-100 text-purple-700 flex items-center justify-center text-xl flex-shrink-0 font-bold">
+                                class="w-12 h-12 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-xl flex-shrink-0 font-bold">
                                 4
                             </div>
                             <div class="space-y-2">
@@ -907,9 +871,9 @@
 
                             <!-- 1. טיפול שמרני -->
                             <div
-                                class="lg:col-span-5 p-6 rounded-3xl bg-white border border-gold/30 shadow-subtle calm-target-card space-y-4">
+                                class="lg:col-span-5 p-6 rounded-3xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-4">
                                 <span
-                                    class="text-xs font-bold text-tealBrand bg-tealBrand-light px-3 py-1 rounded-full">1.
+                                    class="text-xs font-bold text-sky-700 bg-sky-50 px-3 py-1 rounded-full">1.
                                     שלב שמרני</span>
                                 <h3 class="font-bold text-navy-800 text-lg">טיפול שמרני</h3>
                                 <p class="text-xs text-navy-700/85">
@@ -917,20 +881,20 @@
                                 </p>
                                 <ul class="space-y-2.5 text-xs text-navy-700/90">
                                     <li class="flex items-start gap-2">
-                                        <i class="fa-solid fa-check text-tealBrand mt-1"></i>
+                                        <i class="fa-solid fa-check text-sky-600 mt-1"></i>
                                         <span><strong>שכיבה שטוחה ממושכת</strong> (מנוחה).</span>
                                     </li>
                                     <li class="flex items-start gap-2">
-                                        <i class="fa-solid fa-check text-tealBrand mt-1"></i>
+                                        <i class="fa-solid fa-check text-sky-600 mt-1"></i>
                                         <span><strong>שתייה מרובה</strong> וצריכת מלחים.</span>
                                     </li>
                                     <li class="flex items-start gap-2">
-                                        <i class="fa-solid fa-check text-tealBrand mt-1"></i>
+                                        <i class="fa-solid fa-check text-sky-600 mt-1"></i>
                                         <span><strong>צריכת קפאין</strong> (קפה, תה או כדורי קפאין – מכווץ כלי דם במוח
                                             ומקל על הכאב).</span>
                                     </li>
                                     <li class="flex items-start gap-2">
-                                        <i class="fa-solid fa-check text-tealBrand mt-1"></i>
+                                        <i class="fa-solid fa-check text-sky-600 mt-1"></i>
                                         <span><strong>שימוש בחגורת בטן אלסטית</strong> (לוחצת על חלל הבטן ומעלה זמנית את
                                             הלחץ בראש).</span>
                                     </li>
@@ -939,13 +903,12 @@
 
                             <!-- 2. טלאי דם אפידורלי + הנחיות BLT -->
                             <div
-                                class="lg:col-span-7 p-6 rounded-3xl bg-white border-2 border-gold shadow-card calm-target-card space-y-4 relative overflow-hidden">
+                                class="lg:col-span-7 p-6 rounded-3xl bg-white border-2 border-sky-600 shadow-card calm-target-card space-y-4 relative overflow-hidden">
                                 <div
-                                    class="absolute top-0 left-0 bg-gold text-navy-900 text-[11px] font-bold px-3.5 py-1 rounded-br-xl">
+                                    class="absolute top-0 left-0 bg-sky-600 text-white text-[11px] font-bold px-3.5 py-1 rounded-br-xl">
                                     הטיפול הנפוץ ביותר
                                 </div>
-                                <span class="text-xs font-bold text-gold-dark bg-gold-light px-3 py-1 rounded-full">2.
-                                    EBP</span>
+                                <span class="text-xs font-bold text-sky-700 bg-sky-50 px-3 py-1 rounded-full">2. EBP</span>
                                 <h3 class="font-bold text-navy-800 text-lg">טלאי דם אפידורלי "עיוור" (Epidural Blood
                                     Patch)</h3>
                                 <p class="text-xs text-navy-700/90 leading-relaxed">
@@ -991,8 +954,8 @@
 
                             <!-- 3. טלאי ממוקד -->
                             <div
-                                class="p-6 rounded-2xl bg-white border border-gold/30 shadow-subtle calm-target-card space-y-2">
-                                <span class="text-xs font-bold text-navy-800 bg-cream-200 px-2.5 py-1 rounded-full">3.
+                                class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
+                                <span class="text-xs font-bold text-navy-800 bg-slate-100 px-2.5 py-1 rounded-full">3.
                                     ממוקד</span>
                                 <h3 class="font-bold text-navy-800 text-base">טלאי ממוקד (Targeted Patch / דבק פיברין)
                                 </h3>
@@ -1005,7 +968,7 @@
 
                             <!-- 4. צינתור ואמבוליזציה -->
                             <div
-                                class="p-6 rounded-2xl bg-white border border-gold/30 shadow-subtle calm-target-card space-y-2">
+                                class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
                                 <span
                                     class="text-xs font-bold text-purple-800 bg-purple-100 px-2.5 py-1 rounded-full">4.
                                     צנתור ורידי</span>
@@ -1018,8 +981,8 @@
 
                             <!-- 5. ניתוח -->
                             <div
-                                class="p-6 rounded-2xl bg-white border border-gold/30 shadow-subtle calm-target-card space-y-2">
-                                <span class="text-xs font-bold text-navy-800 bg-cream-200 px-2.5 py-1 rounded-full">5.
+                                class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle calm-target-card space-y-2">
+                                <span class="text-xs font-bold text-navy-800 bg-slate-100 px-2.5 py-1 rounded-full">5.
                                     כירורגי</span>
                                 <h3 class="font-bold text-navy-800 text-base">ניתוח לסגירת הדליפה</h3>
                                 <p class="text-xs text-navy-700/85 leading-relaxed">
@@ -1032,33 +995,33 @@
                     </div>
 
                     <!-- טיפולים מסייעים + לחץ חוזר (Rebound High Pressure) -->
-                    <div class="grid lg:grid-cols-12 gap-6 items-start pt-4 border-t border-gold/20">
+                    <div class="grid lg:grid-cols-12 gap-6 items-start pt-4 border-t border-slate-200">
 
                         <!-- טיפולים מסייעים -->
                         <div
-                            class="lg:col-span-4 bg-white p-6 rounded-3xl border border-gold/30 shadow-subtle calm-target-card space-y-4">
+                            class="lg:col-span-4 bg-white p-6 rounded-3xl border border-slate-200 shadow-subtle calm-target-card space-y-4">
                             <h3 class="font-heading font-bold text-navy-800 text-lg flex items-center gap-2">
-                                <i class="fa-solid fa-hand-holding-medical text-tealBrand"></i>
+                                <i class="fa-solid fa-hand-holding-medical text-sky-600"></i>
                                 טיפולים מסייעים לתסמינים
                             </h3>
                             <ul class="space-y-2.5 text-xs text-navy-700/90">
-                                <li class="p-3 rounded-xl bg-cream-50 border border-gold/20 font-medium">1. הזרקות בלוק
+                                <li class="p-3 rounded-xl bg-slate-50 border border-slate-200 font-medium">1. הזרקות בלוק
                                     לעצבי הראש (Nerve Blocks)</li>
-                                <li class="p-3 rounded-xl bg-cream-50 border border-gold/20 font-medium">2. שתייה מרובה
+                                <li class="p-3 rounded-xl bg-slate-50 border border-slate-200 font-medium">2. שתייה מרובה
                                 </li>
-                                <li class="p-3 rounded-xl bg-cream-50 border border-gold/20 font-medium">3. משככי כאבים
+                                <li class="p-3 rounded-xl bg-slate-50 border border-slate-200 font-medium">3. משככי כאבים
                                     מסוג NSAID</li>
-                                <li class="p-3 rounded-xl bg-cream-50 border border-gold/20 font-medium">4. סטרואידים
+                                <li class="p-3 rounded-xl bg-slate-50 border border-slate-200 font-medium">4. סטרואידים
                                 </li>
                             </ul>
                         </div>
 
                         <!-- תופעה שחשוב להכיר: לחץ חוזר -->
                         <div
-                            class="lg:col-span-8 bg-white p-6 rounded-3xl border-2 border-tealBrand/40 shadow-card calm-target-card space-y-4">
+                            class="lg:col-span-8 bg-white p-6 rounded-3xl border-2 border-sky-600/40 shadow-card calm-target-card space-y-4">
                             <div class="flex flex-wrap items-center justify-between gap-2">
                                 <span
-                                    class="text-xs font-bold text-tealBrand-dark bg-tealBrand-light px-3 py-1 rounded-full">מידע
+                                    class="text-xs font-bold text-sky-800 bg-sky-50 px-3 py-1 rounded-full">מידע
                                     חשוב לאחר אטימת הדליפה</span>
                                 <span class="text-xs font-bold text-emerald-700 flex items-center gap-1">
                                     <i class="fa-solid fa-circle-check"></i> סימן מעודד לכך שהחור נאטם!
@@ -1073,14 +1036,14 @@
                             </p>
 
                             <div class="grid sm:grid-cols-2 gap-4">
-                                <div class="p-4 rounded-2xl bg-cream-50 border border-gold/25 space-y-1">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                                     <h4 class="font-bold text-navy-800 text-xs sm:text-sm">איך מזהים את ההבדל בכאב?</h4>
                                     <p class="text-xs text-navy-700/85 leading-relaxed">
                                         הכאב משתנה: הוא מורגש לרוב <strong>במצח ומאחורי העיניים</strong>, מתגבר בשכיבה
                                         ומשתפר כשקמים לעמוד.
                                     </p>
                                 </div>
-                                <div class="p-4 rounded-2xl bg-cream-50 border border-gold/25 space-y-1">
+                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
                                     <h4 class="font-bold text-navy-800 text-xs sm:text-sm">מה עושים?</h4>
                                     <p class="text-xs text-navy-700/85 leading-relaxed">
                                         חשוב לדווח לרופא מיד. לרוב מטפלים בעזרת תרופה שמפחיתה ייצור נוזל (כגון
@@ -1103,26 +1066,26 @@
 
                 <!-- מדריך לרופא המשפחה להורדה -->
                 <div
-                    class="p-8 rounded-3xl bg-gradient-to-r from-navy-800 to-navy-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-card">
+                    class="p-8 rounded-3xl bg-gradient-to-r from-navy-800 to-sky-900 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-card">
                     <div class="space-y-2 text-center md:text-right">
-                        <div class="text-xs font-bold text-gold">כלי עבודה שימושי</div>
+                        <div class="text-xs font-bold text-sky-400">כלי עבודה שימושי</div>
                         <h3 class="text-xl font-bold font-heading">טופס מידע להגשה לרופא המשפחה או לנוירולוג</h3>
-                        <p class="text-xs text-cream-200/80 max-w-xl">
+                        <p class="text-xs text-slate-300 max-w-xl">
                             דף ריכוז קליני תמציתי המבוסס על קריטריוני ICHD-3, המסביר מדוע יש חשד ל-SIH ומפרט את בדיקות
                             ה-MRI הנדרשות.
                         </p>
                     </div>
                     <button onclick="downloadDoctorBrief()"
-                        class="px-6 py-3.5 rounded-xl bg-gold hover:bg-gold-dark text-navy-900 font-bold text-xs transition flex items-center gap-2 flex-shrink-0 shadow-subtle">
+                        class="px-6 py-3.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs transition flex items-center gap-2 flex-shrink-0 shadow-subtle">
                         <i class="fa-solid fa-file-arrow-down text-base"></i>
                         <span>הורדת מדריך לרופא (PDF)</span>
                     </button>
                 </div>
 
                 <!-- הבהרה משפטית בתחתית עמוד המידע הרפואי -->
-                <div class="p-4 rounded-2xl bg-cream-100 border border-gold/30 text-center">
+                <div class="p-4 rounded-2xl bg-slate-100 border border-slate-200 text-center">
                     <p class="text-xs text-navy-700/80 leading-relaxed">
-                        <i class="fa-solid fa-scale-balanced text-gold-dark ml-1"></i>
+                        <i class="fa-solid fa-scale-balanced text-sky-700 ml-1"></i>
                         <strong>הבהרה משפטית:</strong> המידע המופיע בעמוד זה נועד להרחבת הידע ולתמיכה בלבד, ואינו מחליף
                         ייעוץ, אבחון או טיפול רפואי מקצועי. בכל שינוי במצב הרפואי יש להיוועץ ברופא המטפל.
                     </p>
@@ -1138,9 +1101,9 @@
              ============================================== -->
         <div id="page-doctors" class="page-view">
 
-            <section class="py-12 bg-cream-100 border-b border-gold/20">
+            <section class="py-12 bg-sky-50 border-b border-slate-200">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <span class="text-xs font-bold uppercase tracking-wider text-gold-dark">ניווט מקצועי במערכת
+                    <span class="text-xs font-bold uppercase tracking-wider text-sky-700">ניווט מקצועי במערכת
                         הבריאות</span>
                     <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">רופאים ומרכזים
                         רפואיים בישראל</h1>
@@ -1158,9 +1121,9 @@
 
                     <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-                        <div class="p-6 rounded-2xl bg-white border border-gold/25 shadow-subtle space-y-2">
+                        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
                             <div
-                                class="w-12 h-12 rounded-xl bg-tealBrand-light text-tealBrand flex items-center justify-center text-xl mb-3">
+                                class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-3">
                                 <i class="fa-solid fa-brain"></i>
                             </div>
                             <h3 class="font-bold text-navy-800 text-base">נוירולוגים מומחי כאב ראש</h3>
@@ -1170,9 +1133,9 @@
                             </p>
                         </div>
 
-                        <div class="p-6 rounded-2xl bg-white border border-gold/25 shadow-subtle space-y-2">
+                        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
                             <div
-                                class="w-12 h-12 rounded-xl bg-gold-light text-gold-dark flex items-center justify-center text-xl mb-3">
+                                class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-3">
                                 <i class="fa-solid fa-eye"></i>
                             </div>
                             <h3 class="font-bold text-navy-800 text-base">נוירו-רדיולוגים פולשניים (INR)</h3>
@@ -1182,7 +1145,7 @@
                             </p>
                         </div>
 
-                        <div class="p-6 rounded-2xl bg-white border border-gold/25 shadow-subtle space-y-2">
+                        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
                             <div
                                 class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3">
                                 <i class="fa-solid fa-syringe"></i>
@@ -1194,7 +1157,7 @@
                             </p>
                         </div>
 
-                        <div class="p-6 rounded-2xl bg-white border border-gold/25 shadow-subtle space-y-2">
+                        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
                             <div
                                 class="w-12 h-12 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-xl mb-3">
                                 <i class="fa-solid fa-hospital-user"></i>
@@ -1213,17 +1176,17 @@
                     <h2 class="text-2xl font-heading font-bold text-navy-800">צ'ק-ליסט: שאלות חובה לרופא בפגישת הייעוץ
                     </h2>
                     <div class="grid sm:grid-cols-2 gap-3 text-xs text-navy-700/90">
-                        <div class="p-3.5 rounded-xl bg-white border border-gold/20">
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200">
                             <strong>• דיסקים של הדמיות:</strong> האם הבאתם עמכם את הדיסקים הפיזיים (ולא רק פענוח כתוב)?
                         </div>
-                        <div class="p-3.5 rounded-xl bg-white border border-gold/20">
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200">
                             <strong>• נפח הטלאי:</strong> איזה נפח דם אתם מזריקים ב-Blood Patch (ההמלצה היא לפחות 15-20
                             סמ"ק)?
                         </div>
-                        <div class="p-3.5 rounded-xl bg-white border border-gold/20">
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200">
                             <strong>• הנחיית שיקוף:</strong> האם הפרוצדורה מבוצעת תחת שיקוף רנטגן/CT או בעיוורון?
                         </div>
-                        <div class="p-3.5 rounded-xl bg-white border border-gold/20">
+                        <div class="p-3.5 rounded-xl bg-white border border-slate-200">
                             <strong>• זמן שכיבה בהתאוששות:</strong> האם מובטחת שכיבה אופקית מוחלטת של שעתיים לפחות לאחר
                             הטלאי?
                         </div>
@@ -1240,11 +1203,11 @@
              ============================================== -->
         <div id="page-discussions" class="page-view">
 
-            <section class="py-12 bg-cream-100 border-b border-gold/20">
+            <section class="py-12 bg-sky-50 border-b border-slate-200">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                         <div>
-                            <span class="text-xs font-bold uppercase tracking-wider text-tealBrand-dark">מרחב שיח
+                            <span class="text-xs font-bold uppercase tracking-wider text-sky-700">מרחב שיח
                                 משותף</span>
                             <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">דיונים,
                                 שאלות וחוכמת המתמודדים</h1>
@@ -1252,8 +1215,8 @@
                                 של מי שהיו שם.</p>
                         </div>
                         <button onclick="openForumModal()"
-                            class="px-6 py-3.5 rounded-xl bg-navy-800 hover:bg-navy-900 text-white font-bold text-xs shadow-subtle hover:shadow transition flex items-center gap-2 self-start sm:self-auto border border-gold/30">
-                            <i class="fa-solid fa-plus text-gold"></i>
+                            class="px-6 py-3.5 rounded-xl bg-navy-800 hover:bg-navy-900 text-white font-bold text-xs shadow-subtle hover:shadow transition flex items-center gap-2 self-start sm:self-auto border border-slate-200">
+                            <i class="fa-solid fa-plus text-sky-400"></i>
                             <span>פתיחת שאלה או שיתוף חדש</span>
                         </button>
                     </div>
@@ -1264,28 +1227,28 @@
 
                 <!-- סרגל סינון וחיפוש -->
                 <div
-                    class="flex flex-col md:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-gold/25 shadow-subtle">
+                    class="flex flex-col md:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200 shadow-subtle">
                     <div class="flex flex-wrap items-center gap-2 w-full md:w-auto" id="discFilterTabs">
                         <button onclick="applyDiscFilter('all', this)"
                             class="tab-btn active px-4 py-2 rounded-xl text-xs font-bold transition">כל הדיונים</button>
                         <button onclick="applyDiscFilter('bloodpatch', this)"
-                            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-cream-50 text-navy-800 hover:bg-cream-200 transition">התאוששות
+                            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-50 text-navy-800 hover:bg-slate-100 transition border border-slate-200">התאוששות
                             מ-Blood Patch</button>
                         <button onclick="applyDiscFilter('diagnosis', this)"
-                            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-cream-50 text-navy-800 hover:bg-cream-200 transition">אבחון
+                            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-50 text-navy-800 hover:bg-slate-100 transition border border-slate-200">אבחון
                             והדמיות</button>
                         <button onclick="applyDiscFilter('rights', this)"
-                            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-cream-50 text-navy-800 hover:bg-cream-200 transition">זכויות
+                            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-50 text-navy-800 hover:bg-slate-100 transition border border-slate-200">זכויות
                             וביטוח לאומי</button>
                         <button onclick="applyDiscFilter('life', this)"
-                            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-cream-50 text-navy-800 hover:bg-cream-200 transition">חיים
+                            class="tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-slate-50 text-navy-800 hover:bg-slate-100 transition border border-slate-200">חיים
                             בשכיבה</button>
                     </div>
 
                     <div class="relative w-full md:w-72">
                         <input type="text" id="discSearchInput" onkeyup="searchDiscussions()"
                             placeholder="חיפוש בדיונים..."
-                            class="w-full pl-9 pr-4 py-2 rounded-xl border border-gold/30 text-xs focus:outline-none focus:border-tealBrand bg-cream-50">
+                            class="w-full pl-9 pr-4 py-2 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-sky-500 bg-slate-50">
                         <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-xs"></i>
                     </div>
                 </div>
@@ -1293,7 +1256,7 @@
                 <!-- רשימת דיונים -->
                 <div class="space-y-4" id="discListContainer">
 
-                    <div class="disc-item p-6 rounded-2xl bg-white border border-gold/25 shadow-subtle hover:shadow-card transition"
+                    <div class="disc-item p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle hover:shadow-card transition"
                         data-cat="bloodpatch">
                         <div class="flex items-start justify-between gap-4">
                             <div class="space-y-2">
@@ -1312,8 +1275,8 @@
                                 </p>
                             </div>
                             <div
-                                class="flex flex-col items-center justify-center p-3 rounded-xl bg-cream-50 border border-gold/20 min-w-[75px]">
-                                <i class="fa-regular fa-comment-dots text-tealBrand text-lg"></i>
+                                class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 border border-slate-200 min-w-[75px]">
+                                <i class="fa-regular fa-comment-dots text-sky-600 text-lg"></i>
                                 <span class="text-xs font-bold text-navy-800 mt-1">6 תגובות</span>
                             </div>
                         </div>
@@ -1321,11 +1284,11 @@
                             class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-navy-600">
                             <span>תגובה אחרונה ממיכל: "קלאסי לריבאונד! תגביה את הראש עם 2 כריות ותפחית קפאין..."</span>
                             <button onclick="showToast('הדיון המלא זמין לקריאה')"
-                                class="font-bold text-tealBrand hover:underline">הצג תגובות</button>
+                                class="font-bold text-sky-600 hover:underline">הצג תגובות</button>
                         </div>
                     </div>
 
-                    <div class="disc-item p-6 rounded-2xl bg-white border border-gold/25 shadow-subtle hover:shadow-card transition"
+                    <div class="disc-item p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle hover:shadow-card transition"
                         data-cat="diagnosis">
                         <div class="flex items-start justify-between gap-4">
                             <div class="space-y-2">
@@ -1343,8 +1306,8 @@
                                 </p>
                             </div>
                             <div
-                                class="flex flex-col items-center justify-center p-3 rounded-xl bg-cream-50 border border-gold/20 min-w-[75px]">
-                                <i class="fa-regular fa-comment-dots text-tealBrand text-lg"></i>
+                                class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 border border-slate-200 min-w-[75px]">
+                                <i class="fa-regular fa-comment-dots text-sky-600 text-lg"></i>
                                 <span class="text-xs font-bold text-navy-800 mt-1">12 תגובות</span>
                             </div>
                         </div>
@@ -1352,11 +1315,11 @@
                             class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-navy-600">
                             <span>תגובה אחרונה מד"ר יואב: "ממש לא שולל! כ-20% מהמקרים הם עם MRI מוח תקין..."</span>
                             <button onclick="showToast('הדיון המלא זמין לקריאה')"
-                                class="font-bold text-tealBrand hover:underline">הצג תגובות</button>
+                                class="font-bold text-sky-600 hover:underline">הצג תגובות</button>
                         </div>
                     </div>
 
-                    <div class="disc-item p-6 rounded-2xl bg-white border border-gold/25 shadow-subtle hover:shadow-card transition"
+                    <div class="disc-item p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle hover:shadow-card transition"
                         data-cat="rights">
                         <div class="flex items-start justify-between gap-4">
                             <div class="space-y-2">
@@ -1374,8 +1337,8 @@
                                 </p>
                             </div>
                             <div
-                                class="flex flex-col items-center justify-center p-3 rounded-xl bg-cream-50 border border-gold/20 min-w-[75px]">
-                                <i class="fa-regular fa-comment-dots text-tealBrand text-lg"></i>
+                                class="flex flex-col items-center justify-center p-3 rounded-xl bg-slate-50 border border-slate-200 min-w-[75px]">
+                                <i class="fa-regular fa-comment-dots text-sky-600 text-lg"></i>
                                 <span class="text-xs font-bold text-navy-800 mt-1">8 תגובות</span>
                             </div>
                         </div>
@@ -1383,7 +1346,7 @@
                             class="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between text-xs text-navy-600">
                             <span>תגובה מאילן: "תובעים תחת סעיפי כאב ראש כרוני קשה, ירידה בתפקוד וסחרחורות..."</span>
                             <button onclick="showToast('הדיון המלא זמין לקריאה')"
-                                class="font-bold text-tealBrand hover:underline">הצג תגובות</button>
+                                class="font-bold text-sky-600 hover:underline">הצג תגובות</button>
                         </div>
                     </div>
 
@@ -1399,11 +1362,11 @@
              ============================================== -->
         <div id="page-support" class="page-view">
 
-            <section class="py-12 bg-cream-100 border-b border-gold/20">
+            <section class="py-12 bg-sky-50 border-b border-slate-200">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">הבית הקהילתי שלנו</span>
                     <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">קבוצות התמיכה של
-                        "ביחד"</h1>
+                        CSF Leak ישראל</h1>
                     <p class="text-base text-navy-700/80 max-w-3xl mt-2">
                         מרחבי שיח בוואטסאפ המותאמים אישית לצרכים שלכם – מקבוצה שקטה להודעות ועד קבוצת שיתוף הדדית.
                     </p>
@@ -1415,7 +1378,7 @@
 
                     <div class="lg:col-span-7 space-y-6">
 
-                        <div class="p-8 rounded-3xl bg-white border border-gold/30 shadow-card space-y-5">
+                        <div class="p-8 rounded-3xl bg-white border border-slate-200 shadow-card space-y-5">
                             <div class="flex items-center gap-3">
                                 <div
                                     class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl">
@@ -1428,26 +1391,8 @@
                             </div>
 
                             <div class="space-y-4">
-                                <!-- קבוצה 1: עדכונים שקטה -->
-                                <!-- <div class="p-5 rounded-2xl bg-cream-50 border border-gold/20 space-y-2">
-                                    <div class="flex items-center justify-between">
-                                        <h3 class="font-bold text-navy-800 text-sm">1. קבוצת עדכונים שקטה בלבד</h3>
-                                        <span
-                                            class="text-[10px] bg-white px-2 py-0.5 rounded text-navy-700 font-bold border border-gold/20">ללא
-                                            חפירות</span>
-                                    </div>
-                                    <p class="text-xs text-navy-700/80 leading-relaxed">
-                                        רק הודעות רשמיות של מובילי הקהילה: מחקרים חדשים, כנסים, זכויות בביטוח לאומי
-                                        וסרטוני מומחים.
-                                    </p>
-                                    <button onclick="requestWhatsappJoin('quiet')"
-                                        class="w-full mt-2 py-2.5 bg-white hover:bg-cream-100 text-navy-800 font-bold text-xs rounded-xl border border-gold/30 transition">
-                                        הצטרפות לקבוצה השקטה
-                                    </button>
-                                </div> -->
-
                                 <!-- קבוצה 2: שיח ותמיכה -->
-                                <div class="p-5 rounded-2xl bg-cream-50 border border-gold/20 space-y-2">
+                                <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
                                     <div class="flex items-center justify-between">
                                         <h3 class="font-bold text-navy-800 text-sm">2. קבוצת שיח ותמיכה הדדית</h3>
                                         <span
@@ -1455,7 +1400,7 @@
                                             24/7</span>
                                     </div>
                                     <p class="text-xs text-navy-700/80 leading-relaxed">
-                                        מרחב חם לפרוק כאב, להתייעץ במה שצריך, לבקש המלצות מניסיון אישי ולדעת שאתם לא
+                                        מרחב חם לפרוק כאב, להתייעץ לפני טלאי דם, לבקש המלצות מניסיון אישי ולדעת שאתם לא
                                         לבד.
                                     </p>
                                     <a href="https://chat.whatsapp.com/KkMA5mFbEn09BouBE7m4Dz" target="_blank"
@@ -1468,10 +1413,10 @@
                         </div>
 
                         <!-- כללי המרחב הבטוח -->
-                        <div class="p-6 rounded-2xl bg-white border border-gold/20 shadow-subtle space-y-3">
+                        <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-3">
                             <h3 class="font-bold text-navy-800 text-sm flex items-center gap-2">
-                                <i class="fa-solid fa-lock text-gold-dark"></i>
-                                עקרונות המרחב הבטוח של ביחד
+                                <i class="fa-solid fa-lock text-sky-600"></i>
+                                עקרונות המרחב הבטוח של CSF Leak ישראל
                             </h3>
                             <ul class="text-xs text-navy-700/85 space-y-2 list-disc list-inside">
                                 <li><strong>סודיות מוחלטת:</strong> כל מה שנאמר בקבוצה נשאר בקבוצה.</li>
@@ -1483,29 +1428,29 @@
                     </div>
 
                     <div
-                        class="lg:col-span-5 bg-navy-800 text-white p-8 rounded-3xl border border-gold/30 shadow-card space-y-5">
-                        <span class="text-xs font-bold text-gold uppercase tracking-wider">למי זה מתאים?</span>
+                        class="lg:col-span-5 bg-navy-800 text-white p-8 rounded-3xl border border-sky-500/30 shadow-card space-y-5">
+                        <span class="text-xs font-bold text-sky-400 uppercase tracking-wider">למי זה מתאים?</span>
                         <h3 class="font-heading font-bold text-xl">מי מצטרף לקבוצות שלנו?</h3>
                         <div class="space-y-4 text-xs text-cream-100/90 leading-relaxed">
                             <div class="flex items-start gap-3">
-                                <i class="fa-solid fa-check text-tealBrand-accent mt-1"></i>
+                                <i class="fa-solid fa-check text-sky-400 mt-1"></i>
                                 <div><strong>מתמודדים מאובחנים:</strong> מי שעברו אבחנה של SIH או דליפת CSF ומחפשים
                                     ייעוץ מעשי לקראת פרוצדורות והחלמה.</div>
                             </div>
                             <div class="flex items-start gap-3">
-                                <i class="fa-solid fa-check text-tealBrand-accent mt-1"></i>
+                                <i class="fa-solid fa-check text-sky-400 mt-1"></i>
                                 <div><strong>מקרים בחקירה:</strong> אנשים הסובלים מכאב ראש תנוחתי ומחפשים את הדרך לאבחון
                                     מדויק.</div>
                             </div>
                             <div class="flex items-start gap-3">
-                                <i class="fa-solid fa-check text-tealBrand-accent mt-1"></i>
+                                <i class="fa-solid fa-check text-sky-400 mt-1"></i>
                                 <div><strong>בני משפחה ומלווים:</strong> הורים, בני זוג וילדים הזקוקים לכלים לתמוך
                                     ביקיריהם המרותקים למיטה.</div>
                             </div>
                         </div>
                         <div class="pt-4 border-t border-navy-700/80">
                             <a href="#contact"
-                                class="inline-block w-full py-3 text-center bg-gold hover:bg-gold-dark text-navy-900 font-bold text-xs rounded-xl transition">
+                                class="inline-block w-full py-3 text-center bg-sky-500 hover:bg-sky-600 text-white font-bold text-xs rounded-xl transition">
                                 יש לכם שאלות לפני הצטרפות? כתבו לנו
                             </a>
                         </div>
@@ -1521,9 +1466,9 @@
              ============================================== -->
         <div id="page-contact" class="page-view">
 
-            <section class="py-12 bg-cream-100 border-b border-gold/20">
+            <section class="py-12 bg-sky-50 border-b border-slate-200">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <span class="text-xs font-bold uppercase tracking-wider text-tealBrand-dark">פנייה ישירה
+                    <span class="text-xs font-bold uppercase tracking-wider text-sky-700">פנייה ישירה
                         ומאובטחת</span>
                     <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">יצירת קשר עם מובילי
                         הקהילה</h1>
@@ -1537,19 +1482,19 @@
                 <div class="grid lg:grid-cols-12 gap-10 items-start">
 
                     <!-- טופס יצירת קשר -->
-                    <div class="lg:col-span-8 bg-white p-8 sm:p-10 rounded-3xl border border-gold/30 shadow-card">
+                    <div class="lg:col-span-8 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200 shadow-card">
                         <form id="mainContactForm" onsubmit="handleContactSubmit(event)" class="space-y-5">
                             <div class="grid sm:grid-cols-2 gap-5">
                                 <div>
                                     <label class="block text-xs font-bold text-navy-800 mb-1.5">שם מלא *</label>
                                     <input type="text" required placeholder="ישראל ישראלי"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-gold/30 text-xs focus:outline-none focus:border-tealBrand bg-cream-50">
+                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-sky-500 bg-slate-50">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-navy-800 mb-1.5">מספר טלפון וואטסאפ
                                         *</label>
                                     <input type="tel" required placeholder="050-0000000"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-gold/30 text-xs focus:outline-none focus:border-tealBrand bg-cream-50">
+                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-sky-500 bg-slate-50">
                                 </div>
                             </div>
 
@@ -1557,12 +1502,12 @@
                                 <div>
                                     <label class="block text-xs font-bold text-navy-800 mb-1.5">כתובת דוא"ל</label>
                                     <input type="email" placeholder="name@example.com"
-                                        class="w-full px-4 py-2.5 rounded-xl border border-gold/30 text-xs focus:outline-none focus:border-tealBrand bg-cream-50">
+                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-sky-500 bg-slate-50">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-bold text-navy-800 mb-1.5">שלב ההתמודדות</label>
                                     <select
-                                        class="w-full px-4 py-2.5 rounded-xl border border-gold/30 text-xs focus:outline-none focus:border-tealBrand bg-cream-50">
+                                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-sky-500 bg-slate-50">
                                         <option>דליפה מאובחנת (לפני טיפול)</option>
                                         <option>אחרי טלאי דם (בהתאוששות)</option>
                                         <option>חשד לדליפה / כאב ראש תנוחתי לא מאובחן</option>
@@ -1575,20 +1520,20 @@
                                 <label class="block text-xs font-bold text-navy-800 mb-1.5">במה נוכל לסייע לך? *</label>
                                 <textarea rows="4" required
                                     placeholder="תארו בקצרה את מצבכם, שאלות לגבי בדיקות או רופאים, או כל נושא אחר שבו תרצו עזרה..."
-                                    class="w-full px-4 py-2.5 rounded-xl border border-gold/30 text-xs focus:outline-none focus:border-tealBrand bg-cream-50"></textarea>
+                                    class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs focus:outline-none focus:border-sky-500 bg-slate-50"></textarea>
                             </div>
 
                             <div class="flex items-center gap-2">
                                 <input type="checkbox" id="privacyAgree" required
-                                    class="w-4 h-4 text-navy-800 rounded border-gray-300">
+                                    class="w-4 h-4 text-sky-600 rounded border-gray-300">
                                 <label for="privacyAgree" class="text-xs text-navy-700/80">אני מסכים/ה ליצירת קשר טלפוני
                                     או בוואטסאפ מנציג הקהילה בדיסקרטיות מלאה.</label>
                             </div>
 
                             <button type="submit"
                                 class="w-full py-3.5 rounded-xl bg-navy-800 hover:bg-navy-900 text-white font-bold text-sm shadow-subtle hover:shadow transition flex items-center justify-center gap-2">
-                                <i class="fa-solid fa-paper-plane text-gold"></i>
-                                <span>שליחת הפנייה לצוות ביחד</span>
+                                <i class="fa-solid fa-paper-plane text-sky-400"></i>
+                                <span>שליחת הפנייה לצוות CSF Leak IL</span>
                             </button>
                         </form>
                     </div>
@@ -1596,12 +1541,12 @@
                     <!-- פרטי קשר מהירים -->
                     <div class="lg:col-span-4 space-y-6">
 
-                        <div class="p-6 rounded-3xl bg-white border border-gold/30 shadow-subtle space-y-4">
+                        <div class="p-6 rounded-3xl bg-white border border-slate-200 shadow-subtle space-y-4">
                             <h3 class="font-heading font-bold text-lg text-navy-800">פנייה ישירה</h3>
                             <div class="space-y-3 text-xs text-navy-700">
-                                <a href="https://wa.me/?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A6%D7%95%D7%95%D7%AA%20%D7%91%D7%99%D7%97%D7%93"
+                                <a href="https://wa.me/?text=%D7%A9%D7%9C%D7%95%D7%9D%20%D7%A6%D7%95%D7%95%D7%AA%20%D7%A6%D7%A4%D7%99%D7%A4%D7%94"
                                     target="_blank"
-                                    class="flex items-center gap-3 p-3 rounded-xl bg-cream-50 border border-gold/20 hover:bg-cream-100 transition">
+                                    class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200 hover:bg-slate-100 transition">
                                     <i class="fa-brands fa-whatsapp text-emerald-600 text-xl"></i>
                                     <div>
                                         <div class="font-bold text-navy-800">וואטסאפ קהילה</div>
@@ -1609,8 +1554,8 @@
                                     </div>
                                 </a>
 
-                                <div class="flex items-center gap-3 p-3 rounded-xl bg-cream-50 border border-gold/20">
-                                    <i class="fa-regular fa-envelope text-gold-dark text-xl"></i>
+                                <div class="flex items-center gap-3 p-3 rounded-xl bg-slate-50 border border-slate-200">
+                                    <i class="fa-regular fa-envelope text-sky-600 text-xl"></i>
                                     <div>
                                         <div class="font-bold text-navy-800">דוא"ל רשמי</div>
                                         <div class="text-[11px] text-gray-500">contact@csfleakisrael.org.il</div>
@@ -1620,9 +1565,9 @@
                         </div>
 
                         <div
-                            class="p-6 rounded-3xl bg-cream-100 border border-gold/30 text-xs text-navy-700/85 space-y-2">
+                            class="p-6 rounded-3xl bg-sky-50 border border-sky-100 text-xs text-navy-700/85 space-y-2">
                             <div class="font-bold text-navy-800 flex items-center gap-2 text-sm">
-                                <i class="fa-solid fa-hand-holding-heart text-tealBrand"></i>
+                                <i class="fa-solid fa-hand-holding-heart text-sky-600"></i>
                                 סיוע בהתנדבות
                             </div>
                             <p>
@@ -1643,8 +1588,8 @@
     <!-- מודאל: פתיחת שאלה חדשה בפורום בזמן אמת -->
     <div id="forumModal"
         class="fixed inset-0 z-50 bg-navy-900/60 backdrop-blur-sm hidden items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-7 shadow-lifted border border-gold/30 space-y-4">
-            <div class="flex items-center justify-between border-b border-gray-100 pb-3">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-7 shadow-lifted border border-slate-200 space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-100 pb-3">
                 <h3 class="font-heading font-bold text-lg text-navy-800">פתיחת שאלה או שיתוף בקהילה</h3>
                 <button onclick="closeForumModal()" class="text-gray-400 hover:text-gray-600 text-xl"><i
                         class="fa-solid fa-xmark"></i></button>
@@ -1654,7 +1599,7 @@
                 <div>
                     <label class="block text-xs font-bold text-navy-800 mb-1">קטגוריה</label>
                     <select id="newDiscCat"
-                        class="w-full px-3 py-2 rounded-xl border border-gold/30 text-xs bg-cream-50">
+                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
                         <option value="bloodpatch">התאוששות מ-Blood Patch</option>
                         <option value="diagnosis">אבחון והדמיות</option>
                         <option value="rights">זכויות וביטוח לאומי</option>
@@ -1664,21 +1609,21 @@
                 <div>
                     <label class="block text-xs font-bold text-navy-800 mb-1">שם או כינוי (אפשר להישאר אנונימי)</label>
                     <input type="text" id="newDiscName" placeholder="למשל: דורון (אנונימי)" required
-                        class="w-full px-3 py-2 rounded-xl border border-gold/30 text-xs bg-cream-50">
+                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-navy-800 mb-1">כותרת השאלה</label>
                     <input type="text" id="newDiscTitle" placeholder="למשל: תחושת לחץ לאחר טלאי דם שני" required
-                        class="w-full px-3 py-2 rounded-xl border border-gold/30 text-xs bg-cream-50">
+                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50">
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-navy-800 mb-1">תוכן השיתוף</label>
                     <textarea id="newDiscText" rows="3" placeholder="פרטו כאן את השאלה או השיתוף..." required
-                        class="w-full px-3 py-2 rounded-xl border border-gold/30 text-xs bg-cream-50"></textarea>
+                        class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs bg-slate-50"></textarea>
                 </div>
                 <div class="flex justify-end gap-2 pt-2">
                     <button type="button" onclick="closeForumModal()"
-                        class="px-4 py-2 rounded-xl text-xs font-bold text-gray-500 hover:bg-gray-100">ביטול</button>
+                        class="px-4 py-2 rounded-xl text-xs font-bold text-gray-500 hover:bg-slate-100">ביטול</button>
                     <button type="submit"
                         class="px-5 py-2 rounded-xl text-xs font-bold bg-navy-800 text-white hover:bg-navy-900">פרסום
                         בקהילה</button>
@@ -1688,27 +1633,17 @@
     </div>
 
     <!-- פוטר יוקרתי קבוע לכל העמודים -->
-    <footer class="bg-navy-900 text-cream-100 pt-16 pb-12 border-t-2 border-gold">
+    <footer class="bg-navy-900 text-cream-100 pt-16 pb-12 border-t-2 border-sky-600">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid md:grid-cols-12 gap-10 pb-12 border-b border-navy-700/60">
 
                 <div class="md:col-span-5 space-y-4">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 flex-shrink-0">
-                            <svg viewBox="0 0 100 100" class="w-full h-full" fill="none">
-                                <path
-                                    d="M16 66C26 78 48 83 66 74C78 67 86 52 80 38C76 47 68 55 58 60C43 66 28 62 16 66Z"
-                                    fill="#1FA2A6" />
-                                <path
-                                    d="M22 61C30 57 44 63 56 55C67 47 72 34 68 18C64 30 56 39 46 44C34 49 26 49 22 61Z"
-                                    fill="#CCA86E" />
-                                <path
-                                    d="M50 25C50 25 65 44 65 54C65 62.28 58.28 69 50 69C41.72 69 35 62.28 35 54C35 44 50 25 50 25Z"
-                                    fill="#C2F3F1" />
-                            </svg>
+                        <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-sky-600 rounded-xl text-white font-bold">
+                            <i class="fa-solid fa-shield-heart"></i>
                         </div>
                         <div>
-                            <span class="font-heading font-black text-xl text-white">בְּיַחַד</span>
+                            <span class="font-heading font-black text-xl text-white">CSF Leak IL</span>
                             <div class="text-[11px] text-gray-300">קהילת מתמודדי דליפת CSF בישראל</div>
                         </div>
                     </div>
@@ -1720,18 +1655,18 @@
 
                 <div class="md:col-span-3 space-y-2 text-xs text-gray-300">
                     <div class="font-bold text-white text-sm mb-3">מעבר בין עמודי הפורטל</div>
-                    <div><a href="#home" class="hover:text-gold transition">בית</a></div>
-                    <div><a href="#info" class="hover:text-gold transition">מידע רפואי</a></div>
-                    <div><a href="#doctors" class="hover:text-gold transition">רופאים ומרכזים</a></div>
-                    <!-- <div><a href="#discussions" class="hover:text-gold transition">דיונים ושאלות</a></div> -->
-                    <div><a href="#support" class="hover:text-gold transition">קבוצות תמיכה</a></div>
-                    <div><a href="#contact" class="hover:text-gold transition">יצירת קשר</a></div>
+                    <div><a href="#home" class="hover:text-sky-400 transition">דף הבית</a></div>
+                    <div><a href="#info" class="hover:text-sky-400 transition">מידע רפואי</a></div>
+                    <div><a href="#doctors" class="hover:text-sky-400 transition">רופאים ומרכזים</a></div>
+                    <!-- <div><a href="#discussions" class="hover:text-sky-400 transition">דיונים ושאלות</a></div> -->
+                    <div><a href="#support" class="hover:text-sky-400 transition">תמיכה</a></div>
+                    <div><a href="#contact" class="hover:text-sky-400 transition">צור קשר</a></div>
                 </div>
 
                 <div class="md:col-span-4 space-y-3">
                     <div class="font-bold text-white text-sm">ארגונים בינלאומיים שותפים</div>
                     <p class="text-xs text-gray-400">אנו פועלים בהתאם לפרוטוקולים של הארגונים המובילים בעולם:</p>
-                    <div class="flex flex-col gap-2 text-xs text-tealBrand-accent">
+                    <div class="flex flex-col gap-2 text-xs text-sky-400">
                         <a href="https://spinalcsfleak.org/" target="_blank" rel="noopener noreferrer"
                             class="cursor-pointer hover:underline">
                             <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> Spinal CSF Leak
@@ -1750,12 +1685,12 @@
             <div class="pt-8 text-center space-y-3">
                 <div
                     class="p-4 rounded-2xl bg-white/5 border border-white/10 max-w-4xl mx-auto text-[11px] text-gray-400 leading-relaxed">
-                    <strong class="text-gold">הבהרה רפואית חשובה:</strong> כל התכנים, הדיונים והמידע המופיעים בפורטל
-                    "ביחד" ובקבוצות הקהילה נכתבו על ידי מטופלים ומתנדבים למטרות תמיכה הדדית ושיתוף ידע בלבד. הם אינם
+                    <strong class="text-sky-400">הבהרה רפואית חשובה:</strong> כל התכנים, הדיונים והמידע המופיעים בפורטל
+                    "CSF Leak IL" ובקבוצות הקהילה נכתבו על ידי מטופלים ומתנדבים למטרות תמיכה הדדית ושיתוף ידע בלבד. הם אינם
                     מהווים ייעוץ רפואי, המלצה רפואית או תחליף לפגישה עם רופא נוירולוג או מומחה מוסמך.
                 </div>
                 <div class="text-[11px] text-gray-500">
-                    © 2026 כל הזכויות שמורות • ביחד • קהילת מתמודדי דליפת CSF בישראל (YACHAD • CSF ISRAEL COMMUNITY)
+                    © 2026 כל הזכויות שמורות • CSF Leak IL • קהילת מתמודדי דליפת CSF בישראל (CSF LEAK ISRAEL COMMUNITY)
                 </div>
             </div>
         </div>
@@ -1813,11 +1748,11 @@
             if (calmModeActive) {
                 document.body.classList.add('calm-mode');
                 showToast("מצב קריאה רגוע הופעל: ניגודיות מופחתת להקלה על כאבי ראש");
-                document.getElementById('calmToggleBtn').innerHTML = '<i class="fa-solid fa-eye text-gold"></i><span>ביטול מצב רגוע</span>';
+                document.getElementById('calmToggleBtn').innerHTML = '<i class="fa-solid fa-eye text-sky-400"></i><span>ביטול מצב רגוע</span>';
             } else {
                 document.body.classList.remove('calm-mode');
                 showToast("חזרת למצב צפייה רגיל");
-                document.getElementById('calmToggleBtn').innerHTML = '<i class="fa-solid fa-eye-slash text-tealBrand-accent"></i><span>מצב קריאה עדין</span>';
+                document.getElementById('calmToggleBtn').innerHTML = '<i class="fa-solid fa-eye-slash text-sky-400"></i><span>מצב קריאה עדין</span>';
             }
         }
 
@@ -1825,10 +1760,10 @@
         function switchMedicalTab(tabKey, btn) {
             document.querySelectorAll('#medicalTabContainer .tab-btn').forEach(b => {
                 b.classList.remove('active');
-                b.classList.add('bg-cream-50', 'text-navy-800');
+                b.classList.add('bg-white', 'text-navy-800');
             });
             btn.classList.add('active');
-            btn.classList.remove('bg-cream-50', 'text-navy-800');
+            btn.classList.remove('bg-white', 'text-navy-800');
 
             ['mechanism', 'symptoms', 'imaging', 'treatment'].forEach(key => {
                 const el = document.getElementById('med-tab-' + key);
@@ -1846,10 +1781,10 @@
         function applyDiscFilter(cat, btn) {
             document.querySelectorAll('#discFilterTabs .tab-btn').forEach(b => {
                 b.classList.remove('active');
-                b.classList.add('bg-cream-50', 'text-navy-800');
+                b.classList.add('bg-white', 'text-navy-800');
             });
             btn.classList.add('active');
-            btn.classList.remove('bg-cream-50', 'text-navy-800');
+            btn.classList.remove('bg-white', 'text-navy-800');
 
             const items = document.querySelectorAll('.disc-item');
             items.forEach(item => {
@@ -1940,7 +1875,7 @@
             const groupName = type === 'quiet' ? 'השקטה' : 'הפעילה';
             showToast(`בקשתך להצטרפות לקבוצה ${groupName} נקלטה! מעבירים לשיחה...`);
             setTimeout(() => {
-                window.open('https://wa.me/?text=' + encodeURIComponent('שלום, אשמח להצטרף לקבוצת הוואטסאפ של קהילת ביחד לדליפת CSF.'), '_blank');
+                window.open('https://wa.me/?text=' + encodeURIComponent('שלום, אשמח להצטרף לקבוצת הוואטסאפ של קהילת CSF Leak IL.'), '_blank');
             }, 1000);
         }
 

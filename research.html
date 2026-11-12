@@ -1,19 +1,16 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl" class="scroll-smooth">
-
 <head>
     <meta name="google-site-verification" content="google8c739a2b46051f97" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSF Leak IL • מדור חדשות ומחקרים</title>
+    <title>CSF Leak IL • מחקרים ועדכונים מהעולם</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Assistant & Rubik -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons 6.5 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- קובץ עיצוב חיצוני -->
@@ -27,10 +24,10 @@
                         heading: ['Rubik', 'sans-serif'],
                     },
                     colors: {
-                        cream: {50: '#FDFCF9', 100: '#FAF8F4', 200: '#F5F1E9', 300: '#ECE6D9'},
-                        navy: {900: '#0B1726', 800: '#0E2338', 700: '#15324D', 600: '#1D4468'},
-                        tealBrand: {DEFAULT: '#1FA2A6', light: '#E6F7F7', dark: '#147D80', accent: '#3BB4B8'},
-                        gold: {DEFAULT: '#CCA86E', light: '#FAF4E8', dark: '#A68449'}
+                        cream: { 50: '#FDFCF9', 100: '#FAF8F4', 200: '#F5F1E9', 300: '#ECE6D9' },
+                        navy: { 900: '#0B1726', 800: '#0E2338', 700: '#15324D', 600: '#1D4468' },
+                        tealBrand: { DEFAULT: '#1FA2A6', light: '#E6F7F7', dark: '#147D80', accent: '#3BB4B8' },
+                        gold: { DEFAULT: '#CCA86E', light: '#FAF4E8', dark: '#A68449' }
                     },
                     boxShadow: {
                         'subtle': '0 4px 20px -2px rgba(14, 35, 56, 0.05)',
@@ -42,12 +39,10 @@
         }
     </script>
 </head>
-
 <body class="min-h-screen flex flex-col selection:bg-tealBrand selection:text-white">
 
     <!-- הודעות טוסט -->
-    <div id="toastBox"
-        class="fixed bottom-6 left-6 z-50 transform translate-y-36 transition-all duration-300 max-w-md bg-navy-800 text-white px-5 py-4 rounded-2xl shadow-lifted border border-gold/40 flex items-center gap-3">
+    <div id="toastBox" class="fixed bottom-6 left-6 z-50 transform translate-y-36 transition-all duration-300 max-w-md bg-navy-800 text-white px-5 py-4 rounded-2xl shadow-lifted border border-gold/40 flex items-center gap-3">
         <i class="fa-solid fa-circle-check text-tealBrand-accent text-xl"></i>
         <div class="text-xs sm:text-sm font-medium" id="toastText">הפעולה בוצעה בהצלחה</div>
     </div>
@@ -61,8 +56,7 @@
                 <span class="sm:hidden">מרחב תמיכה לדליפת CSF</span>
             </div>
             <div class="flex items-center gap-4">
-                <button onclick="toggleCalmMode()" id="calmToggleBtn"
-                    class="hover:text-white transition flex items-center gap-1.5 cursor-pointer font-medium">
+                <button onclick="toggleCalmMode()" id="calmToggleBtn" class="hover:text-white transition flex items-center gap-1.5 cursor-pointer font-medium">
                     <i class="fa-solid fa-eye-slash text-sky-400"></i>
                     <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>
                 </button>
@@ -76,16 +70,12 @@
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
             <a href="index.html" class="flex items-center gap-3 group">
-                <div
-                    class="w-12 h-12 flex-shrink-0 relative overflow-hidden rounded-full border border-sky-200 shadow-sm">
-                    <img src="logo.png" alt="CSF Leak IL - לוגו הקהילה"
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                <div class="w-12 h-12 flex-shrink-0 relative overflow-hidden rounded-full border border-sky-200 shadow-sm">
+                    <img src="logo.png" alt="CSF Leak IL - לוגו הקהילה" class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-heading font-black text-lg tracking-tight text-sky-700 leading-none">CSF LEAK
-                        IL</span>
-                    <span class="text-[10px] font-semibold text-slate-600 tracking-tight mt-1">קהילת מתמודדי דליפת CSF
-                        בישראל</span>
+                    <span class="font-heading font-black text-lg tracking-tight text-sky-700 leading-none">CSF LEAK IL</span>
+                    <span class="text-[10px] font-semibold text-slate-600 tracking-tight mt-1">קהילת מתמודדי דליפת CSF בישראל</span>
                 </div>
             </a>
 
@@ -93,38 +83,30 @@
                 <a href="index.html" class="nav-link py-2 transition hover:text-sky-600">דף הבית</a>
                 <a href="info.html" class="nav-link py-2 transition hover:text-sky-600">מידע רפואי</a>
                 <a href="doctors.html" class="nav-link py-2 transition hover:text-sky-600">רופאים ומרכזים</a>
-                <a href="research.html" class="nav-link py-2 transition hover:text-sky-600">חדשות ומחקרים</a>
+                <a href="research.html" class="nav-link py-2 transition hover:text-sky-600">מחקרים ועדכונים</a>
                 <a href="support.html" class="nav-link py-2 transition hover:text-sky-600">תמיכה</a>
                 <a href="contact.html" class="nav-link py-2 transition hover:text-sky-600">צור קשר</a>
             </nav>
 
             <div class="hidden sm:flex items-center gap-3">
-                <a href="support.html"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm transition">
+                <a href="support.html" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm transition">
                     <i class="fa-brands fa-whatsapp text-white text-sm"></i>
                     <span>הצטרפות לקבוצה</span>
                 </a>
             </div>
 
-            <button onclick="toggleMobileNav()" aria-label="פתח תפריט"
-                class="lg:hidden p-2.5 rounded-xl text-navy-800 hover:bg-slate-100 transition">
+            <button onclick="toggleMobileNav()" aria-label="פתח תפריט" class="lg:hidden p-2.5 rounded-xl text-navy-800 hover:bg-slate-100 transition">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
         </div>
 
         <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-5 shadow-xl space-y-3">
-            <a href="index.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">דף הבית</a>
-            <a href="info.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">מידע רפואי</a>
-            <a href="doctors.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">רופאים ומרכזים רפואיים</a>
-            <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">תמיכה</a>
-            <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">תמיכה</a>
-            <a href="contact.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">צור קשר</a>
+            <a href="index.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600" onclick="closeMobileNav()">דף הבית</a>
+            <a href="info.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600" onclick="closeMobileNav()">מידע רפואי</a>
+            <a href="doctors.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600" onclick="closeMobileNav()">רופאים ומרכזים רפואיים</a>
+            <a href="research.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600" onclick="closeMobileNav()">מחקרים ועדכונים</a>
+            <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600" onclick="closeMobileNav()">תמיכה</a>
+            <a href="contact.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600" onclick="closeMobileNav()">צור קשר</a>
         </div>
     </header>
 
@@ -132,104 +114,125 @@
         <!-- כותרת העמוד -->
         <section class="py-12 bg-sky-50 border-b border-slate-200">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <span class="text-xs font-bold uppercase tracking-wider text-sky-700">מדע, חדשנות וקישוריות
-                    עולמית</span>
-                <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">מדור חדשות, מחקרים
-                    ועדכונים מהעולם</h1>
+                <span class="text-xs font-bold uppercase tracking-wider text-sky-700">מדע, מחקר וכלים לפגישה רפואית</span>
+                <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">מחקרים, תובנות ודגשים למטופלים</h1>
                 <p class="text-base text-navy-700/80 max-w-3xl mt-2">
-                    התפתחויות רפואיות, פרוטוקולים בינלאומיים חדשים וקישורים לארגונים המובילים בעולם בתחום דליפות ה-CSF.
+                    סקירות מדעיות, הסברים על בדיקות ואבחונים, וכלים מעשיים להכנה לפגישה עם הצוות הרפואי.
                 </p>
             </div>
         </section>
 
         <!-- תוכן העמוד -->
-        <section class="py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <section class="py-14 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
-            <!-- כרטיס ארגונים בינלאומיים מובילים -->
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-6">
+            <!-- פריט 1 -->
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-4">
                 <div class="flex items-center gap-3">
-                    <div class="w-12 h-12 rounded-2xl bg-sky-50 text-sky-600 flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-globe"></i>
+                    <div class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-book-open"></i>
                     </div>
-                    <div>
-                        <h2 class="font-heading font-bold text-xl text-navy-800">ארגונים בינלאומיים מובילים</h2>
-                        <span class="text-xs text-gray-500">גופים מרכזיים המובילים את המחקר והמודעות העולמית</span>
-                    </div>
+                    <h2 class="font-heading font-bold text-xl text-navy-800">מחקר בדקה 📚 | איך דליפת CSF שדרתית משפיעה על איכות החיים?</h2>
                 </div>
-
-                <div class="grid md:grid-cols-2 gap-6 pt-2">
-                    <!-- ארגון 1 -->
-                    <a href="https://spinalcsfleak.org/" target="_blank" rel="noopener noreferrer"
-                        class="research-org-card p-6 rounded-2xl bg-sky-50/50 border border-sky-100 hover:border-sky-300 transition flex flex-col justify-between group">
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <h3 class="font-bold text-navy-800 text-base group-hover:text-sky-700 transition">Spinal
-                                    CSF Leak Foundation</h3>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs text-sky-600"></i>
-                            </div>
-                            <p class="text-xs text-navy-700/80 leading-relaxed">
-                                הארגון המוביל בארצות הברית להעלאת מודעות, תמיכה במחקרים קליניים והנגשת מידע מעודכן
-                                לחולים ולרופאים.
-                            </p>
-                        </div>
-                        <span class="mt-4 text-[11px] font-bold text-sky-600">מעבר לאתר הרשמי (ארה"ב) &larr;</span>
-                    </a>
-
-                    <!-- ארגון 2 -->
-                    <a href="https://csfleak.uk/" target="_blank" rel="noopener noreferrer"
-                        class="research-org-card p-6 rounded-2xl bg-sky-50/50 border border-sky-100 hover:border-sky-300 transition flex flex-col justify-between group">
-                        <div class="space-y-2">
-                            <div class="flex items-center justify-between">
-                                <h3 class="font-bold text-navy-800 text-base group-hover:text-sky-700 transition">CSF
-                                    Leak Association</h3>
-                                <i class="fa-solid fa-arrow-up-right-from-square text-xs text-sky-600"></i>
-                            </div>
-                            <p class="text-xs text-navy-700/80 leading-relaxed">
-                                עמותה בריטית מובילה הפועלת לסיוע לחולים, ליווי מערכתי וקידום סטנדרטים טיפוליים מתקדמים
-                                באירופה.
-                            </p>
-                        </div>
-                        <span class="mt-4 text-[11px] font-bold text-sky-600">מעבר לאתר הרשמי (בריטניה) &larr;</span>
+                <div class="space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed">
+                    <p><strong>מה בדקו?</strong> חוקרים שאלו אנשים עם דליפה שדרתית על איכות החיים והבריאות הנפשית שלהם לפני תיקון הדליפה בניתוח ואחריו.</p>
+                    <p><strong>מה מצאו?</strong> בקרב המשתתפים שנבדקו לאחר הניתוח נצפה שיפור באיכות החיים ובמדדים של בריאות נפשית. המחקר מתאר תוצאות בקבוצת אנשים שעברו ניתוח, והתוצאות יכולות להשתנות מאדם לאדם.</p>
+                    <p class="bg-sky-50 p-4 rounded-2xl border border-sky-100"><strong>מה אפשר לקחת לפגישה?</strong> לצד התיאור של הכאב, כדאי לספר גם מה השתנה בחיים עצמם. למשל, ״פעם יכולתי לשבת בארוחה משפחתית שלמה, והיום אני צריכה לשכב באמצע״.</p>
+                </div>
+                <div class="pt-2">
+                    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10996905/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                        <span>לקריאת המאמר המלא של Volz ועמיתיו, 2024</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- עדכונים ופריצות דרך -->
-            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-6">
+            <!-- פריט 2 -->
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-4">
                 <div class="flex items-center gap-3">
-                    <div
-                        class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-2xl">
-                        <i class="fa-solid fa-flask-vial"></i>
+                    <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-droplet"></i>
                     </div>
-                    <div>
-                        <h2 class="font-heading font-bold text-xl text-navy-800">פריצות דרך וחידושים בטכנולוגיות אבחון
-                        </h2>
-                        <span class="text-xs text-gray-500">מהתפתחויות האחרונות בעולם הרפואה</span>
-                    </div>
+                    <h2 class="font-heading font-bold text-xl text-navy-800">מה זו פיסטולת CSF–וריד? 💧</h2>
                 </div>
+                <div class="space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed">
+                    <p>פיסטולה היא חיבור לא תקין. במקרה הזה, החיבור מאפשר לנוזל מוח־שדרה לעבור ישירות לווריד סמוך בעמוד השדרה.</p>
+                    <p class="bg-purple-50/60 p-4 rounded-2xl border border-purple-100"><strong>למה זה חשוב בבירור?</strong> מכיוון שהנוזל עובר לווריד, הוא עשוי שלא להצטבר סביב עמוד השדרה. כשיש חשד לפיסטולה, הצוות יכול לשקול מיאלוגרפיה ייעודית כדי לחפש את החיבור.</p>
+                </div>
+                <div class="pt-2">
+                    <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10958270/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                        <span>לסקירה רפואית עם תמונות והסברים על סוגי הדליפות</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
 
-                <div class="space-y-4 pt-2">
-                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                        <!-- <div class="flex items-center justify-between text-xs text-gray-400">
-                            <span>עדכון קליני • 2026</span>
-                            <span class="bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded text-[10px]">אבחון מתקדם</span>
-                        </div>
-                        <h3 class="font-bold text-navy-800 text-sm">שיפורים בדיוק של מיאלוגרפיה דינמית (DSM)</h3>
-                        <p class="text-xs text-navy-700/85 leading-relaxed">
-                            מרכזים רפואיים מובילים בעולם מדווחים על שכלול פרוטוקולים המאפשרים זיהוי מהיר ומדויק יותר של פיסטולות ורידיות זעירות (CSF-Venous Fistula), מה שחוסך למטופלים סבבי בדיקות ממושכים.
-                        </p> -->
+            <!-- פריט 3 -->
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-clock"></i>
                     </div>
+                    <h2 class="font-heading font-bold text-xl text-navy-800">כאב ראש תנוחתי — מה כדאי לשים לב אליו? 🕒</h2>
+                </div>
+                <div class="space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed">
+                    <p>כאב ראש תנוחתי משתנה בהתאם לתנוחה. בדליפת CSF שדרתית, הדפוס האופייני הוא כאב שמחמיר בישיבה או בעמידה ומשתפר בשכיבה. לפעמים השינוי מורגש מהר, ולפעמים רק אחרי זמן מה.</p>
+                    <p>לקראת הפגישה אפשר לחשוב על יום טיפוסי. איך הרגשתי כשקמתי בבוקר? מתי התחיל הכאב? מה קרה כשנשכבתי, ואחרי כמה זמן?</p>
+                    <p class="bg-amber-50/60 p-4 rounded-2xl border border-amber-100">גם תיאור פשוט יכול לעזור. ״בבוקר אני מרגישה טוב יחסית. אחרי שעה מול המחשב הראש מתחיל לכאוב, ובשכיבה הכאב נחלש בהדרגה״.</p>
+                </div>
+                <div class="pt-2">
+                    <a href="https://spinalcsfleak.org/about-spinal-csf-leaks/symptoms-of-spinal-csf-leak/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                        <span>להסבר למטופלים על תסמינים של דליפת CSF שדרתית</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
 
-                    <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
-                        <!-- <div class="flex items-center justify-between text-xs text-gray-400">
-                            <span>פרוטוקול טיפולי • עדכון שוטף</span>
-                            <span class="bg-sky-100 text-sky-800 font-bold px-2 py-0.5 rounded text-[10px]">טיפול בטלאי דם</span>
-                        </div>
-                        <h3 class="font-bold text-navy-800 text-sm">סטנדרטים חדשים בנפחי הזרקה בטלאי דם אפידורלי (EBP)</h3>
-                        <p class="text-xs text-navy-700/85 leading-relaxed">
-                            הספרות המקצועית בארגונים הבינלאומיים ממשיכה לחזק את ההמלצה להשתמש בנפחי מותאמים אישית (לעיתים קרובות מעל 20 סמ"ק בהתאם לתחושת המטופל) תחת השגחה קפדנית כדי להעלות את אחוזי ההצלחה כבר בפרוצדורה הראשונה.
-                        </p> -->
+            <!-- פריט 4 -->
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-clipboard-check"></i>
                     </div>
+                    <h2 class="font-heading font-bold text-xl text-navy-800">עשיתי Blood Patch. מה כדאי לספר במעקב? 📝</h2>
+                </div>
+                <div class="space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed">
+                    <p>במעקב כדאי לתאר <em>מה השתנה ולכמה זמן</em>. אפשר לרשום שלוש שורות בטלפון[cite: 10]:</p>
+                    <ul class="list-disc list-inside space-y-1 pr-2 text-navy-700/90">
+                        <li><strong>מה השתפר?</strong> למשל, ״הצלחתי לשבת לארוחת ערב בלי לקום באמצע כדי לשכב״[cite: 10].</li>
+                        <li><strong>כמה זמן זה נמשך?</strong> למשל, ״השיפור התחיל ביום השני ונמשך כשבוע״[cite: 10].</li>
+                        <li><strong>איך אני מרגישה עכשיו?</strong> האם חזרו התסמינים שהיו לפני הטיפול, או שהופיע משהו שונה[cite: 10]?</li>
+                    </ul>
+                    <p class="bg-emerald-50/60 p-4 rounded-2xl border border-emerald-100">גם ״לא הרגשתי שינוי״ הוא מידע שכדאי להביא למעקב[cite: 10].</p>
+                </div>
+                <div class="pt-2">
+                    <a href="https://jnnp.bmj.com/content/early/2023/05/04/jnnp-2023-331166" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                        <span>להנחיות רפואיות על טיפול ומעקב בדליפת CSF שדרתית ספונטנית</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- פריט 5 -->
+            <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                    </div>
+                    <h2 class="font-heading font-bold text-xl text-navy-800">מה זה ״לחץ פתיחה״, ומה אומר ערך תקין? 🔍</h2>
+                </div>
+                <div class="space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed">
+                    <p>לחץ פתיחה הוא הלחץ של נוזל מוח־השדרה שנמדד בתחילת ניקור מותני, לפני שלוקחים דגימה[cite: 10].</p>
+                    <p>בסקירה של מחקרים, בערך <em>אחד מכל שלושה</em> מהמטופלים שנמדד אצלם לחץ פתיחה קיבל ערך תקין, אף שהייתה להם תסמונת הקשורה לדליפה שדרתית ספונטנית[cite: 10]. לכן הרופאים מפרשים את המספר יחד עם התסמינים וההדמיה[cite: 10]. לפי ההנחיות, בדרך כלל אין צורך לבצע ניקור מותני רק כדי לבדוק את הלחץ כשיש חשד לדליפה שדרתית ספונטנית[cite: 10].</p>
+                </div>
+                <div class="pt-2 flex flex-wrap gap-4">
+                    <a href="https://jamanetwork.com/journals/jamaneurology/fullarticle/2774171" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                        <span>המחקר ב־JAMA Neurology</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                    <a href="https://jnnp.bmj.com/content/early/2023/05/04/jnnp-2023-331166" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 text-xs font-bold text-sky-600 hover:text-sky-800 transition">
+                        <span>הנחיות האבחון ב־JNNP</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
                 </div>
             </div>
 
@@ -240,10 +243,7 @@
                     <span>הבהרה משפטית ואזהרת אי-לקיחת אחריות רפואית</span>
                 </div>
                 <p class="text-xs sm:text-sm text-navy-700/90 leading-relaxed max-w-4xl mx-auto">
-                    המידע המופיע בפורטל זה נועד להרחבת הידע הכללי, לתמיכה קהילתית ולהכוונה ראשונית בלבד, ואינו מהווה
-                    בשום אופן ייעוץ רפואי, אבחנה מקצועית, המלצה טיפולית או תחליף להתייעצות עם רופא נוירולוג או מומחה
-                    מוסמך. הצוות הפועל בקהילה הינו מתנדב, ואינו נושא באחריות משפטית או אחרת לכל נזק, ישיר או עקיף, העלול
-                    להיגרם כתוצאה מהסתמכות על המידע המוצג באתר.
+                    המידע המופיע בפורטל זה נועד להרחבת הידע הכללי, לתמיכה קהילתית ולהכוונה ראשונית בלבד, ואינו מהווה בשום אופן ייעוץ רפואי, אבחנה מקצועית, המלצה טיפולית או תחליף להתייעצות עם רופא נוירולוג או מומחה מוסמך. הצוות הפועל בקהילה הינו מתנדב, ואינו נושא באחריות משפטית או אחרת לכל נזק, ישיר או עקיף, העלול להיגרם כתוצאה מהסתמכות על המידע המוצג באתר.
                 </p>
             </div>
 
@@ -256,8 +256,7 @@
             <div class="grid md:grid-cols-12 gap-10 pb-12 border-b border-navy-700/60">
                 <div class="md:col-span-5 space-y-4">
                     <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-sky-600 rounded-xl text-white font-bold">
+                        <div class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-sky-600 rounded-xl text-white font-bold">
                             <i class="fa-solid fa-shield-heart"></i>
                         </div>
                         <div>
@@ -266,8 +265,7 @@
                         </div>
                     </div>
                     <p class="text-xs text-gray-400 leading-relaxed max-w-sm">
-                        מרחב התנדבותי ללא כוונת רווח, המחבר ומלווה מטופלים ובני משפחה המתמודדים עם דליפת נוזל מוח-שדרה
-                        ו-SIH בישראל.
+                        מרחב התנדבותי ללא כוונת רווח, המחבר ומלווה מטופלים ובני משפחה המתמודדים עם דליפת נוזל מוח-שדרה ו-SIH בישראל.
                     </p>
                 </div>
 
@@ -284,25 +282,19 @@
                     <div class="font-bold text-white text-sm">ארגונים בינלאומיים שותפים</div>
                     <p class="text-xs text-gray-400">אנו פועלים בהתאם לפרוטוקולים של הארגונים המובילים בעולם:</p>
                     <div class="flex flex-col gap-2 text-xs text-sky-400">
-                        <a href="https://spinalcsfleak.org/" target="_blank" rel="noopener noreferrer"
-                            class="cursor-pointer hover:underline">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> Spinal CSF Leak
-                            Foundation (ארה"ב)
+                        <a href="https://spinalcsfleak.org/" target="_blank" rel="noopener noreferrer" class="cursor-pointer hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> Spinal CSF Leak Foundation (ארה"ב)
                         </a>
-                        <a href="https://csfleak.uk/" target="_blank" rel="noopener noreferrer"
-                            class="cursor-pointer hover:underline">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> CSF Leak Association
-                            (בריטניה)
+                        <a href="https://csfleak.uk/" target="_blank" rel="noopener noreferrer" class="cursor-pointer hover:underline">
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> CSF Leak Association (בריטניה)
                         </a>
                     </div>
                 </div>
             </div>
 
             <div class="pt-8 text-center space-y-3">
-                <div
-                    class="p-4 rounded-2xl bg-white/5 border border-white/10 max-w-4xl mx-auto text-[11px] text-gray-400 leading-relaxed">
-                    <strong class="text-sky-400">הבהרה רפואית חשובה:</strong> כל התכנים והמידע המופיעים בפורטל נועדו
-                    לתמיכה הדדית ושיתוף ידע בלבד ואינם מהווים ייעוץ רפואי.
+                <div class="p-4 rounded-2xl bg-white/5 border border-white/10 max-w-4xl mx-auto text-[11px] text-gray-400 leading-relaxed">
+                    <strong class="text-sky-400">הבהרה רפואית חשובה:</strong> כל התכנים והמידע המופיעים בפורטל נועדו לתמיכה הדדית ושיתוף ידע בלבד ואינם מהווים ייעוץ רפואי.
                 </div>
                 <div class="text-[11px] text-gray-500">
                     © 2026 כל הזכויות שמורות • CSF Leak IL • קהילת מתמודדי דליפת CSF בישראל
@@ -312,5 +304,4 @@
     </footer>
     <script src="script.js"></script>
 </body>
-
 </html>

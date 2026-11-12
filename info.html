@@ -118,8 +118,6 @@
                 onclick="closeMobileNav()">רופאים ומרכזים רפואיים</a>
             <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
                 onclick="closeMobileNav()">תמיכה</a>
-            <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">תמיכה</a>
             <a href="contact.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
                 onclick="closeMobileNav()">צור קשר</a>
         </div>
@@ -155,6 +153,8 @@
                 <button onclick="switchMedicalTab('treatment', this)"
                     class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">דרכי
                     טיפול והנחיות</button>
+                <button onclick="switchMedicalTab('preparation', this)"
+                    class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">הכנה לפגישה רפואית</button>
             </div>
 
             <!-- ================= לשונית 1: מה זה CSF, גורמים וסוגים ================= -->
@@ -544,6 +544,47 @@
                                 שהחור נאטם בהצלחה! מטופל לרוב בתרופות כמו דיאמוקס והגבהת הראש.</p>
                         </div>
                     </div>
+                </div>
+            </div>
+
+            <!-- ================= לשונית 5: הכנה לפגישה רפואית ================= -->
+            <div id="med-tab-preparation" class="hidden space-y-6">
+                <div class="max-w-3xl space-y-2">
+                    <h2 class="text-2xl font-heading font-bold text-navy-800">הכנה לפגישה רפואית 📝</h2>
+                    <p class="text-xs sm:text-sm text-navy-700/85">כשהולכים לרופא בנושא, כדאי להתמקד ולהגיע מוכנים עם הנתונים הבאים:</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-4 text-xs sm:text-sm text-navy-700/90 leading-relaxed">
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-calendar-days text-sky-600 mt-1"></i>
+                            <div><strong>מתי זה התחיל?</strong> תאריך משוער ומה קרה סביב ההתחלה, אם זכור לי.</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-1"></i>
+                            <div><strong>מה אני מרגיש/ה?</strong> שניים או שלושה תסמינים שהכי מפריעים לי.</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-arrows-up-down text-sky-600 mt-1"></i>
+                            <div><strong>האם יש קשר לתנוחה?</strong> מה קורה בישיבה, בעמידה ובשכיבה? אם יש שינוי, אחרי כמה זמן הוא מורגש?</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-heart-pulse text-red-500 mt-1"></i>
+                            <div><strong>איך זה משפיע על היום שלי?</strong> דוגמה אחת, כמו קושי לעבוד מול מחשב, לנסוע או לשבת בארוחה.</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-notes-medical text-emerald-600 mt-1"></i>
+                            <div><strong>מה כבר עשיתי?</strong> בדיקות וטיפולים, עם תאריכים משוערים. אם טיפול עזר, לכמה זמן?</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-circle-question text-purple-600 mt-1"></i>
+                            <div><strong>מה הכי חשוב לי לשאול?</strong> מה לדעתך יכול להסביר את התסמינים שלי? מה הצעד הבא, ומה הוא אמור לברר?</div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="fa-solid fa-file-medical text-sky-700 mt-1"></i>
+                            <div>אם יש לי פענוחים או קבצי הדמיה, אכין אותם מראש כדי שיהיו זמינים בפגישה.</div>
+                        </li>
+                    </ul>
                 </div>
             </div>
 

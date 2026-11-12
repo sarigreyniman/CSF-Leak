@@ -200,3 +200,24 @@ function showToast(msg) {
         }, 4500);
     }
 }
+
+function switchMedicalTab(tabKey, btn) {
+    document.querySelectorAll('#medicalTabContainer .tab-btn').forEach(b => {
+        b.classList.remove('active');
+        b.classList.add('bg-white', 'text-navy-800');
+    });
+    if (btn) {
+        btn.classList.add('active');
+        btn.classList.remove('bg-white', 'text-navy-800');
+    }
+    ['mechanism', 'symptoms', 'imaging', 'treatment', 'preparation'].forEach(key => {
+        const el = document.getElementById('med-tab-' + key);
+        if (el) {
+            if (key === tabKey) {
+                el.classList.remove('hidden');
+            } else {
+                el.classList.add('hidden');
+            }
+        }
+    });
+}

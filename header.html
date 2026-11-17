@@ -1,0 +1,121 @@
+<!-- הודעות טוסט מערכתיות -->
+<div id="toastBox" class="toast-notification" role="status" aria-live="polite">
+    <i class="fa-solid fa-circle-check" aria-hidden="true"></i>
+    <span id="toastText">הפעולה בוצעה בהצלחה</span>
+</div>
+
+<!-- ווידג'ט נגישות קבוע לכל האתר -->
+<button type="button" id="accToggleBtn" class="acc-widget-btn" aria-label="פתיחת תפריט נגישות" aria-expanded="false" aria-controls="accWidgetPanel">
+    <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
+</button>
+
+<div id="accWidgetPanel" class="acc-widget-panel hidden" role="dialog" aria-label="תפריט התאמות נגישות">
+    <div class="acc-panel-header">
+        <div>
+            <i class="fa-solid fa-universal-access" aria-hidden="true"></i>
+            <span>כלי נגישות ותצוגה</span>
+        </div>
+        <button type="button" id="accCloseBtn" class="acc-panel-close" aria-label="סגירת תפריט נגישות">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="acc-panel-body">
+        <button type="button" class="acc-option-btn" data-acc-action="calm">
+            <span><i class="fa-solid fa-eye-slash" aria-hidden="true"></i> מצב קריאה עדין (לכאב ראש)</span>
+            <span>פעיל/כבוי</span>
+        </button>
+        <button type="button" class="acc-option-btn" data-acc-action="font-lg">
+            <span><i class="fa-solid fa-text-height" aria-hidden="true"></i> הגדלת טקסט בינונית</span>
+            <span>א+</span>
+        </button>
+        <button type="button" class="acc-option-btn" data-acc-action="font-xl">
+            <span><i class="fa-solid fa-magnifying-glass-plus" aria-hidden="true"></i> הגדלת טקסט מקסימלית</span>
+            <span>א++</span>
+        </button>
+        <button type="button" class="acc-option-btn" data-acc-action="contrast">
+            <span><i class="fa-solid fa-circle-half-stroke" aria-hidden="true"></i> ניגודיות גבוהה (כהה)</span>
+            <span>ניגודיות</span>
+        </button>
+        <button type="button" class="acc-option-btn" data-acc-action="links">
+            <span><i class="fa-solid fa-underline" aria-hidden="true"></i> הדגשת קישורים בקו תחתון</span>
+            <span>קישורים</span>
+        </button>
+        <button type="button" class="acc-option-btn" data-acc-action="readable">
+            <span><i class="fa-solid fa-font" aria-hidden="true"></i> גופן קריא וריווח שורות</span>
+            <span>קריאות</span>
+        </button>
+        <button type="button" class="acc-option-btn" data-acc-action="animations">
+            <span><i class="fa-solid fa-pause" aria-hidden="true"></i> עצירת אנימציות והבהובים</span>
+            <span>תנועה</span>
+        </button>
+        <button type="button" class="acc-reset-btn" data-acc-action="reset">
+            <i class="fa-solid fa-rotate-left" aria-hidden="true"></i> איפוס הגדרות נגישות
+        </button>
+    </div>
+</div>
+
+<!-- בר עליון -->
+<div class="top-bar">
+    <div class="container top-bar-inner">
+        <div class="top-bar-badge">
+            <i class="fa-solid fa-shield-heart" aria-hidden="true"></i>
+            <span>מרחב בטוח, נטול אינטרסים מסחריים, למתמודדים עם דליפת נוזל מוח-שדרה</span>
+        </div>
+        <div class="top-bar-actions">
+            <button type="button" id="calmToggleBtn" class="btn-calm-mode">
+                <i class="fa-solid fa-eye-slash" aria-hidden="true"></i>
+                <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>
+            </button>
+            <span class="top-divider" aria-hidden="true">|</span>
+            <a href="contact.html" data-page="contact" class="spa-link urgent-link">סיוע מיידי</a>
+        </div>
+    </div>
+</div>
+
+<!-- Header & Navigation -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a href="index.html" data-page="index" class="spa-link brand-link">
+            <div class="brand-logo-wrap">
+                <img src="logo.png" alt="CSF Leak IL - לוגו הקהילה" class="brand-logo">
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">CSF LEAK IL</span>
+                <span class="brand-subtitle">קהילת מתמודדי דליפת CSF בישראל</span>
+            </div>
+        </a>
+
+        <nav class="main-nav" aria-label="תפריט ניווט ראשי">
+            <a href="index.html" data-page="index" class="nav-link spa-link">דף הבית</a>
+            <a href="info.html" data-page="info" class="nav-link spa-link">מידע רפואי</a>
+            <a href="doctors.html" data-page="doctors" class="nav-link spa-link">רופאים ומרכזים</a>
+            <a href="research.html" data-page="research" class="nav-link spa-link">חדשות ומחקרים</a>
+            <a href="faq.html" data-page="faq" class="nav-link spa-link">שאלות נפוצות</a>
+            <a href="caregivers.html" data-page="caregivers" class="nav-link spa-link">משפחה ומלווים</a>
+            <a href="support.html" data-page="support" class="nav-link spa-link">תמיכה</a>
+            <a href="contact.html" data-page="contact" class="nav-link spa-link">צור קשר</a>
+        </nav>
+
+        <div class="header-cta">
+            <a href="support.html" data-page="support" class="spa-link btn-whatsapp-nav">
+                <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+                <span>הצטרפות לקבוצה</span>
+            </a>
+        </div>
+
+        <button type="button" id="mobileMenuBtn" class="mobile-menu-btn" aria-label="פתיחת תפריט ניווט בנייד">
+            <i class="fa-solid fa-bars" aria-hidden="true"></i>
+        </button>
+    </div>
+
+    <div id="mobileMenu" class="mobile-nav hidden">
+        <a href="index.html" data-page="index" class="spa-link">דף הבית</a>
+        <a href="info.html" data-page="info" class="spa-link">מידע רפואי</a>
+        <a href="doctors.html" data-page="doctors" class="spa-link">רופאים ומרכזים רפואיים</a>
+        <a href="research.html" data-page="research" class="spa-link">חדשות ומחקרים</a>
+        <a href="faq.html" data-page="faq" class="spa-link">שאלות נפוצות (FAQ)</a>
+        <a href="caregivers.html" data-page="caregivers" class="spa-link">משפחה ומלווים</a>
+        <a href="support.html" data-page="support" class="spa-link">תמיכה</a>
+        <a href="contact.html" data-page="contact" class="spa-link">צור קשר</a>
+    </div>
+</header>

@@ -1,671 +1,348 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" class="scroll-smooth">
+<html lang="he" dir="rtl">
 
 <head>
     <meta name="google-site-verification" content="google8c739a2b46051f97" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSF Leak IL • מידע רפואי מקיף</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CSF Leak IL • מידע רפואי מקיף והכנה לפגישה</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Assistant', 'sans-serif'],
-                        heading: ['Rubik', 'sans-serif'],
-                    },
-                    colors: {
-                        cream: {50: '#FDFCF9', 100: '#FAF8F4', 200: '#F5F1E9', 300: '#ECE6D9'},
-                        navy: {900: '#0B1726', 800: '#0E2338', 700: '#15324D', 600: '#1D4468'},
-                        tealBrand: {DEFAULT: '#1FA2A6', light: '#E6F7F7', dark: '#147D80', accent: '#3BB4B8'},
-                        gold: {DEFAULT: '#CCA86E', light: '#FAF4E8', dark: '#A68449'}
-                    },
-                    boxShadow: {
-                        'subtle': '0 4px 20px -2px rgba(14, 35, 56, 0.05)',
-                        'card': '0 10px 30px -4px rgba(14, 35, 56, 0.07), 0 1px 3px 0 rgba(204, 168, 110, 0.1)',
-                        'lifted': '0 20px 40px -10px rgba(14, 35, 56, 0.12)',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 
-<body class="min-h-screen flex flex-col selection:bg-tealBrand selection:text-white">
+<body data-current-page="info">
 
-    <!-- הודעות טוסט -->
-    <div id="toastBox"
-        class="fixed bottom-6 left-6 z-50 transform translate-y-36 transition-all duration-300 max-w-md bg-navy-800 text-white px-5 py-4 rounded-2xl shadow-lifted border border-gold/40 flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-tealBrand-accent text-xl"></i>
-        <div class="text-xs sm:text-sm font-medium" id="toastText">הפעולה בוצעה בהצלחה</div>
+    <!-- רכיב Header, תפריט ניווט ונגישות משותף (נטען אוטומטית מ-header.html / script.js) -->
+    <div id="site-header-placeholder"></div>
+
+    <!-- אזור תוכן מרכזי דינמי (נטען מהדף הראשי של הבית ללא רענון דפדפן) -->
+    <main id="page-content" class="main-wrapper">
+<section class="page-banner">
+    <div class="container">
+        <span class="banner-kicker">אנציקלופדיית הידע של הקהילה</span>
+        <h1 class="banner-title">מדריך רפואי מקיף: דליפת נוזל מוח-שדרה (CSF Leak)</h1>
+        <p class="banner-desc">
+            מהו נוזל ה-CSF ולמה הוא משמש, מדוע נוצר כאב ראש תנוחתי, פירוט מלא של התסמינים, סוגי הדליפות, אבחון, טיפולים והכנה לפגישה רפואית.
+        </p>
     </div>
+</section>
 
-    <!-- בר עליון -->
-    <div class="bg-navy-900 text-cream-200 text-xs py-2 px-4 border-b border-navy-700/60">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2 text-sky-400">
-                <i class="fa-solid fa-shield-heart"></i>
-                <span class="hidden sm:inline">מרחב בטוח, נטול אינטרסים מסחריים, למתמודדים עם דליפת נוזל מוח-שדרה</span>
-                <span class="sm:hidden">מרחב תמיכה לדליפת CSF</span>
+<section class="section-block">
+    <div class="container">
+        <div class="tabs-bar" id="medicalTabContainer" role="tablist" aria-label="לשוניות מידע רפואי">
+            <button type="button" role="tab" aria-selected="true" data-med-tab="mechanism" class="tab-btn active">מה זה CSF, גורמים וסוגים</button>
+            <button type="button" role="tab" aria-selected="false" data-med-tab="symptoms" class="tab-btn">תסמינים קליניים</button>
+            <button type="button" role="tab" aria-selected="false" data-med-tab="imaging" class="tab-btn">כיצד מאבחנים?</button>
+            <button type="button" role="tab" aria-selected="false" data-med-tab="treatment" class="tab-btn">דרכי טיפול והנחיות</button>
+            <button type="button" role="tab" aria-selected="false" data-med-tab="preparation" class="tab-btn">הכנה לפגישה רפואית</button>
+        </div>
+
+        <div id="med-tab-mechanism" role="tabpanel" class="stack-lg">
+            <div class="card stack-md">
+                <div class="card-header-flex">
+                    <div class="icon-box icon-sky"><i class="fa-solid fa-chart-pie" aria-hidden="true"></i></div>
+                    <div>
+                        <h3>מספרים וסטטיסטיקות בעולם דליפות ה-CSF</h3>
+                        <span class="stat-desc">הכנת קרקע מדעית ומקצועית למתמודדים</span>
+                    </div>
+                </div>
+                <div class="grid-3">
+                    <div class="stat-box">
+                        <div class="stat-num">5 : 100,000</div>
+                        <div class="stat-label">שכיחות מוערכת בשנה</div>
+                        <p class="stat-desc">אך בפועל ההערכה היא שמקרים רבים אינם מאובחנים כלל.</p>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num amber">20%</div>
+                        <div class="stat-label">מלכודת ה-MRI התקין</div>
+                        <p class="stat-desc">לחמישית מהחולים המאובחנים יש בדיקת MRI מוח ראשונית תקינה לחלוטין!</p>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-num emerald">60%-75%</div>
+                        <div class="stat-label">הצלחת טלאי דם ראשון</div>
+                        <p class="stat-desc">אחוזי הצלחה גבוהים בשיפור משמעותי של התסמינים כבר לאחר פרוצדורה ראשונה.</p>
+                    </div>
+                </div>
             </div>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleCalmMode()" id="calmToggleBtn"
-                    class="hover:text-white transition flex items-center gap-1.5 cursor-pointer font-medium">
-                    <i class="fa-solid fa-eye-slash text-sky-400"></i>
-                    <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>
-                </button>
-                <span class="text-navy-600">|</span>
-                <a href="contact.html" class="hover:text-white transition font-bold">סיוע מיידי</a>
+
+            <div class="grid-asymmetric">
+                <div class="stack-md">
+                    <div class="card stack-sm">
+                        <h2>מה זה CSF ולמה הוא משמש?</h2>
+                        <p>
+                            בתוך הגולגולת ועמוד השדרה קיים נוזל צלול הנקרא <strong>CSF (Cerebrospinal Fluid – נוזל מוחי-שדרתי)</strong>, המיוצר בקביעות בהיקף של כ-500 מ"ל ביממה ומוגן בתוך מעטפת אטומה הנקראת קרום הדורה (Dura Mater). לנוזל זה שני תפקידים קריטיים:
+                        </p>
+                        <div class="grid-2">
+                            <div class="callout-box callout-sky">
+                                <strong><i class="fa-solid fa-feather-pointed" aria-hidden="true"></i> 1. "כרית אוויר" וציפה</strong>
+                                <p>המוח שוקל כ-1.5 ק"ג, אך בזכות הציפה בתוך הנוזל משקלו האפקטיבי צונח ל<strong>כ-50 גרם בלבד</strong>.</p>
+                            </div>
+                            <div class="callout-box callout-sky">
+                                <strong><i class="fa-solid fa-scale-balanced" aria-hidden="true"></i> 2. איזון לחצים והזנה</strong>
+                                <p>הנוזל שומר על סביבה יציבה, מספק חומרי הזנה לגוף ומפנה פסולת מטבולית.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card stack-sm">
+                        <h2>למה כואב הראש?</h2>
+                        <p>כאב הראש המאפיין המרכזי של דליפת CSF הוא <strong>כאב ראש תנוחתי (אורתוסטטי)</strong>:</p>
+                        <div class="callout-box callout-red">
+                            <strong><i class="fa-solid fa-person-standing" aria-hidden="true"></i> בעמידה / הליכה / ישיבה:</strong>
+                            <p>כוח הכובד מושך את המוח כלפי מטה עקב אובדן הציפה (Brain Sagging), מה שמותח קרומים ועצבים ומייצר כאב עז.</p>
+                        </div>
+                        <div class="callout-box callout-sky">
+                            <strong><i class="fa-solid fa-bed" aria-hidden="true"></i> בשכיבה שטוחה:</strong>
+                            <p>המוח חוזר למקומו הטבעי והכאב פוחת באופן משמעותי בתוך 15 עד 45 דקות.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stack-md">
+                    <div class="card stack-sm">
+                        <span class="banner-kicker">גורמים</span>
+                        <h3>ממה נגרמת הדליפה?</h3>
+                        <div class="grid-2">
+                            <div class="callout-box callout-slate"><strong>1. ניקור מותני (LP)</strong></div>
+                            <div class="callout-box callout-slate"><strong>2. זריקת אפידורל</strong></div>
+                            <div class="callout-box callout-slate"><strong>3. תאונה / מכה חזקה</strong></div>
+                            <div class="callout-box callout-slate"><strong>4. דליפה ספונטנית</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="card stack-sm">
+                        <span class="banner-kicker">סיווג אנטומי</span>
+                        <h3>סוגי דליפות שדרתיות</h3>
+                        <div class="callout-box callout-slate">
+                            <strong>1. קרע במעטפת הדורה (Ventral Dural Tear)</strong>
+                            <p>חור או חתך קטן עקב בליטה גרמית זעירה (דרבן עצם דוקר) בעמוד השדרה.</p>
+                        </div>
+                        <div class="callout-box callout-slate">
+                            <strong>2. ציסטה שנפרצה (Meningeal Diverticulum)</strong>
+                            <p>התרחבות טבעית של כיסית שורש עצב שנמתחת ונקרעת.</p>
+                        </div>
+                        <div class="callout-box callout-slate">
+                            <strong>3. פיסטולה ורידית (CSF-Venous Fistula)</strong>
+                            <p>חיבור לא תקין בין שק הנוזל ישירות לווריד שדרתי (MRI רגיל לרוב ייראה תקין).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="med-tab-symptoms" role="tabpanel" class="stack-lg hidden">
+            <div class="stack-sm">
+                <h2>הקשת הרחבה של התסמינים הקליניים</h2>
+                <p>מכיוון שהצניחה של המוח מותחת עצבים שונים, דליפת נוזל שדרה גורמת לתסמינים רב-מערכתיים מגוונים:</p>
+            </div>
+            <div class="grid-asymmetric">
+                <div class="grid-2">
+                    <div class="card-subtle stack-sm">
+                        <div class="icon-box icon-red"><i class="fa-solid fa-head-side-virus" aria-hidden="true"></i></div>
+                        <h3>ראש</h3>
+                        <p>כאבי ראש תנוחתיים (אורתוסטטיים) החמורים בעמידה ובישיבה ומוקלים בשכיבה.</p>
+                    </div>
+                    <div class="card-subtle stack-sm">
+                        <div class="icon-box icon-sky"><i class="fa-solid fa-ear-listen" aria-hidden="true"></i></div>
+                        <h3>אוזניים ושמיעה</h3>
+                        <p>טנטון (צפצופים או דופק באוזניים), אטימות ומלאות ("כמו במטוס"), ורגישות חריגה לרעש.</p>
+                    </div>
+                    <div class="card-subtle stack-sm">
+                        <div class="icon-box icon-teal"><i class="fa-solid fa-eye" aria-hidden="true"></i></div>
+                        <h3>ראייה</h3>
+                        <p>רגישות חזקה לאור (פוטופוביה), ראייה מטושטשת או כפולה וכאב עיניים.</p>
+                    </div>
+                    <div class="card-subtle stack-sm">
+                        <div class="icon-box icon-amber"><i class="fa-solid fa-user-injured" aria-hidden="true"></i></div>
+                        <h3>צוואר ושכמות</h3>
+                        <p>נוקשות בצוואר וכאב חזק ברווח שבין השכמות (כאב "קולב" / Coat-hanger ache).</p>
+                    </div>
+                    <div class="card-subtle stack-sm">
+                        <div class="icon-box icon-emerald"><i class="fa-solid fa-scale-unbalanced" aria-hidden="true"></i></div>
+                        <h3>תחושות גוף ושיווי משקל</h3>
+                        <p>סחרחורת קלה, תחושת שיוט, חוסר יציבות בהליכה, בחילות והקאות.</p>
+                    </div>
+                    <div class="card-subtle stack-sm">
+                        <div class="icon-box icon-purple"><i class="fa-solid fa-brain" aria-hidden="true"></i></div>
+                        <h3>קוגניציה, אנרגיה ותסמינים נוספים</h3>
+                        <p>ערפול מוחי (Brain Fog), קושי בריכוז ובשליפת מילים, עייפות כבדה, רעידות ודופק מהיר.</p>
+                    </div>
+                </div>
+                <div class="card stack-sm">
+                    <img src="symptoms-infographic.jpg" alt="אינפוגרפיקה המסכמת את פיזור התסמינים בדליפת נוזל מוח-שדרה">
+                    <p class="stat-desc">תרשים קליני מסכם: פיזור התסמינים הרב-מערכתיים בדליפת נוזל מוח-שדרה (CSF Leak)</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="med-tab-imaging" role="tabpanel" class="stack-md hidden">
+            <div class="stack-sm">
+                <h2>כיצד מאבחנים? בדיקות עזר והדמיות מרכזיות</h2>
+                <p>לחצו על כל בדיקה לצפייה בפרוטוקול המלא:</p>
+            </div>
+            <div class="stack-sm">
+                <div class="accordion-item">
+                    <button type="button" class="accordion-trigger" data-acc-target="diag-1" aria-expanded="false">
+                        <span class="accordion-title-wrap">
+                            <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-diag-1" aria-hidden="true"></i>
+                            <span>1. MRI מוח ועמוד שדרה מלא עם חומר ניגוד (Gadolinium)</span>
+                        </span>
+                        <span class="badge-pill badge-sky">בדיקת קו ראשון</span>
+                    </button>
+                    <div id="content-diag-1" class="accordion-body hidden stack-sm">
+                        <p><strong>מהי הבדיקה:</strong> בדיקת תהודה מגנטית של המוח (עם גדוליניום) לאיתור סימני SEEPS (האדרה דורלית, צניחת מוחון, הרחבת סינוסים ורידיים), וכן סריקת עמוד שדרה מלא (MR Myelography) לאיתור נוזל מחוץ לדורה.</p>
+                        <div class="callout-box callout-amber"><strong>שימו לב:</strong> בכ-20% מהחולים עם דליפה מוכחת, ה-MRI המוחי תקין לחלוטין! MRI תקין אינו שולל דליפה.</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button type="button" class="accordion-trigger" data-acc-target="diag-2" aria-expanded="false">
+                        <span class="accordion-title-wrap">
+                            <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-diag-2" aria-hidden="true"></i>
+                            <span>2. CT מילוגרפיה (CT Myelography)</span>
+                        </span>
+                        <span class="badge-pill badge-amber">דימות פולשני</span>
+                    </button>
+                    <div id="content-diag-2" class="accordion-body hidden stack-sm">
+                        <p><strong>מהי הבדיקה:</strong> בדיקת CT של עמוד השדרה לאחר הזרקת חומר ניגוד ישירות לתוך שק השדרה תחת שיקוף, המאפשרת לאתר דליפות מהירות, נקב דורלי או דרבן עצם דוקר.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button type="button" class="accordion-trigger" data-acc-target="diag-3" aria-expanded="false">
+                        <span class="accordion-title-wrap">
+                            <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-diag-3" aria-hidden="true"></i>
+                            <span>3. מיאלוגרפיה דינמית בשיקוף רנטגן (DSM)</span>
+                        </span>
+                        <span class="badge-pill badge-purple">מתקדם מאוד</span>
+                    </button>
+                    <div id="content-diag-3" class="accordion-body hidden stack-sm">
+                        <p><strong>מהי הבדיקה:</strong> הבדיקה המתקדמת ביותר (Digital Subtraction Myelography) המבוצעת על ידי נוירו-רדיולוג פולשני במספר תנוחות לאיתור מדויק של פיסטולות ורידיות (CSF-Venous Fistula) ודליפות זעירות.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="med-tab-treatment" role="tabpanel" class="stack-md hidden">
+            <div class="stack-sm">
+                <h2>דרכי טיפול, חוק ה-BLT ולחץ חוזר</h2>
+                <p>לחצו על כל סעיף לקריאת ההנחיות המלאות:</p>
+            </div>
+            <div class="stack-sm">
+                <div class="accordion-item">
+                    <button type="button" class="accordion-trigger" data-acc-target="treat-1" aria-expanded="false">
+                        <span class="accordion-title-wrap">
+                            <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-treat-1" aria-hidden="true"></i>
+                            <span>1. השלב השמרני (מנוחה, נוזלים וקפאין)</span>
+                        </span>
+                        <span class="badge-pill badge-sky">שלב ראשוני</span>
+                    </button>
+                    <div id="content-treat-1" class="accordion-body hidden">
+                        <p>שכיבה שטוחה ממושכת, שתייה מרובה (3–4 ליטרים ביום) בשילוב מלחים/אלקטרוליטים, צריכת קפאין מוגברת המעודדת ייצור CSF ומכווצת כלי דם, ושימוש בחגורת בטן אלסטית.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button type="button" class="accordion-trigger" data-acc-target="treat-2" aria-expanded="false">
+                        <span class="accordion-title-wrap">
+                            <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-treat-2" aria-hidden="true"></i>
+                            <span>2. טלאי דם אפידורלי (Epidural Blood Patch - EBP) וחוק ה-BLT</span>
+                        </span>
+                        <span class="badge-pill badge-solid-sky">הטיפול הנפוץ</span>
+                    </button>
+                    <div id="content-treat-2" class="accordion-body hidden stack-sm">
+                        <p><strong>התהליך:</strong> שאיבת 20–40 מ"ל דם ורידי עצמי והזרקתו לחלל האפידורלי בעמוד השדרה ליצירת אטימה ביולוגית טבעית והעלאת הלחץ סביב המוח.</p>
+                        <div class="callout-box callout-sky">
+                            <strong>הנחיות קריטיות לאחר הפעולה (חוק ה-BLT):</strong> שכיבה אופקית מוחלטת למשך 2–4 שעות מיד לאחר הפעולה. לאחר מכן, במשך 4–6 שבועות יש להקפיד על: <strong>No Bending</strong> (ללא התכופפות), <strong>No Lifting</strong> (ללא הרמת משקל מעל 2–3 ק"ג), ו-<strong>No Twisting</strong> (ללא פיתולי גב).
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button type="button" class="accordion-trigger" data-acc-target="treat-3" aria-expanded="false">
+                        <span class="accordion-title-wrap">
+                            <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-treat-3" aria-hidden="true"></i>
+                            <span>3. טלאי ממוקד עם דבק פיברין (Targeted Patch / Fibrin Glue)</span>
+                        </span>
+                        <span class="badge-pill badge-emerald">ממוקד מטרה</span>
+                    </button>
+                    <div id="content-treat-3" class="accordion-body hidden">
+                        <p>הזרקת דם או דבק ביולוגי ייעודי (Fibrin Glue) תחת שיקוף רנטגן או CT בדיוק בנקודת הדליפה המזוהה.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button type="button" class="accordion-trigger" data-acc-target="treat-4" aria-expanded="false">
+                        <span class="accordion-title-wrap">
+                            <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-treat-4" aria-hidden="true"></i>
+                            <span>4. צנתור ואמבוליזציה ורידית (Embolization) או תיקון כירורגי</span>
+                        </span>
+                        <span class="badge-pill badge-purple">פרוצדורות ממוקדות</span>
+                    </button>
+                    <div id="content-treat-4" class="accordion-body hidden">
+                        <p>אמבוליזציה מיועדת לחסימת פיסטולות ורידיות מבפנים באמצעות צנתור ורידי ללא ניתוח פתוח. במקרים של קרע דורלי עיקש או דרבן עצם, מתבצע תיקון מיקרו-כירורגי על ידי נוירוכירורג.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button type="button" class="accordion-trigger" data-acc-target="treat-5" aria-expanded="false">
+                        <span class="accordion-title-wrap">
+                            <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-treat-5" aria-hidden="true"></i>
+                            <span>5. תופעת "לחץ חוזר" (Rebound High Pressure)</span>
+                        </span>
+                        <span class="badge-pill badge-amber">מידע חשוב לאחר אטימה</span>
+                    </button>
+                    <div id="content-treat-5" class="accordion-body hidden">
+                        <p><strong>מה זה?</strong> כאשר הדליפה נאטמת בהצלחה, הגוף שהתרגל לייצר נוזל בקצב מוגבר עלול לפתח עודף לחץ זמני. הכאב מתהפך: מורגש במצח ומאחורי העיניים, מתגבר בשכיבה ומשתפר בעמידה. זוהי לא הישנות של הדליפה אלא סימן מעודד שהחור נאטם! מטופל לרוב בתרופות המפחיתות ייצור נוזל (דיאמוקס/אורמוקס) והגבהת הראש בכריות.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="med-tab-preparation" role="tabpanel" class="stack-md hidden">
+            <div class="stack-sm">
+                <h2>הכנה לפגישה רפואית 📝</h2>
+                <p>כשהולכים לרופא בנושא, כדאי להתמקד ולהגיע מוכנים עם הנתונים הבאים:</p>
+            </div>
+            <div class="card">
+                <ul class="feature-list">
+                    <li class="feature-list-item">
+                        <i class="fa-solid fa-calendar-days" aria-hidden="true"></i>
+                        <div><strong>מתי זה התחיל?</strong> תאריך משוער ומה קרה סביב ההתחלה, אם זכור לי.</div>
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>
+                        <div><strong>מה אני מרגיש/ה?</strong> שניים או שלושה תסמינים שהכי מפריעים לי.</div>
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fa-solid fa-arrows-up-down" aria-hidden="true"></i>
+                        <div><strong>האם יש קשר לתנוחה?</strong> מה קורה בישיבה, בעמידה ובשכיבה? אם יש שינוי, אחרי כמה זמן הוא מורגש?</div>
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fa-solid fa-heart-pulse" aria-hidden="true"></i>
+                        <div><strong>איך זה משפיע על היום שלי?</strong> דוגמה אחת, כמו קושי לעבוד מול מחשב, לנסוע או לשבת בארוחה.</div>
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fa-solid fa-notes-medical" aria-hidden="true"></i>
+                        <div><strong>מה כבר עשיתי?</strong> בדיקות וטיפולים, עם תאריכים משוערים. אם טיפול עזר, לכמה זמן?</div>
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fa-solid fa-circle-question" aria-hidden="true"></i>
+                        <div><strong>מה הכי חשוב לי לשאול?</strong> מה לדעתך יכול להסביר את התסמינים שלי? מה הצעד הבא, ומה הוא אמור לברר?</div>
+                    </li>
+                    <li class="feature-list-item">
+                        <i class="fa-solid fa-file-medical" aria-hidden="true"></i>
+                        <div><strong>הדמיות ומסמכים:</strong> אם יש לי פענוחים או קבצי הדמיה (דיסקים), אכין אותם מראש כדי שיהיו זמינים בפגישה.</div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Header & Navigation -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <div
-                    class="w-12 h-12 flex-shrink-0 relative overflow-hidden rounded-full border border-sky-200 shadow-sm">
-                    <img src="logo.png" alt="CSF Leak IL - לוגו הקהילה"
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-heading font-black text-lg tracking-tight text-sky-700 leading-none">CSF LEAK
-                        IL</span>
-                    <span class="text-[10px] font-semibold text-slate-600 tracking-tight mt-1">קהילת מתמודדי דליפת CSF
-                        בישראל</span>
-                </div>
-            </a>
-
-            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-700">
-                <a href="index.html" class="nav-link py-2 transition hover:text-sky-600">דף הבית</a>
-                <a href="info.html" class="nav-link py-2 transition hover:text-sky-600">מידע רפואי</a>
-                <a href="doctors.html" class="nav-link py-2 transition hover:text-sky-600">רופאים ומרכזים</a>
-                <a href="research.html" class="nav-link py-2 transition hover:text-sky-600">חדשות ומחקרים</a>
-                <a href="support.html" class="nav-link py-2 transition hover:text-sky-600">תמיכה</a>
-                <a href="contact.html" class="nav-link py-2 transition hover:text-sky-600">צור קשר</a>
-            </nav>
-
-            <div class="hidden sm:flex items-center gap-3">
-                <a href="support.html"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm transition">
-                    <i class="fa-brands fa-whatsapp text-white text-sm"></i>
-                    <span>הצטרפות לקבוצה</span>
-                </a>
-            </div>
-
-            <button onclick="toggleMobileNav()" aria-label="פתח תפריט"
-                class="lg:hidden p-2.5 rounded-xl text-navy-800 hover:bg-slate-100 transition">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
-        </div>
-
-        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-5 shadow-xl space-y-3">
-            <a href="index.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">דף הבית</a>
-            <a href="info.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">מידע רפואי</a>
-            <a href="doctors.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">רופאים ומרכזים רפואיים</a>
-            <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">תמיכה</a>
-            <a href="contact.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">צור קשר</a>
-        </div>
-    </header>
-
-    <main class="flex-grow">
-        <!-- כותרת העמוד -->
-        <section class="py-12 bg-sky-50 border-b border-slate-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <span class="text-xs font-bold uppercase tracking-wider text-sky-700">אנציקלופדיית הידע של הקהילה</span>
-                <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">מדריך רפואי מקיף: דליפת
-                    נוזל מוח-שדרה (CSF Leak)</h1>
-                <p class="text-base text-navy-700/80 max-w-3xl mt-2">
-                    מהו נוזל ה-CSF ולמה הוא משמש, מדוע נוצר כאב ראש תנוחתי, פירוט מלא של התסמינים, סוגי הדליפות, אבחון
-                    וטיפולים שלב אחר שלב.
-                </p>
-            </div>
-        </section>
-
-        <section class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-
-            <!-- טאבים אינטראקטיביים -->
-            <div class="flex flex-wrap items-center gap-2 border-b border-slate-200 pb-4" id="medicalTabContainer">
-                <button onclick="switchMedicalTab('mechanism', this)"
-                    class="tab-btn active px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition">מה זה CSF,
-                    גורמים וסוגים</button>
-                <button onclick="switchMedicalTab('symptoms', this)"
-                    class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">תסמינים
-                    קליניים</button>
-                <button onclick="switchMedicalTab('imaging', this)"
-                    class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">כיצד
-                    מאבחנים?</button>
-                <button onclick="switchMedicalTab('treatment', this)"
-                    class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">דרכי
-                    טיפול והנחיות</button>
-                <button onclick="switchMedicalTab('preparation', this)"
-                    class="tab-btn px-5 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-navy-800 hover:bg-slate-100 transition border border-slate-200">הכנה לפגישה רפואית</button>
-            </div>
-
-            <!-- ================= לשונית 1: מה זה CSF, גורמים וסוגים ================= -->
-            <div id="med-tab-mechanism" class="space-y-10">
-                <!-- סטטיסטיקות -->
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-6">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl">
-                            <i class="fa-solid fa-chart-pie"></i>
-                        </div>
-                        <div>
-                            <h3 class="font-heading font-bold text-xl text-navy-800">מספרים וסטטיסטיקות בעולם דליפות
-                                ה-CSF</h3>
-                            <span class="text-xs text-gray-500">הכנת קרקע מדעית ומקצועית למתמודדים</span>
-                        </div>
-                    </div>
-                    <div class="grid sm:grid-cols-3 gap-6 pt-2">
-                        <div class="p-5 rounded-2xl bg-sky-50/50 border border-sky-100 text-center space-y-1">
-                            <div class="text-3xl font-black text-sky-700 font-heading">5 : 100,000</div>
-                            <div class="text-xs font-bold text-navy-800">שכיחות מוערכת בשנה</div>
-                            <p class="text-[11px] text-navy-700/80 mt-1">אך בפועל ההערכה היא שמקרים רבים אינם מאובחנים
-                                כלל.</p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-sky-50/50 border border-sky-100 text-center space-y-1">
-                            <div class="text-3xl font-black text-amber-600 font-heading">20%</div>
-                            <div class="text-xs font-bold text-navy-800">מלכודת ה-MRI התקין</div>
-                            <p class="text-[11px] text-navy-700/80 mt-1">מחמישית מהחולים המאובחנים יש בדיקת MRI מוח
-                                ראשונית תקינה לחלוטין!</p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-sky-50/50 border border-sky-100 text-center space-y-1">
-                            <div class="text-3xl font-black text-emerald-700 font-heading">60%-75%</div>
-                            <div class="text-xs font-bold text-navy-800">הצלחת טלאי דם ראשון</div>
-                            <p class="text-[11px] text-navy-700/80 mt-1">אחוזי הצלחה גבוהים בשיפור משמעותי של התסמינים
-                                כבר לאחר פרוצדורה ראשונה.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="grid lg:grid-cols-12 gap-8 items-start">
-                    <div class="lg:col-span-7 space-y-6">
-                        <div
-                            class="bg-white p-6 rounded-3xl border border-slate-200 shadow-subtle calm-target-card space-y-4">
-                            <h2 class="text-2xl font-heading font-bold text-navy-800">מה זה CSF ולמה הוא משמש?</h2>
-                            <p class="text-sm text-navy-700/90 leading-relaxed">
-                                בתוך הגולגולת ועמוד השדרה קיים נוזל צלול הנקרא <strong>CSF (Cerebrospinal Fluid – נוזל
-                                    מוחי-שדרתי)</strong>. לנוזל זה שני תפקידים קריטיים:
-                            </p>
-                            <div class="grid sm:grid-cols-2 gap-4 pt-2">
-                                <div class="p-4 rounded-2xl bg-sky-50/50 border border-sky-100">
-                                    <div class="font-bold text-navy-800 text-sm mb-1 flex items-center gap-2">
-                                        <i class="fa-solid fa-feather-pointed text-sky-600"></i>
-                                        1. "כרית אוויר" וציפה
-                                    </div>
-                                    <p class="text-xs text-navy-700/85 leading-relaxed">
-                                        המוח שוקל כ-1.5 ק"ג, אך בזכות הציפה בתוך הנוזל משקלו האפקטיבי הוא <strong>כ-50
-                                            גרם בלבד</strong>.
-                                    </p>
-                                </div>
-                                <div class="p-4 rounded-2xl bg-sky-50/50 border border-sky-100">
-                                    <div class="font-bold text-navy-800 text-sm mb-1 flex items-center gap-2">
-                                        <i class="fa-solid fa-scale-balanced text-sky-700"></i>
-                                        2. איזון לחצים והזנה
-                                    </div>
-                                    <p class="text-xs text-navy-700/85 leading-relaxed">
-                                        הנוזל שומר על סביבה יציבה, מספק חומרי הזנה לגוף ומפנה פסולת.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-white p-6 rounded-3xl border border-slate-200 shadow-subtle calm-target-card space-y-4">
-                            <h2 class="text-2xl font-heading font-bold text-navy-800">למה כואב הראש?</h2>
-                            <p class="text-sm text-navy-700/90">
-                                כאב הראש המאפיין המרכזי של דליפת CSF הוא <strong>כאב ראש תנוחתי (אורתוסטטי)</strong>:
-                            </p>
-                            <div class="space-y-3">
-                                <div
-                                    class="flex gap-3.5 items-start p-3.5 rounded-2xl bg-red-50/50 border border-red-100">
-                                    <i class="fa-solid fa-person-standing text-red-600 text-lg mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-navy-800 text-sm">בעמידה / הליכה / ישיבה:</h4>
-                                        <p class="text-xs text-navy-700/85 leading-relaxed mt-0.5">כוח הכובד מושך את
-                                            המוח כלפי מטה עקב אובדן הציפה, מה שמותח קרומים ועצבים ומייצר כאב עז.</p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="flex gap-3.5 items-start p-3.5 rounded-2xl bg-sky-50/50 border border-sky-100">
-                                    <i class="fa-solid fa-bed text-sky-700 text-lg mt-1"></i>
-                                    <div>
-                                        <h4 class="font-bold text-navy-800 text-sm">בשכיבה:</h4>
-                                        <p class="text-xs text-navy-700/85 leading-relaxed mt-0.5">המוח חוזר למקומו
-                                            והכאב פוחת באופן משמעותי בתוך דקות עד חצי שעה.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="lg:col-span-5 space-y-6">
-                        <div
-                            class="bg-white p-6 rounded-3xl border border-slate-200 shadow-card calm-target-card space-y-4">
-                            <div class="text-xs font-bold text-sky-700 uppercase tracking-wider">גורמים</div>
-                            <h3 class="text-xl font-heading font-bold text-navy-800">ממה נגרמת הדליפה?</h3>
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <div
-                                    class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-navy-800">
-                                    1. ניקור מותני</div>
-                                <div
-                                    class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-navy-800">
-                                    2. זריקת אפידורל</div>
-                                <div
-                                    class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-navy-800">
-                                    3. תאונה / מכה חזקה</div>
-                                <div
-                                    class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs font-bold text-navy-800">
-                                    4. דליפה ספונטנית</div>
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-white p-6 rounded-3xl border border-slate-200 shadow-card calm-target-card space-y-4">
-                            <div class="text-xs font-bold text-sky-700 uppercase tracking-wider">סיווג אנטומי</div>
-                            <h3 class="text-xl font-heading font-bold text-navy-800">סוגי דליפות שדרתיות</h3>
-                            <div class="space-y-3">
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-                                    <h4 class="font-bold text-navy-800 text-sm">1. קרע במעטפת הדורה</h4>
-                                    <p class="text-xs text-navy-700/85">חור או חתך עקב בליטה גרמית זעירה.</p>
-                                </div>
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-                                    <h4 class="font-bold text-navy-800 text-sm">2. ציסטה שנפרצה</h4>
-                                    <p class="text-xs text-navy-700/85">התרחבות טבעית של כיסית עצב שנמתחת ונקרעת.</p>
-                                </div>
-                                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-1">
-                                    <h4 class="font-bold text-navy-800 text-sm">3. פיסטולה ורידית (CSF-Venous Fistula)
-                                    </h4>
-                                    <p class="text-xs text-navy-700/85">חיבור לא תקין בין שק הנוזל ישירות לווריד (MRI
-                                        רגיל ייעשה תקין).</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ================= לשונית 2: תסמינים קליניים מלאים ================= -->
-            <div id="med-tab-symptoms" class="hidden space-y-8">
-                <div class="max-w-3xl space-y-2">
-                    <h2 class="text-2xl font-heading font-bold text-navy-800">הקשת הרחבה של התסמינים הקליניים</h2>
-                    <p class="text-xs sm:text-sm text-navy-700/85 leading-relaxed">
-                        מכיוון שהצניחה של המוח מותחת עצבים שונים, דליפת נוזל שדרה גורמת לתסמינים מגוונים:
-                    </p>
-                </div>
-                <div class="grid lg:grid-cols-12 gap-8 items-start">
-                    <div class="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-                        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-head-side-virus"></i>
-                            </div>
-                            <h3 class="font-bold text-navy-800 text-sm">ראש</h3>
-                            <p class="text-xs text-navy-700/85">כאבי ראש תנוחתיים החמורים בעמידה ובישיבה.</p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-sky-50 text-sky-700 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-ear-listen"></i>
-                            </div>
-                            <h3 class="font-bold text-navy-800 text-sm">אוזניים ושמיעה</h3>
-                            <p class="text-xs text-navy-700/85">טנטון, צפצופים, אטימות ומלאות באוזניים.</p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-eye"></i>
-                            </div>
-                            <h3 class="font-bold text-navy-800 text-sm">ראייה</h3>
-                            <p class="text-xs text-navy-700/85">רגישות חזקה לאור (פוטופוביה), ראייה מטושטשת או כפולה.
-                            </p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-user-injured"></i>
-                            </div>
-                            <h3 class="font-bold text-navy-800 text-sm">צוואר ושכמות</h3>
-                            <p class="text-xs text-navy-700/85">נוקשות בצוואר וכאב חזק ברווח שבין השכמות (קולב).</p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-scale-unbalanced"></i>
-                            </div>
-                            <h3 class="font-bold text-navy-800 text-sm">שיווי משקל</h3>
-                            <p class="text-xs text-navy-700/85">סחרחורת קלה, חוסר יציבות, בחילות והקאות.</p>
-                        </div>
-                        <div class="p-5 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                            <div
-                                class="w-10 h-10 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-lg">
-                                <i class="fa-solid fa-brain"></i>
-                            </div>
-                            <h3 class="font-bold text-navy-800 text-sm">קוגניציה ואנרגיה</h3>
-                            <p class="text-xs text-navy-700/85">ערפול מוחי (Brain Fog), קושי בשליפת מילים ועייפות כבדה.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="lg:col-span-5 bg-white p-4 rounded-3xl border border-slate-200 shadow-card">
-                        <img src="WhatsApp Image 2026-11-10 at 20.58.27.jpeg" alt="אינפוגרפיקה תסמינים"
-                            class="w-full h-auto rounded-2xl object-contain" />
-                        <p class="text-[11px] text-center text-navy-700/60 mt-3">תרשים מסכם: פיזור התסמינים בדליפת נוזל
-                            מוח-שדרה</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ================= לשונית 3: כיצד מאבחנים? (אקורדיונים מפורטים) ================= -->
-            <div id="med-tab-imaging" class="hidden space-y-6">
-                <div class="max-w-3xl space-y-2">
-                    <h2 class="text-2xl font-heading font-bold text-navy-800">כיצד מאבחנים? בדיקות עזר מרכזיות</h2>
-                    <p class="text-xs sm:text-sm text-navy-700/85">לחצו על כל בדיקה לצפייה בפרוטוקול המלא:</p>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-subtle bg-white">
-                        <button onclick="toggleAccordion('diag-1')"
-                            class="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 transition text-right">
-                            <span class="font-bold text-navy-800 text-base flex items-center gap-2">
-                                <i class="fa-solid fa-circle-chevron-down text-sky-600 transition-transform duration-300"
-                                    id="icon-diag-1"></i>
-                                1. MRI מוח ועמוד שדרה עם חומר ניגוד
-                            </span>
-                            <span class="text-xs bg-sky-100 text-sky-800 font-bold px-2.5 py-1 rounded-full">בדיקת
-                                סף</span>
-                        </button>
-                        <div id="content-diag-1"
-                            class="hidden p-6 space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed border-t border-slate-100">
-                            <p><strong>מהי הבדיקה:</strong> בדיקת תהודה מגנטית של הראש ועמוד השדרה המשתמשת בחומר ניגוד
-                                (גדוליניום) המוזרק לווריד.</p>
-                            <p><strong>איך היא מתבצעת:</strong> שכיבה במכשיר סריקה למשך 20–40 דקות לזיהוי צניחת מוח או
-                                עיבוי קרומים.</p>
-                            <p class="text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-200"><strong>שימו
-                                    לב:</strong> בכ-20% מהחולים הדליפה קיימת למרות MRI מוח תקין!</p>
-                        </div>
-                    </div>
-
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-subtle bg-white">
-                        <button onclick="toggleAccordion('diag-2')"
-                            class="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 transition text-right">
-                            <span class="font-bold text-navy-800 text-base flex items-center gap-2">
-                                <i class="fa-solid fa-circle-chevron-down text-sky-600 transition-transform duration-300"
-                                    id="icon-diag-2"></i>
-                                2. CT מילוגרפיה (CT Myelography)
-                            </span>
-                            <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-full">פנס
-                                פולשני</span>
-                        </button>
-                        <div id="content-diag-2"
-                            class="hidden p-6 space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed border-t border-slate-100">
-                            <p><strong>מהי הבדיקה:</strong> בדיקת CT של עמוד השדרה לאחר הזרקת חומר ניגוד ישירות לתוך שק
-                                השדרה.</p>
-                            <p><strong>איך היא מתבצעת:</strong> תחת שיקוף רנטגן, מתבצע דיקור עדין בגב התחתון (ניקור
-                                מותני) להזרקת חומר הניגוד ואיתור מדויק של הקרע.</p>
-                        </div>
-                    </div>
-
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-subtle bg-white">
-                        <button onclick="toggleAccordion('diag-3')"
-                            class="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 transition text-right">
-                            <span class="font-bold text-navy-800 text-base flex items-center gap-2">
-                                <i class="fa-solid fa-circle-chevron-down text-sky-600 transition-transform duration-300"
-                                    id="icon-diag-3"></i>
-                                3. מיאלוגרפיה דינמית (DSM)
-                            </span>
-                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2.5 py-1 rounded-full">מתקדם
-                                מאוד</span>
-                        </button>
-                        <div id="content-diag-3"
-                            class="hidden p-6 space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed border-t border-slate-100">
-                            <p><strong>מהי הבדיקה:</strong> הבדיקה המתקדמת ביותר לאיתור פיסטולות ורידיות (CSF-Venous
-                                Fistula) תחת שיקוף רנטגן בזמן אמת במספר תנוחות.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ================= לשונית 4: דרכי טיפול והנחיות מלאות (אקורדיונים) ================= -->
-            <div id="med-tab-treatment" class="hidden space-y-6">
-                <div class="max-w-3xl space-y-2">
-                    <h2 class="text-2xl font-heading font-bold text-navy-800">דרכי טיפול, חוק ה-BLT ולחץ חוזר</h2>
-                    <p class="text-xs sm:text-sm text-navy-700/85">לחצו על כל סעיף לקריאת ההנחיות המלאות:</p>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-subtle bg-white">
-                        <button onclick="toggleAccordion('treat-1')"
-                            class="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 transition text-right">
-                            <span class="font-bold text-navy-800 text-base flex items-center gap-2">
-                                <i class="fa-solid fa-circle-chevron-down text-emerald-600 transition-transform duration-300"
-                                    id="icon-treat-1"></i>
-                                1. השלב השמרני (מנוחה, נוזלים וקפאין)
-                            </span>
-                            <span class="text-xs bg-slate-200 text-navy-800 font-bold px-2.5 py-1 rounded-full">שלב
-                                ראשוני</span>
-                        </button>
-                        <div id="content-treat-1"
-                            class="hidden p-6 space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed border-t border-slate-100">
-                            <p>שכיבה מוחלטת, שתייה מרובה, מלחים וצריכת קפאין מוגברת (קפה, תה או כדורים) לצמצום כלי הדם
-                                במוח והקלה זמנית.</p>
-                        </div>
-                    </div>
-
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-subtle bg-white">
-                        <button onclick="toggleAccordion('treat-2')"
-                            class="w-full flex items-center justify-between p-5 bg-sky-50/60 hover:bg-sky-100/50 transition text-right">
-                            <span class="font-bold text-navy-800 text-base flex items-center gap-2">
-                                <i class="fa-solid fa-circle-chevron-down text-sky-600 transition-transform duration-300"
-                                    id="icon-treat-2"></i>
-                                2. טלאי דם אפידורלי עיוור (EBP) וחוק ה-BLT
-                            </span>
-                            <span class="text-xs bg-sky-600 text-white font-bold px-2.5 py-1 rounded-full">הטיפול
-                                הנפוץ</span>
-                        </button>
-                        <div id="content-treat-2"
-                            class="hidden p-6 space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed border-t border-slate-100">
-                            <p><strong>התהליך:</strong> שאיבת 20–40 סמ"ק דם ורידי והזרקתו לחלל האפידורלי בעמוד השדרה
-                                ליצירת אטימה ביולוגית טבעית.</p>
-                            <p class="text-navy-900 bg-sky-50 p-4 rounded-xl border border-sky-200 font-medium">
-                                <strong>הנחיות קריטיות (חוק ה-BLT):</strong> שכיבה אופקית מוחלטת לשעתיים לפחות. למשך 4–6
-                                שבועות יש להקפיד על: <strong>No Bending</strong> (ללא התכופפות), <strong>No
-                                    Lifting</strong> (ללא הרמת משקל מעל 2–3 ק"ג), ו-<strong>No Twisting</strong> (ללא
-                                פיתולי גב).
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-subtle bg-white">
-                        <button onclick="toggleAccordion('treat-3')"
-                            class="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 transition text-right">
-                            <span class="font-bold text-navy-800 text-base flex items-center gap-2">
-                                <i class="fa-solid fa-circle-chevron-down text-emerald-600 transition-transform duration-300"
-                                    id="icon-treat-3"></i>
-                                3. טלאי דם ממוקד עם דבק פיברין (Targeted EBP / Fibrin Glue)
-                            </span>
-                            <span
-                                class="text-xs bg-emerald-100 text-emerald-800 font-bold px-2.5 py-1 rounded-full">ממוקד
-                                מטרה</span>
-                        </button>
-                        <div id="content-treat-3"
-                            class="hidden p-6 space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed border-t border-slate-100">
-                            <p>הזרקת דם ודבק ביולוגי ייעודי תחת שיקוף רנטגן או CT בדיוק בנקודת הדליפה המזוהה.</p>
-                        </div>
-                    </div>
-
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-subtle bg-white">
-                        <button onclick="toggleAccordion('treat-4')"
-                            class="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 transition text-right">
-                            <span class="font-bold text-navy-800 text-base flex items-center gap-2">
-                                <i class="fa-solid fa-circle-chevron-down text-purple-600 transition-transform duration-300"
-                                    id="icon-treat-4"></i>
-                                4. צנתור ואמבוליזציה ורידית (Embolization)
-                            </span>
-                            <span class="text-xs bg-purple-100 text-purple-800 font-bold px-2.5 py-1 rounded-full">צנתור
-                                עדין</span>
-                        </button>
-                        <div id="content-treat-4"
-                            class="hidden p-6 space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed border-t border-slate-100">
-                            <p>סגירת פיסטולות ורידיות באמצעות צנתר וחומר רפואי מבפנים ללא צורך בניתוח פתוח.</p>
-                        </div>
-                    </div>
-
-                    <div class="border border-slate-200 rounded-2xl overflow-hidden shadow-subtle bg-white">
-                        <button onclick="toggleAccordion('treat-5')"
-                            class="w-full flex items-center justify-between p-5 bg-slate-50 hover:bg-slate-100 transition text-right">
-                            <span class="font-bold text-navy-800 text-base flex items-center gap-2">
-                                <i class="fa-solid fa-circle-chevron-down text-navy-800 transition-transform duration-300"
-                                    id="icon-treat-5"></i>
-                                5. תופעת "לחץ חוזר" (Rebound High Pressure)
-                            </span>
-                            <span class="text-xs bg-amber-100 text-amber-800 font-bold px-2.5 py-1 rounded-full">מידע
-                                חשוב לאחר אטימה</span>
-                        </button>
-                        <div id="content-treat-5"
-                            class="hidden p-6 space-y-3 text-xs sm:text-sm text-navy-700/90 leading-relaxed border-t border-slate-100">
-                            <p><strong>מה זה?</strong> לאחר שהדליפה נסתמת, הגוף שמייצר כמות מוגברת של נוזל עלולה לפתח
-                                עודף לחץ זמני (כאב במצח ומאחורי העיניים שמחמיר בשכיבה). זוהי לא חזרת דליפה אלא סימן לכך
-                                שהחור נאטם בהצלחה! מטופל לרוב בתרופות כמו דיאמוקס והגבהת הראש.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ================= לשונית 5: הכנה לפגישה רפואית ================= -->
-            <div id="med-tab-preparation" class="hidden space-y-6">
-                <div class="max-w-3xl space-y-2">
-                    <h2 class="text-2xl font-heading font-bold text-navy-800">הכנה לפגישה רפואית 📝</h2>
-                    <p class="text-xs sm:text-sm text-navy-700/85">כשהולכים לרופא בנושא, כדאי להתמקד ולהגיע מוכנים עם הנתונים הבאים:</p>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-card space-y-4 text-xs sm:text-sm text-navy-700/90 leading-relaxed">
-                    <ul class="space-y-4">
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-calendar-days text-sky-600 mt-1"></i>
-                            <div><strong>מתי זה התחיל?</strong> תאריך משוער ומה קרה סביב ההתחלה, אם זכור לי.</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-triangle-exclamation text-amber-600 mt-1"></i>
-                            <div><strong>מה אני מרגיש/ה?</strong> שניים או שלושה תסמינים שהכי מפריעים לי.</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-arrows-up-down text-sky-600 mt-1"></i>
-                            <div><strong>האם יש קשר לתנוחה?</strong> מה קורה בישיבה, בעמידה ובשכיבה? אם יש שינוי, אחרי כמה זמן הוא מורגש?</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-heart-pulse text-red-500 mt-1"></i>
-                            <div><strong>איך זה משפיע על היום שלי?</strong> דוגמה אחת, כמו קושי לעבוד מול מחשב, לנסוע או לשבת בארוחה.</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-notes-medical text-emerald-600 mt-1"></i>
-                            <div><strong>מה כבר עשיתי?</strong> בדיקות וטיפולים, עם תאריכים משוערים. אם טיפול עזר, לכמה זמן?</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-circle-question text-purple-600 mt-1"></i>
-                            <div><strong>מה הכי חשוב לי לשאול?</strong> מה לדעתך יכול להסביר את התסמינים שלי? מה הצעד הבא, ומה הוא אמור לברר?</div>
-                        </li>
-                        <li class="flex items-start gap-3">
-                            <i class="fa-solid fa-file-medical text-sky-700 mt-1"></i>
-                            <div>אם יש לי פענוחים או קבצי הדמיה, אכין אותם מראש כדי שיהיו זמינים בפגישה.</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- הבהרה משפטית ואזהרת אי-לקיחת אחריות -->
-            <div class="p-6 rounded-3xl bg-slate-100 border-2 border-slate-300 shadow-sm space-y-3 text-center my-8">
-                <div class="flex items-center justify-center gap-2 text-navy-800 font-bold text-base">
-                    <i class="fa-solid fa-scale-balanced text-sky-700"></i>
-                    <span>הבהרה משפטית ואזהרת אי-לקיחת אחריות רפואית</span>
-                </div>
-                <p class="text-xs sm:text-sm text-navy-700/90 leading-relaxed max-w-4xl mx-auto">
-                    המידע המופיע בפורטל זה נועד להרחבת הידע הכללי, לתמיכה קהילתית ולהכוונה ראשונית בלבד, ואינו מהווה
-                    בשום אופן ייעוץ רפואי, אבחנה מקצועית, המלצה טיפולית או תחליף להתייעצות עם רופא נוירולוג או מומחה
-                    מוסמך. הצוות הפועל בקהילה הינו מתנדב, ואינו נושא באחריות משפטית או אחרת לכל נזק, ישיר או עקיף, העלול
-                    להיגרם כתוצאה מהסתמכות על המידע המוצג באתר. בכל מקרה של שינוי במצב הרפואי או הופעת תסמינים חריגים,
-                    חובה לפנות מיד לרופא מטפל או לחדר מיון.
-                </p>
-            </div>
-
-        </section>
     </main>
 
-    <footer class="bg-navy-900 text-cream-100 pt-16 pb-12 border-t-2 border-sky-600 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-12 gap-10 pb-12 border-b border-navy-700/60">
-                <div class="md:col-span-5 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-sky-600 rounded-xl text-white font-bold">
-                            <i class="fa-solid fa-shield-heart"></i>
-                        </div>
-                        <div>
-                            <span class="font-heading font-black text-xl text-white">CSF Leak IL</span>
-                            <div class="text-[11px] text-gray-300">קהילת מתמודדי דליפת CSF בישראל</div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 leading-relaxed max-w-sm">
-                        מרחב התנדבותי ללא כוונת רווח, המחבר ומלווה מטופלים ובני משפחה המתמודדים עם דליפת נוזל מוח-שדרה
-                        ו-SIH בישראל.
-                    </p>
-                </div>
+    <!-- רכיב הבהרה משפטית ו-Footer משותף (נטען אוטומטית מ-footer.html / script.js) -->
+    <div id="site-footer-placeholder"></div>
 
-                <div class="md:col-span-3 space-y-2 text-xs text-gray-300">
-                    <div class="font-bold text-white text-sm mb-3">מעבר בין עמודי הפורטל</div>
-                    <div><a href="index.html" class="hover:text-sky-400 transition">דף הבית</a></div>
-                    <div><a href="info.html" class="hover:text-sky-400 transition">מידע רפואי</a></div>
-                    <div><a href="doctors.html" class="hover:text-sky-400 transition">רופאים ומרכזים</a></div>
-                    <div><a href="support.html" class="hover:text-sky-400 transition">תמיכה</a></div>
-                    <div><a href="contact.html" class="hover:text-sky-400 transition">צור קשר</a></div>
-                </div>
-
-                <div class="md:col-span-4 space-y-3">
-                    <div class="font-bold text-white text-sm">ארגונים בינלאומיים שותפים</div>
-                    <p class="text-xs text-gray-400">אנו פועלים בהתאם לפרוטוקולים של הארגונים המובילים בעולם:</p>
-                    <div class="flex flex-col gap-2 text-xs text-sky-400">
-                        <a href="https://spinalcsfleak.org/" target="_blank" rel="noopener noreferrer"
-                            class="cursor-pointer hover:underline">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> Spinal CSF Leak
-                            Foundation (ארה"ב)
-                        </a>
-                        <a href="https://csfleak.uk/" target="_blank" rel="noopener noreferrer"
-                            class="cursor-pointer hover:underline">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> CSF Leak Association
-                            (בריטניה)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pt-8 text-center space-y-3">
-                <div
-                    class="p-4 rounded-2xl bg-white/5 border border-white/10 max-w-4xl mx-auto text-[11px] text-gray-400 leading-relaxed">
-                    <strong class="text-sky-400">הבהרה רפואית חשובה:</strong> כל התכנים, הדיונים והמידע המופיעים בפורטל
-                    "CSF Leak IL" ובקבוצות הקהילה נכתבו על ידי מטופלים ומתנדבים למטרות תמיכה הדדית ושיתוף ידע בלבד. הם
-                    אינם מהווים ייעוץ רפואי, המלצה רפואית או תחליף לפגישה עם רופא נוירולוג או מומחה מוסמך.
-                </div>
-                <div class="text-[11px] text-gray-500">
-                    © 2026 כל הזכויות שמורות • CSF Leak IL • קהילת מתמודדי דליפת CSF בישראל
-                </div>
-            </div>
-        </div>
-    </footer>
     <script src="script.js"></script>
 </body>
 

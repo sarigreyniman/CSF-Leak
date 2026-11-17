@@ -1,366 +1,162 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" class="scroll-smooth">
+<html lang="he" dir="rtl">
 
 <head>
     <meta name="google-site-verification" content="google8c739a2b46051f97" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSF Leak IL • דף הבית</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Assistant', 'sans-serif'],
-                        heading: ['Rubik', 'sans-serif'],
-                    },
-                    colors: {
-                        cream: {50: '#FDFCF9', 100: '#FAF8F4', 200: '#F5F1E9', 300: '#ECE6D9'},
-                        navy: {900: '#0B1726', 800: '#0E2338', 700: '#15324D', 600: '#1D4468'},
-                        tealBrand: {DEFAULT: '#1FA2A6', light: '#E6F7F7', dark: '#147D80', accent: '#3BB4B8'},
-                        gold: {DEFAULT: '#CCA86E', light: '#FAF4E8', dark: '#A68449'}
-                    },
-                    boxShadow: {
-                        'subtle': '0 4px 20px -2px rgba(14, 35, 56, 0.05)',
-                        'card': '0 10px 30px -4px rgba(14, 35, 56, 0.07), 0 1px 3px 0 rgba(204, 168, 110, 0.1)',
-                        'lifted': '0 20px 40px -10px rgba(14, 35, 56, 0.12)',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 
-<body class="min-h-screen flex flex-col selection:bg-tealBrand selection:text-white">
+<body data-current-page="index">
 
-    <!-- הודעות טוסט -->
-    <div id="toastBox"
-        class="fixed bottom-6 left-6 z-50 transform translate-y-36 transition-all duration-300 max-w-md bg-navy-800 text-white px-5 py-4 rounded-2xl shadow-lifted border border-gold/40 flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-tealBrand-accent text-xl"></i>
-        <div class="text-xs sm:text-sm font-medium" id="toastText">הפעולה בוצעה בהצלחה</div>
+    <!-- רכיב Header, תפריט ניווט ונגישות משותף (נטען אוטומטית מ-header.html / script.js) -->
+    <div id="site-header-placeholder"></div>
+
+    <!-- אזור תוכן מרכזי דינמי (נטען מהדף הראשי של הבית ללא רענון דפדפן) -->
+    <main id="page-content" class="main-wrapper">
+<section class="hero-section">
+    <div class="hero-bg-svg">
+        <svg viewBox="0 0 800 800" fill="none">
+            <circle cx="400" cy="400" r="320" stroke="#0284C7" stroke-width="2" stroke-dasharray="10 8" />
+            <circle cx="400" cy="400" r="220" stroke="#0EA5E9" stroke-width="2" />
+            <circle cx="400" cy="400" r="120" stroke="#0369A1" stroke-width="1.5" />
+            <path d="M400 80 L400 720 M80 400 L720 400 M173 173 L627 627 M173 627 L627 173" stroke="#0EA5E9" stroke-width="1.5" />
+        </svg>
     </div>
+    <div class="container hero-content">
+        <h1 class="hero-title">
+            קהילה תומכת ומקושרת לחולי<br>
+            <span class="hero-title-accent">דליפות CSF בישראל</span>
+        </h1>
+        <p class="hero-subtitle">
+            כאן תמצאו מידע רפואי מונגש, הכנה לפגישות ייעוץ, חיבורים ואוזן קשבת.
+        </p>
+        <div>
+            <a href="support.html" data-page="support" class="spa-link btn-primary-lg">
+                <span>הצטרפו אלינו לקהילה</span>
+                <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
+            </a>
+        </div>
+    </div>
+</section>
 
-    <!-- בר עליון -->
-    <div class="bg-navy-900 text-cream-200 text-xs py-2 px-4 border-b border-navy-700/60">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2 text-sky-400">
-                <i class="fa-solid fa-shield-heart"></i>
-                <span class="hidden sm:inline">מרחב בטוח, נטול אינטרסים מסחריים, למתמודדים עם דליפת נוזל מוח-שדרה</span>
-                <span class="sm:hidden">מרחב תמיכה לדליפת CSF</span>
+<section class="section-block">
+    <div class="container grid-asymmetric">
+        <div class="stack-md">
+            <span class="banner-kicker">אודות המיזם</span>
+            <h2 class="banner-title">קהילה שצמחה מתוך הצורך האמיתי בשטח</h2>
+            <p>
+                ההתמודדות עם כאב ראש תנוחתי משתק והצורך לחיות בשכיבה מוחלטת מביאים עימם לעיתים בדידות עצומה וספקות מצד הסביבה והמערכת הרפואית.
+                קהילת <strong>CSF Leak IL</strong> פועלת ללא כוונת רווח, מתוך תחושת שליחות עמוקה, כדי לוודא שאף חולה בישראל לא יצטרך לחפש תשובות לבד בחשכה.
+            </p>
+            <div class="grid-3">
+                <div class="stat-box">
+                    <div class="stat-num">100%</div>
+                    <div class="stat-label">התנדבות ועזרה הדדית</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">ICHD-3</div>
+                    <div class="stat-label">פרוטוקולים בינלאומיים</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-num">24/7</div>
+                    <div class="stat-label">אוזן קשבת לחברים</div>
+                </div>
             </div>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleCalmMode()" id="calmToggleBtn"
-                    class="hover:text-white transition flex items-center gap-1.5 cursor-pointer font-medium">
-                    <i class="fa-solid fa-eye-slash text-sky-400"></i>
-                    <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>
-                </button>
-                <span class="text-navy-600">|</span>
-                <a href="contact.html" class="hover:text-white transition font-bold">סיוע מיידי</a>
+        </div>
+
+        <div class="card-dark stack-md">
+            <div class="icon-box icon-sky">
+                <i class="fa-solid fa-quote-right" aria-hidden="true"></i>
+            </div>
+            <p>
+                "אחרי חודשים של שכיבה בחושך וחוסר ודאות, החיבור לקהילה נתן לי את הכיוון הרפואי המדויק ואת התקווה שאפשר לחזור לעמוד על הרגליים."
+            </p>
+            <div>
+                <strong>מ.ב • חברת קהילה מחלימה</strong>
+                <div class="stat-desc">לאחר סגירת דליפה מוצלחת</div>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Header & Navigation -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <div
-                    class="w-12 h-12 flex-shrink-0 relative overflow-hidden rounded-full border border-sky-200 shadow-sm">
-                    <img src="logo.png" alt="CSF Leak IL - לוגו הקהילה"
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+<section class="section-muted">
+    <div class="container">
+        <div class="section-header-center">
+            <span class="banner-kicker">מעבר מהיר לעמודי הפורטל</span>
+            <h2 class="banner-title">במה נוכל לסייע לך היום?</h2>
+        </div>
+
+        <div class="grid-3">
+            <a href="info.html" data-page="info" class="spa-link card card-Interactive">
+                <div class="stack-sm">
+                    <div class="icon-box icon-sky"><i class="fa-solid fa-stethoscope" aria-hidden="true"></i></div>
+                    <h3>מידע רפואי והכנה לפגישה</h3>
+                    <p>הסבר על תת-לחץ תוך-גולגולתי, סימפטומים, בדיקות הדמיה, טלאי דם (Blood Patch) והכנה ממוקדת לרופא.</p>
                 </div>
-                <div class="flex flex-col">
-                    <span class="font-heading font-black text-lg tracking-tight text-sky-700 leading-none">CSF LEAK
-                        IL</span>
-                    <span class="text-[10px] font-semibold text-slate-600 tracking-tight mt-1">קהילת מתמודדי דליפת CSF
-                        בישראל</span>
-                </div>
+                <div class="banner-kicker">למעבר למידע הרפואי &larr;</div>
             </a>
 
-            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-700">
-                <a href="index.html" class="nav-link py-2 transition hover:text-sky-600">דף הבית</a>
-                <a href="info.html" class="nav-link py-2 transition hover:text-sky-600">מידע רפואי</a>
-                <a href="doctors.html" class="nav-link py-2 transition hover:text-sky-600">רופאים ומרכזים</a>
-                <!-- <a href="discussions.html" class="nav-link py-2 transition hover:text-sky-600">דיונים ושאלות</a> -->
-                <a href="research.html" class="nav-link py-2 transition hover:text-sky-600">חדשות ומחקרים</a>
-                <a href="support.html" class="nav-link py-2 transition hover:text-sky-600">תמיכה</a>
-                <a href="contact.html" class="nav-link py-2 transition hover:text-sky-600">צור קשר</a>
-            </nav>
+            <a href="doctors.html" data-page="doctors" class="spa-link card card-Interactive">
+                <div class="stack-sm">
+                    <div class="icon-box icon-sky"><i class="fa-solid fa-user-doctor" aria-hidden="true"></i></div>
+                    <h3>רופאים ומרכזים בארץ</h3>
+                    <p>אל מי פונים בישראל בכל שלב, תחומי המומחיות הרלוונטיים וצ'ק-ליסט שאלות חובה לפגישת הייעוץ.</p>
+                </div>
+                <div class="banner-kicker">למעבר לרופאים ומרכזים &larr;</div>
+            </a>
 
-            <div class="hidden sm:flex items-center gap-3">
-                <a href="support.html"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm transition">
-                    <i class="fa-brands fa-whatsapp text-white text-sm"></i>
-                    <span>הצטרפות לקבוצה</span>
-                </a>
-            </div>
+            <a href="research.html" data-page="research" class="spa-link card card-Interactive">
+                <div class="stack-sm">
+                    <div class="icon-box icon-purple"><i class="fa-solid fa-flask-vial" aria-hidden="true"></i></div>
+                    <h3>מחקרים ועדכונים מהעולם</h3>
+                    <p>מחקרים קליניים בדקה, הבנת פיסטולות ורידיות, לחץ פתיחה וקישורים לארגונים הבינלאומיים המובילים.</p>
+                </div>
+                <div class="banner-kicker">למעבר למחקרים ועדכונים &larr;</div>
+            </a>
 
-            <button onclick="toggleMobileNav()" aria-label="פתח תפריט"
-                class="lg:hidden p-2.5 rounded-xl text-navy-800 hover:bg-slate-100 transition">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
+            <a href="faq.html" data-page="faq" class="spa-link card card-Interactive">
+                <div class="stack-sm">
+                    <div class="icon-box icon-amber"><i class="fa-solid fa-circle-question" aria-hidden="true"></i></div>
+                    <h3>שאלות נפוצות (FAQ)</h3>
+                    <p>תשובות לשאלות שכל מתמודד חדש שואל: למה לצפות אחרי טלאי דם, מתי פונים למיון ואיך מסבירים למעסיק.</p>
+                </div>
+                <div class="banner-kicker">למעבר לשאלות נפוצות &larr;</div>
+            </a>
+
+            <a href="caregivers.html" data-page="caregivers" class="spa-link card card-Interactive">
+                <div class="stack-sm">
+                    <div class="icon-box icon-teal"><i class="fa-solid fa-hands-holding-heart" aria-hidden="true"></i></div>
+                    <h3>ארגז כלים למשפחה ומלווים</h3>
+                    <p>איך לתמוך בבן משפחה המרותק למיטה מבלי להגיע לשחיקה, הבנת התסמינים השקופים וניהול הבית.</p>
+                </div>
+                <div class="banner-kicker">למעבר למדריך למלווים &larr;</div>
+            </a>
+
+            <a href="support.html" data-page="support" class="spa-link card card-Interactive">
+                <div class="stack-sm">
+                    <div class="icon-box icon-emerald"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i></div>
+                    <h3>קבוצות וואטסאפ ותמיכה</h3>
+                    <p>הצטרפות לקבוצת השיח והתמיכה הפעילה של הקהילה בוואטסאפ, והורדת מדריך PDF מודפס לרופא.</p>
+                </div>
+                <div class="banner-kicker">למעבר לקבוצות התמיכה &larr;</div>
+            </a>
         </div>
+    </div>
+</section>
 
-        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-5 shadow-xl space-y-3">
-            <a href="index.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">דף הבית</a>
-            <a href="info.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">מידע רפואי</a>
-            <a href="doctors.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">רופאים ומרכזים רפואיים</a>
-            <!-- <a href="discussions.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600" onclick="closeMobileNav()">דיונים ושאלות קהילה</a> -->
-            <a href="research.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">חדשות ומחקרים</a>
-            <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">תמיכה</a>
-            <a href="contact.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">צור קשר</a>
-        </div>
-    </header>
-
-    <main class="flex-grow">
-        <section
-            class="relative py-20 lg:py-32 bg-gradient-to-b from-sky-100 via-sky-50 to-white border-b border-slate-200 overflow-hidden text-center">
-            <div class="absolute inset-0 opacity-15 pointer-events-none flex items-center justify-center">
-                <svg viewBox="0 0 800 800" class="w-full h-full max-w-4xl" fill="none">
-                    <circle cx="400" cy="400" r="320" stroke="#0284C7" stroke-width="2" stroke-dasharray="10 8" />
-                    <circle cx="400" cy="400" r="220" stroke="#0EA5E9" stroke-width="2" />
-                    <circle cx="400" cy="400" r="120" stroke="#0369A1" stroke-width="1.5" />
-                    <path d="M400 80 L400 720 M80 400 L720 400 M173 173 L627 627 M173 627 L627 173" stroke="#0EA5E9"
-                        stroke-width="1.5" />
-                </svg>
-            </div>
-            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
-                <div class="space-y-4">
-                    <h1
-                        class="text-3xl sm:text-5xl lg:text-6xl font-heading font-black text-sky-900 tracking-tight leading-tight">
-                        קהילה תומכת ומקושרת לחולי<br>
-                        <span class="text-sky-600">דליפות CSF בישראל</span>
-                    </h1>
-                    <p class="text-base sm:text-xl text-slate-700 max-w-2xl mx-auto font-medium">
-                        כאן תמצאו מידע, חיבורים ואוזן קשבת.
-                    </p>
-                </div>
-                <div class="pt-4 flex flex-col items-center justify-center gap-3">
-                    <a href="support.html"
-                        class="px-8 py-4 rounded-2xl bg-sky-700 hover:bg-sky-800 text-white font-bold text-base shadow-xl shadow-sky-600/20 transition flex items-center gap-3">
-                        <span>הצטרפו אלינו</span>
-                        <div class="w-6 h-6 rounded-full bg-white/20 flex items-center justify-center">
-                            <i class="fa-solid fa-arrow-down text-xs"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-12 gap-10 items-center">
-                <div class="lg:col-span-7 space-y-4">
-                    <span class="text-xs font-bold text-sky-600 uppercase tracking-wider">אודות המיזם</span>
-                    <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy-800">
-                        קהילה שצמחה מתוך הצורך האמיתי בשטח
-                    </h2>
-                    <p class="text-sm text-navy-700/85 leading-relaxed">
-                        ההתמודדות עם כאב ראש תנוחתי משתק והצורך לחיות בשכיבה מוחלטת מביאים עימם לעיתים בדידות עצומה
-                        וספקות מצד הסביבה והמערכת הרפואית.
-                        קהילת <strong>CSF Leak IL</strong> פועלת ללא כוונת רווח, מתוך תחושת שליחות עמוקה, כדי לוודא שאף
-                        חולה בישראל לא יצטרך לחפש תשובות לבד בחשכה.
-                    </p>
-                    <div class="grid sm:grid-cols-3 gap-4 pt-4">
-                        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-subtle text-center">
-                            <div class="text-2xl font-black text-sky-600 font-heading">100%</div>
-                            <div class="text-xs text-gray-500 mt-1">התנדבות ועזרה הדדית</div>
-                        </div>
-                        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-subtle text-center">
-                            <div class="text-2xl font-black text-sky-700 font-heading">ICHD-3</div>
-                            <div class="text-xs text-gray-500 mt-1">פרוטוקולים בינלאומיים</div>
-                        </div>
-                        <div class="p-4 rounded-2xl bg-white border border-slate-200 shadow-subtle text-center">
-                            <div class="text-2xl font-black text-sky-800 font-heading">24/7</div>
-                            <div class="text-xs text-gray-500 mt-1">אוזן קשבת לחברים</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div
-                    class="lg:col-span-5 bg-navy-900 text-white p-8 rounded-3xl border border-sky-500/30 shadow-card relative overflow-hidden">
-                    <div
-                        class="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-400 text-lg mb-4">
-                        <i class="fa-solid fa-quote-right"></i>
-                    </div>
-                    <p class="text-sm leading-relaxed text-slate-200 font-normal italic mb-6">
-                        צריך להעלות טקסט
-                    </p>
-                    <div class="flex items-center gap-3 border-t border-slate-800 pt-4">
-                        <div
-                            class="w-9 h-9 rounded-full bg-sky-500/30 flex items-center justify-center text-sky-300 font-bold text-xs">
-                            מ.ב</div>
-                        <div>
-                            <div class="text-xs font-bold text-white">חברת קהילה מחלימה</div>
-                            <div class="text-[10px] text-gray-400">לאחר סגירת דליפה מוצלחת</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-12 bg-sky-50/50 border-t border-slate-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="text-center max-w-2xl mx-auto mb-10">
-                    <span class="text-xs font-bold text-sky-700 tracking-wider uppercase">מעבר מהיר לעמודי הפורטל</span>
-                    <h2 class="text-2xl sm:text-3xl font-heading font-bold text-navy-800 mt-1">במה נוכל לסייע לך היום?
-                    </h2>
-                </div>
-
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <a href="info.html"
-                        class="calm-target-card group p-6 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
-                        <div>
-                            <div
-                                class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-stethoscope"></i>
-                            </div>
-                            <h3 class="font-heading font-bold text-lg text-navy-800 mb-2">מידע רפואי מעמיק</h3>
-                            <p class="text-xs text-navy-700/80 leading-relaxed">
-                                הסבר על תת-לחץ תוך-גולגולתי, סימפטומים, בדיקות MRI מוח ועמוד שדרה, וטלאי דם (Blood
-                                Patch).
-                            </p>
-                        </div>
-                        <div
-                            class="mt-6 flex items-center gap-1.5 text-xs font-bold text-sky-600 group-hover:text-navy-800">
-                            <span>למעבר למידע הרפואי</span>
-                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
-                        </div>
-                    </a>
-
-                    <a href="doctors.html"
-                        class="calm-target-card group p-6 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
-                        <div>
-                            <div
-                                class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-user-doctor"></i>
-                            </div>
-                            <h3 class="font-heading font-bold text-lg text-navy-800 mb-2">רופאים ומרכזים בארץ</h3>
-                            <p class="text-xs text-navy-700/80 leading-relaxed">
-                                אל מי פונים בישראל, הנחיות לקבלת טופס 17 וערעורים, וצ'ק ליסט שאלות למפגש ייעוץ.
-                            </p>
-                        </div>
-                        <div
-                            class="mt-6 flex items-center gap-1.5 text-xs font-bold text-sky-600 group-hover:text-navy-800">
-                            <span>למעבר לרופאים ומרכזים</span>
-                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
-                        </div>
-                    </a>
-
-                    <!-- <a href="discussions.html" class="calm-target-card group p-6 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
-                        <div>
-                            <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-4 group-hover:bg-sky-600 group-hover:text-white transition">
-                                <i class="fa-solid fa-comments"></i>
-                            </div>
-                            <h3 class="font-heading font-bold text-lg text-navy-800 mb-2">דיונים ושאלות קהילה</h3>
-                            <p class="text-xs text-navy-700/80 leading-relaxed">
-                                פורום שאלות ותשובות פתוח: התייעצות לפני פרוצדורה, זכויות בביטוח לאומי, וטיפים לחיים בשכיבה.
-                            </p>
-                        </div>
-                        <div class="mt-6 flex items-center gap-1.5 text-xs font-bold text-sky-600 group-hover:text-navy-800">
-                            <span>למעבר לפורום הקהילה</span>
-                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
-                        </div>
-                    </a> -->
-
-                    <a href="support.html"
-                        class="calm-target-card group p-6 rounded-2xl bg-white border border-slate-200 shadow-card hover:shadow-lifted transition-all flex flex-col justify-between">
-                        <div>
-                            <div
-                                class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4 group-hover:bg-emerald-600 group-hover:text-white transition">
-                                <i class="fa-brands fa-whatsapp"></i>
-                            </div>
-                            <h3 class="font-heading font-bold text-lg text-navy-800 mb-2">קבוצות וואטסאפ וקשר</h3>
-                            <p class="text-xs text-navy-700/80 leading-relaxed">
-                                הצטרפות לקבוצת העדכונים השקטה או לקבוצת השיח הפעילה, ופנייה אישית ומאובטחת לצוות.
-                            </p>
-                        </div>
-                        <div
-                            class="mt-6 flex items-center gap-1.5 text-xs font-bold text-emerald-600 group-hover:text-navy-800">
-                            <span>לקבוצות התמיכה</span>
-                            <i class="fa-solid fa-arrow-left text-[10px]"></i>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
     </main>
 
-    <footer class="bg-navy-900 text-cream-100 pt-16 pb-12 border-t-2 border-sky-600 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-12 gap-10 pb-12 border-b border-navy-700/60">
-                <div class="md:col-span-5 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-sky-600 rounded-xl text-white font-bold">
-                            <i class="fa-solid fa-shield-heart"></i>
-                        </div>
-                        <div>
-                            <span class="font-heading font-black text-xl text-white">CSF Leak IL</span>
-                            <div class="text-[11px] text-gray-300">קהילת מתמודדי דליפת CSF בישראל</div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 leading-relaxed max-w-sm">
-                        מרחב התנדבותי ללא כוונת רווח, המחבר ומלווה מטופלים ובני משפחה המתמודדים עם דליפת נוזל מוח-שדרה
-                        ו-SIH בישראל.
-                    </p>
-                </div>
+    <!-- רכיב הבהרה משפטית ו-Footer משותף (נטען אוטומטית מ-footer.html / script.js) -->
+    <div id="site-footer-placeholder"></div>
 
-                <div class="md:col-span-3 space-y-2 text-xs text-gray-300">
-                    <div class="font-bold text-white text-sm mb-3">מעבר בין עמודי הפורטל</div>
-                    <div><a href="index.html" class="hover:text-sky-400 transition">דף הבית</a></div>
-                    <div><a href="info.html" class="hover:text-sky-400 transition">מידע רפואי</a></div>
-                    <div><a href="doctors.html" class="hover:text-sky-400 transition">רופאים ומרכזים</a></div>
-                    <!-- <div><a href="discussions.html" class="hover:text-sky-400 transition">דיונים ושאלות</a></div> -->
-                    <div><a href="support.html" class="hover:text-sky-400 transition">תמיכה</a></div>
-                    <div><a href="contact.html" class="hover:text-sky-400 transition">צור קשר</a></div>
-                </div>
-
-                <div class="md:col-span-4 space-y-3">
-                    <div class="font-bold text-white text-sm">ארגונים בינלאומיים שותפים</div>
-                    <p class="text-xs text-gray-400">אנו פועלים בהתאם לפרוטוקולים של הארגונים המובילים בעולם:</p>
-                    <div class="flex flex-col gap-2 text-xs text-sky-400">
-                        <a href="https://spinalcsfleak.org/" target="_blank" rel="noopener noreferrer"
-                            class="cursor-pointer hover:underline">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> Spinal CSF Leak
-                            Foundation (ארה"ב)
-                        </a>
-                        <a href="https://csfleak.uk/" target="_blank" rel="noopener noreferrer"
-                            class="cursor-pointer hover:underline">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> CSF Leak Association
-                            (בריטניה)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pt-8 text-center space-y-3">
-                <div
-                    class="p-4 rounded-2xl bg-white/5 border border-white/10 max-w-4xl mx-auto text-[11px] text-gray-400 leading-relaxed">
-                    <strong class="text-sky-400">הבהרה רפואית חשובה:</strong> כל התכנים, הדיונים והמידע המופיעים בפורטל
-                    "CSF Leak IL" ובקבוצות הקהילה נכתבו על ידי מטופלים ומתנדבים למטרות תמיכה הדדית ושיתוף ידע בלבד. הם
-                    אינם מהווים ייעוץ רפואי, המלצה רפואית או תחליף לפגישה עם רופא נוירולוג או מומחה מוסמך.
-                </div>
-                <div class="text-[11px] text-gray-500">
-                    © 2026 כל הזכויות שמורות • CSF Leak IL • קהילת מתמודדי דליפת CSF בישראל
-                </div>
-            </div>
-        </div>
-    </footer>
     <script src="script.js"></script>
 </body>
 

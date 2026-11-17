@@ -1,180 +1,401 @@
-// פונקציות גלובליות לאתר CSF Leak IL
+/* ==========================================================================
+   CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js) - גרסה מלאה ומתוקנת
+   כולל 4 המרכזים הרפואיים: שערי צדק, איכילוב, רמב"ם ושיבא
+   ========================================================================== */
 
-window.addEventListener('DOMContentLoaded', () => {
-    const currentPath = window.location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.nav-link').forEach(link => {
-        const href = link.getAttribute('href');
-        if (href === currentPath || (currentPath === '' && href === 'index.html')) {
-            link.classList.add('active');
-        }
-    });
+const SHARED_HEADER_FALLBACK = "<!-- הודעות טוסט מערכתיות -->\n<div id=\"toastBox\" class=\"toast-notification\" role=\"status\" aria-live=\"polite\">\n    <i class=\"fa-solid fa-circle-check\" aria-hidden=\"true\"></i>\n    <span id=\"toastText\">הפעולה בוצעה בהצלחה</span>\n</div>\n\n<!-- ווידג'ט נגישות קבוע לכל האתר -->\n<button type=\"button\" id=\"accToggleBtn\" class=\"acc-widget-btn\" aria-label=\"פתיחת תפריט נגישות\" aria-expanded=\"false\" aria-controls=\"accWidgetPanel\">\n    <i class=\"fa-solid fa-universal-access\" aria-hidden=\"true\"></i>\n</button>\n\n<div id=\"accWidgetPanel\" class=\"acc-widget-panel hidden\" role=\"dialog\" aria-label=\"תפריט התאמות נגישות\">\n    <div class=\"acc-panel-header\">\n        <div>\n            <i class=\"fa-solid fa-universal-access\" aria-hidden=\"true\"></i>\n            <span>כלי נגישות ותצוגה</span>\n        </div>\n        <button type=\"button\" id=\"accCloseBtn\" class=\"acc-panel-close\" aria-label=\"סגירת תפריט נגישות\">\n            <i class=\"fa-solid fa-xmark\" aria-hidden=\"true\"></i>\n        </button>\n    </div>\n    <div class=\"acc-panel-body\">\n        <button type=\"button\" class=\"acc-option-btn\" data-acc-action=\"calm\">\n            <span><i class=\"fa-solid fa-eye-slash\" aria-hidden=\"true\"></i> מצב קריאה עדין (לכאב ראש)</span>\n            <span>פעיל/כבוי</span>\n        </button>\n        <button type=\"button\" class=\"acc-option-btn\" data-acc-action=\"font-lg\">\n            <span><i class=\"fa-solid fa-text-height\" aria-hidden=\"true\"></i> הגדלת טקסט בינונית</span>\n            <span>א+</span>\n        </button>\n        <button type=\"button\" class=\"acc-option-btn\" data-acc-action=\"font-xl\">\n            <span><i class=\"fa-solid fa-magnifying-glass-plus\" aria-hidden=\"true\"></i> הגדלת טקסט מקסימלית</span>\n            <span>א++</span>\n        </button>\n        <button type=\"button\" class=\"acc-option-btn\" data-acc-action=\"contrast\">\n            <span><i class=\"fa-solid fa-circle-half-stroke\" aria-hidden=\"true\"></i> ניגודיות גבוהה (כהה)</span>\n            <span>ניגודיות</span>\n        </button>\n        <button type=\"button\" class=\"acc-option-btn\" data-acc-action=\"links\">\n            <span><i class=\"fa-solid fa-underline\" aria-hidden=\"true\"></i> הדגשת קישורים בקו תחתון</span>\n            <span>קישורים</span>\n        </button>\n        <button type=\"button\" class=\"acc-option-btn\" data-acc-action=\"readable\">\n            <span><i class=\"fa-solid fa-font\" aria-hidden=\"true\"></i> גופן קריא וריווח שורות</span>\n            <span>קריאות</span>\n        </button>\n        <button type=\"button\" class=\"acc-option-btn\" data-acc-action=\"animations\">\n            <span><i class=\"fa-solid fa-pause\" aria-hidden=\"true\"></i> עצירת אנימציות והבהובים</span>\n            <span>תנועה</span>\n        </button>\n        <button type=\"button\" class=\"acc-reset-btn\" data-acc-action=\"reset\">\n            <i class=\"fa-solid fa-rotate-left\" aria-hidden=\"true\"></i> איפוס הגדרות נגישות\n        </button>\n    </div>\n</div>\n\n<!-- בר עליון -->\n<div class=\"top-bar\">\n    <div class=\"container top-bar-inner\">\n        <div class=\"top-bar-badge\">\n            <i class=\"fa-solid fa-shield-heart\" aria-hidden=\"true\"></i>\n            <span>מרחב בטוח, נטול אינטרסים מסחריים, למתמודדים עם דליפת נוזל מוח-שדרה</span>\n        </div>\n        <div class=\"top-bar-actions\">\n            <button type=\"button\" id=\"calmToggleBtn\" class=\"btn-calm-mode\">\n                <i class=\"fa-solid fa-eye-slash\" aria-hidden=\"true\"></i>\n                <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>\n            </button>\n            <span class=\"top-divider\" aria-hidden=\"true\">|</span>\n            <a href=\"contact.html\" data-page=\"contact\" class=\"spa-link urgent-link\">סיוע מיידי</a>\n        </div>\n    </div>\n</div>\n\n<!-- Header & Navigation -->\n<header class=\"site-header\">\n    <div class=\"container header-inner\">\n        <a href=\"index.html\" data-page=\"index\" class=\"spa-link brand-link\">\n            <div class=\"brand-logo-wrap\">\n                <img src=\"logo.png\" alt=\"CSF Leak IL - לוגו הקהילה\" class=\"brand-logo\">\n            </div>\n            <div class=\"brand-text\">\n                <span class=\"brand-title\">CSF LEAK IL</span>\n                <span class=\"brand-subtitle\">קהילת מתמודדי דליפת CSF בישראל</span>\n            </div>\n        </a>\n\n        <nav class=\"main-nav\" aria-label=\"תפריט ניווט ראשי\">\n            <a href=\"index.html\" data-page=\"index\" class=\"nav-link spa-link\">דף הבית</a>\n            <a href=\"info.html\" data-page=\"info\" class=\"nav-link spa-link\">מידע רפואי</a>\n            <a href=\"doctors.html\" data-page=\"doctors\" class=\"nav-link spa-link\">רופאים ומרכזים</a>\n            <a href=\"research.html\" data-page=\"research\" class=\"nav-link spa-link\">חדשות ומחקרים</a>\n            <a href=\"faq.html\" data-page=\"faq\" class=\"nav-link spa-link\">שאלות נפוצות</a>\n            <a href=\"caregivers.html\" data-page=\"caregivers\" class=\"nav-link spa-link\">משפחה ומלווים</a>\n            <a href=\"support.html\" data-page=\"support\" class=\"nav-link spa-link\">תמיכה</a>\n            <a href=\"contact.html\" data-page=\"contact\" class=\"nav-link spa-link\">צור קשר</a>\n        </nav>\n\n        <div class=\"header-cta\">\n            <a href=\"support.html\" data-page=\"support\" class=\"spa-link btn-whatsapp-nav\">\n                <i class=\"fa-brands fa-whatsapp\" aria-hidden=\"true\"></i>\n                <span>הצטרפות לקבוצה</span>\n            </a>\n        </div>\n\n        <button type=\"button\" id=\"mobileMenuBtn\" class=\"mobile-menu-btn\" aria-label=\"פתיחת תפריט ניווט בנייד\">\n            <i class=\"fa-solid fa-bars\" aria-hidden=\"true\"></i>\n        </button>\n    </div>\n\n    <div id=\"mobileMenu\" class=\"mobile-nav hidden\">\n        <a href=\"index.html\" data-page=\"index\" class=\"spa-link\">דף הבית</a>\n        <a href=\"info.html\" data-page=\"info\" class=\"spa-link\">מידע רפואי</a>\n        <a href=\"doctors.html\" data-page=\"doctors\" class=\"spa-link\">רופאים ומרכזים רפואיים</a>\n        <a href=\"research.html\" data-page=\"research\" class=\"spa-link\">חדשות ומחקרים</a>\n        <a href=\"faq.html\" data-page=\"faq\" class=\"spa-link\">שאלות נפוצות (FAQ)</a>\n        <a href=\"caregivers.html\" data-page=\"caregivers\" class=\"spa-link\">משפחה ומלווים</a>\n        <a href=\"support.html\" data-page=\"support\" class=\"spa-link\">תמיכה</a>\n        <a href=\"contact.html\" data-page=\"contact\" class=\"spa-link\">צור קשר</a>\n    </div>\n</header>\n";
+
+const SHARED_FOOTER_FALLBACK = "<!-- הבהרה משפטית ואזהרת אי-לקיחת אחריות רפואית קבועה -->\n<section class=\"container legal-disclaimer-section\">\n    <div class=\"legal-disclaimer-box\">\n        <div class=\"legal-disclaimer-title\">\n            <i class=\"fa-solid fa-scale-balanced\" aria-hidden=\"true\"></i>\n            <span>הבהרה משפטית ואזהרת אי-לקיחת אחריות רפואית</span>\n        </div>\n        <p class=\"legal-disclaimer-text\">\n            המידע המופיע בפורטל זה נועד להרחבת הידע הכללי, לתמיכה קהילתית ולהכוונה ראשונית בלבד, ואינו מהווה בשום אופן ייעוץ רפואי, אבחנה מקצועית, המלצה טיפולית או תחליף להתייעצות עם רופא נוירולוג או מומחה מוסמך. הצוות הפועל בקהילה הינו מתנדב, ואינו נושא באחריות משפטית או אחרת לכל נזק, ישיר או עקיף, העלול להיגרם כתוצאה מהסתמכות על המידע המוצג באתר. בכל מקרה של שינוי במצב הרפואי או הופעת תסמינים חריגים, חובה לפנות מיד לרופא מטפל או לחדר מיון.\n        </p>\n    </div>\n</section>\n\n<!-- פוטר משותף לכל עמודי האתר -->\n<footer class=\"site-footer\">\n    <div class=\"container\">\n        <div class=\"footer-grid\">\n            <div class=\"stack-sm\">\n                <div class=\"brand-link\">\n                    <div class=\"brand-logo-wrap\">\n                        <img src=\"logo.png\" alt=\"לוגו CSF Leak IL\" class=\"brand-logo\">\n                    </div>\n                    <div class=\"brand-text\">\n                        <span class=\"brand-title\">CSF Leak IL</span>\n                        <span class=\"brand-subtitle\">קהילת מתמודדי דליפת CSF בישראל</span>\n                    </div>\n                </div>\n                <p class=\"footer-links-list\">\n                    מרחב התנדבותי ללא כוונת רווח, המחבר ומלווה מטופלים ובני משפחה המתמודדים עם דליפת נוזל מוח-שדרה ו-SIH בישראל.\n                </p>\n            </div>\n\n            <div class=\"footer-links-list\">\n                <strong>מעבר בין עמודי הפורטל</strong>\n                <a href=\"index.html\" data-page=\"index\" class=\"spa-link\">דף הבית</a>\n                <a href=\"info.html\" data-page=\"info\" class=\"spa-link\">מידע רפואי והכנה לפגישה</a>\n                <a href=\"doctors.html\" data-page=\"doctors\" class=\"spa-link\">רופאים ומרכזים</a>\n                <a href=\"research.html\" data-page=\"research\" class=\"spa-link\">חדשות ומחקרים</a>\n                <a href=\"faq.html\" data-page=\"faq\" class=\"spa-link\">שאלות נפוצות (FAQ)</a>\n                <a href=\"caregivers.html\" data-page=\"caregivers\" class=\"spa-link\">ארגז כלים למשפחה ומלווים</a>\n                <a href=\"support.html\" data-page=\"support\" class=\"spa-link\">קבוצות תמיכה</a>\n                <a href=\"contact.html\" data-page=\"contact\" class=\"spa-link\">צור קשר</a>\n            </div>\n\n            <div class=\"footer-links-list\">\n                <strong>ארגונים בינלאומיים שותפים</strong>\n                <p>אנו פועלים בהתאם לפרוטוקולים של הארגונים המובילים בעולם:</p>\n                <a href=\"https://spinalcsfleak.org/\" target=\"_blank\" rel=\"noopener noreferrer\">\n                    <i class=\"fa-solid fa-arrow-up-right-from-square\" aria-hidden=\"true\"></i> Spinal CSF Leak Foundation (ארה\"ב)\n                </a>\n                <a href=\"https://csfleak.uk/\" target=\"_blank\" rel=\"noopener noreferrer\">\n                    <i class=\"fa-solid fa-arrow-up-right-from-square\" aria-hidden=\"true\"></i> CSF Leak Association (בריטניה)\n                </a>\n            </div>\n        </div>\n\n        <div class=\"footer-bottom\">\n            <div class=\"footer-mini-disclaimer\">\n                <strong>הבהרה רפואית חשובה:</strong> כל התכנים, הדיונים והמידע המופיעים בפורטל \"CSF Leak IL\" ובקבוצות הקהילה נכתבו על ידי מטופלים ומתנדבים למטרות תמיכה הדדית ושיתוף ידע בלבד. הם אינם מהווים ייעוץ רפואי, המלצה רפואית או תחליף לפגישה עם רופא נוירולוג או מומחה מוסמך.\n            </div>\n            <div>\n                © 2026 כל הזכויות שמורות • CSF Leak IL • קהילת מתמודדי דליפת CSF בישראל\n            </div>\n        </div>\n    </div>\n</footer>\n";
+
+const PAGES_CACHE = {
+    "index": {
+        "title": "CSF Leak IL • דף הבית",
+        "html": "<section class=\"hero-section\">\n    <div class=\"hero-bg-svg\">\n        <svg viewBox=\"0 0 800 800\" fill=\"none\">\n            <circle cx=\"400\" cy=\"400\" r=\"320\" stroke=\"#0284C7\" stroke-width=\"2\" stroke-dasharray=\"10 8\" />\n            <circle cx=\"400\" cy=\"400\" r=\"220\" stroke=\"#0EA5E9\" stroke-width=\"2\" />\n            <circle cx=\"400\" cy=\"400\" r=\"120\" stroke=\"#0369A1\" stroke-width=\"1.5\" />\n            <path d=\"M400 80 L400 720 M80 400 L720 400 M173 173 L627 627 M173 627 L627 173\" stroke=\"#0EA5E9\" stroke-width=\"1.5\" />\n        </svg>\n    </div>\n    <div class=\"container hero-content\">\n        <h1 class=\"hero-title\">\n            קהילה תומכת ומקושרת לחולי<br>\n            <span class=\"hero-title-accent\">דליפות CSF בישראל</span>\n        </h1>\n        <p class=\"hero-subtitle\">\n            כאן תמצאו מידע רפואי מונגש, הכנה לפגישות ייעוץ, חיבורים ואוזן קשבת.\n        </p>\n        <div>\n            <a href=\"support.html\" data-page=\"support\" class=\"spa-link btn-primary-lg\">\n                <span>הצטרפו אלינו לקהילה</span>\n                <i class=\"fa-solid fa-arrow-left\" aria-hidden=\"true\"></i>\n            </a>\n        </div>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container grid-asymmetric\">\n        <div class=\"stack-md\">\n            <span class=\"banner-kicker\">אודות המיזם</span>\n            <h2 class=\"banner-title\">קהילה שצמחה מתוך הצורך האמיתי בשטח</h2>\n            <p>\n                ההתמודדות עם כאב ראש תנוחתי משתק והצורך לחיות בשכיבה מוחלטת מביאים עימם לעיתים בדידות עצומה וספקות מצד הסביבה והמערכת הרפואית.\n                קהילת <strong>CSF Leak IL</strong> פועלת ללא כוונת רווח, מתוך תחושת שליחות עמוקה, כדי לוודא שאף חולה בישראל לא יצטרך לחפש תשובות לבד בחשכה.\n            </p>\n            <div class=\"grid-3\">\n                <div class=\"stat-box\">\n                    <div class=\"stat-num\">100%</div>\n                    <div class=\"stat-label\">התנדבות ועזרה הדדית</div>\n                </div>\n                <div class=\"stat-box\">\n                    <div class=\"stat-num\">ICHD-3</div>\n                    <div class=\"stat-label\">פרוטוקולים בינלאומיים</div>\n                </div>\n                <div class=\"stat-box\">\n                    <div class=\"stat-num\">24/7</div>\n                    <div class=\"stat-label\">אוזן קשבת לחברים</div>\n                </div>\n            </div>\n        </div>\n\n        <div class=\"card-dark stack-md\">\n            <div class=\"icon-box icon-sky\">\n                <i class=\"fa-solid fa-quote-right\" aria-hidden=\"true\"></i>\n            </div>\n            <p>\n                \"אחרי חודשים של שכיבה בחושך וחוסר ודאות, החיבור לקהילה נתן לי את הכיוון הרפואי המדויק ואת התקווה שאפשר לחזור לעמוד על הרגליים.\"\n            </p>\n            <div>\n                <strong>מ.ב • חברת קהילה מחלימה</strong>\n                <div class=\"stat-desc\">לאחר סגירת דליפה מוצלחת</div>\n            </div>\n        </div>\n    </div>\n</section>\n\n<section class=\"section-muted\">\n    <div class=\"container\">\n        <div class=\"section-header-center\">\n            <span class=\"banner-kicker\">מעבר מהיר לעמודי הפורטל</span>\n            <h2 class=\"banner-title\">במה נוכל לסייע לך היום?</h2>\n        </div>\n\n        <div class=\"grid-3\">\n            <a href=\"info.html\" data-page=\"info\" class=\"spa-link card card-Interactive\">\n                <div class=\"stack-sm\">\n                    <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-stethoscope\" aria-hidden=\"true\"></i></div>\n                    <h3>מידע רפואי והכנה לפגישה</h3>\n                    <p>הסבר על תת-לחץ תוך-גולגולתי, סימפטומים, בדיקות הדמיה, טלאי דם (Blood Patch) והכנה ממוקדת לרופא.</p>\n                </div>\n                <div class=\"banner-kicker\">למעבר למידע הרפואי &larr;</div>\n            </a>\n\n            <a href=\"doctors.html\" data-page=\"doctors\" class=\"spa-link card card-Interactive\">\n                <div class=\"stack-sm\">\n                    <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-user-doctor\" aria-hidden=\"true\"></i></div>\n                    <h3>רופאים ומרכזים בארץ</h3>\n                    <p>אל מי פונים בישראל בכל שלב, תחומי המומחיות הרלוונטיים וצ'ק-ליסט שאלות חובה לפגישת הייעוץ.</p>\n                </div>\n                <div class=\"banner-kicker\">למעבר לרופאים ומרכזים &larr;</div>\n            </a>\n\n            <a href=\"research.html\" data-page=\"research\" class=\"spa-link card card-Interactive\">\n                <div class=\"stack-sm\">\n                    <div class=\"icon-box icon-purple\"><i class=\"fa-solid fa-flask-vial\" aria-hidden=\"true\"></i></div>\n                    <h3>מחקרים ועדכונים מהעולם</h3>\n                    <p>מחקרים קליניים בדקה, הבנת פיסטולות ורידיות, לחץ פתיחה וקישורים לארגונים הבינלאומיים המובילים.</p>\n                </div>\n                <div class=\"banner-kicker\">למעבר למחקרים ועדכונים &larr;</div>\n            </a>\n\n            <a href=\"faq.html\" data-page=\"faq\" class=\"spa-link card card-Interactive\">\n                <div class=\"stack-sm\">\n                    <div class=\"icon-box icon-amber\"><i class=\"fa-solid fa-circle-question\" aria-hidden=\"true\"></i></div>\n                    <h3>שאלות נפוצות (FAQ)</h3>\n                    <p>תשובות לשאלות שכל מתמודד חדש שואל: למה לצפות אחרי טלאי דם, מתי פונים למיון ואיך מסבירים למעסיק.</p>\n                </div>\n                <div class=\"banner-kicker\">למעבר לשאלות נפוצות &larr;</div>\n            </a>\n\n            <a href=\"caregivers.html\" data-page=\"caregivers\" class=\"spa-link card card-Interactive\">\n                <div class=\"stack-sm\">\n                    <div class=\"icon-box icon-teal\"><i class=\"fa-solid fa-hands-holding-heart\" aria-hidden=\"true\"></i></div>\n                    <h3>ארגז כלים למשפחה ומלווים</h3>\n                    <p>איך לתמוך בבן משפחה המרותק למיטה מבלי להגיע לשחיקה, הבנת התסמינים השקופים וניהול הבית.</p>\n                </div>\n                <div class=\"banner-kicker\">למעבר למדריך למלווים &larr;</div>\n            </a>\n\n            <a href=\"support.html\" data-page=\"support\" class=\"spa-link card card-Interactive\">\n                <div class=\"stack-sm\">\n                    <div class=\"icon-box icon-emerald\"><i class=\"fa-brands fa-whatsapp\" aria-hidden=\"true\"></i></div>\n                    <h3>קבוצות וואטסאפ ותמיכה</h3>\n                    <p>הצטרפות לקבוצת השיח והתמיכה הפעילה של הקהילה בוואטסאפ, והורדת מדריך PDF מודפס לרופא.</p>\n                </div>\n                <div class=\"banner-kicker\">למעבר לקבוצות התמיכה &larr;</div>\n            </a>\n        </div>\n    </div>\n</section>\n"
+    },
+    "info": {
+        "title": "CSF Leak IL • מידע רפואי מקיף והכנה לפגישה",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <span class=\"banner-kicker\">אנציקלופדיית הידע של הקהילה</span>\n        <h1 class=\"banner-title\">מדריך רפואי מקיף: דליפת נוזל מוח-שדרה (CSF Leak)</h1>\n        <p class=\"banner-desc\">\n            מהו נוזל ה-CSF ולמה הוא משמש, מדוע נוצר כאב ראש תנוחתי, פירוט מלא של התסמינים, סוגי הדליפות, אבחון, טיפולים והכנה לפגישה רפואית.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container\">\n        <div class=\"tabs-bar\" id=\"medicalTabContainer\" role=\"tablist\" aria-label=\"לשוניות מידע רפואי\">\n            <button type=\"button\" role=\"tab\" aria-selected=\"true\" data-med-tab=\"mechanism\" class=\"tab-btn active\">מה זה CSF, גורמים וסוגים</button>\n            <button type=\"button\" role=\"tab\" aria-selected=\"false\" data-med-tab=\"symptoms\" class=\"tab-btn\">תסמינים קליניים</button>\n            <button type=\"button\" role=\"tab\" aria-selected=\"false\" data-med-tab=\"imaging\" class=\"tab-btn\">כיצד מאבחנים?</button>\n            <button type=\"button\" role=\"tab\" aria-selected=\"false\" data-med-tab=\"treatment\" class=\"tab-btn\">דרכי טיפול והנחיות</button>\n            <button type=\"button\" role=\"tab\" aria-selected=\"false\" data-med-tab=\"preparation\" class=\"tab-btn\">הכנה לפגישה רפואית</button>\n        </div>\n\n        <div id=\"med-tab-mechanism\" role=\"tabpanel\" class=\"stack-lg\">\n            <div class=\"card stack-md\">\n                <div class=\"card-header-flex\">\n                    <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-chart-pie\" aria-hidden=\"true\"></i></div>\n                    <div>\n                        <h3>מספרים וסטטיסטיקות בעולם דליפות ה-CSF</h3>\n                        <span class=\"stat-desc\">הכנת קרקע מדעית ומקצועית למתמודדים</span>\n                    </div>\n                </div>\n                <div class=\"grid-3\">\n                    <div class=\"stat-box\">\n                        <div class=\"stat-num\">5 : 100,000</div>\n                        <div class=\"stat-label\">שכיחות מוערכת בשנה</div>\n                        <p class=\"stat-desc\">אך בפועל ההערכה היא שמקרים רבים אינם מאובחנים כלל.</p>\n                    </div>\n                    <div class=\"stat-box\">\n                        <div class=\"stat-num amber\">20%</div>\n                        <div class=\"stat-label\">מלכודת ה-MRI התקין</div>\n                        <p class=\"stat-desc\">לחמישית מהחולים המאובחנים יש בדיקת MRI מוח ראשונית תקינה לחלוטין!</p>\n                    </div>\n                    <div class=\"stat-box\">\n                        <div class=\"stat-num emerald\">60%-75%</div>\n                        <div class=\"stat-label\">הצלחת טלאי דם ראשון</div>\n                        <p class=\"stat-desc\">אחוזי הצלחה גבוהים בשיפור משמעותי של התסמינים כבר לאחר פרוצדורה ראשונה.</p>\n                    </div>\n                </div>\n            </div>\n\n            <div class=\"grid-asymmetric\">\n                <div class=\"stack-md\">\n                    <div class=\"card stack-sm\">\n                        <h2>מה זה CSF ולמה הוא משמש?</h2>\n                        <p>\n                            בתוך הגולגולת ועמוד השדרה קיים נוזל צלול הנקרא <strong>CSF (Cerebrospinal Fluid – נוזל מוחי-שדרתי)</strong>, המיוצר בקביעות בהיקף של כ-500 מ\"ל ביממה ומוגן בתוך מעטפת אטומה הנקראת קרום הדורה (Dura Mater). לנוזל זה שני תפקידים קריטיים:\n                        </p>\n                        <div class=\"grid-2\">\n                            <div class=\"callout-box callout-sky\">\n                                <strong><i class=\"fa-solid fa-feather-pointed\" aria-hidden=\"true\"></i> 1. \"כרית אוויר\" וציפה</strong>\n                                <p>המוח שוקל כ-1.5 ק\"ג, אך בזכות הציפה בתוך הנוזל משקלו האפקטיבי צונח ל<strong>כ-50 גרם בלבד</strong>.</p>\n                            </div>\n                            <div class=\"callout-box callout-sky\">\n                                <strong><i class=\"fa-solid fa-scale-balanced\" aria-hidden=\"true\"></i> 2. איזון לחצים והזנה</strong>\n                                <p>הנוזל שומר על סביבה יציבה, מספק חומרי הזנה לגוף ומפנה פסולת מטבולית.</p>\n                            </div>\n                        </div>\n                    </div>\n\n                    <div class=\"card stack-sm\">\n                        <h2>למה כואב הראש?</h2>\n                        <p>כאב הראש המאפיין המרכזי של דליפת CSF הוא <strong>כאב ראש תנוחתי (אורתוסטטי)</strong>:</p>\n                        <div class=\"callout-box callout-red\">\n                            <strong><i class=\"fa-solid fa-person-standing\" aria-hidden=\"true\"></i> בעמידה / הליכה / ישיבה:</strong>\n                            <p>כוח הכובד מושך את המוח כלפי מטה עקב אובדן הציפה (Brain Sagging), מה שמותח קרומים ועצבים ומייצר כאב עז.</p>\n                        </div>\n                        <div class=\"callout-box callout-sky\">\n                            <strong><i class=\"fa-solid fa-bed\" aria-hidden=\"true\"></i> בשכיבה שטוחה:</strong>\n                            <p>המוח חוזר למקומו הטבעי והכאב פוחת באופן משמעותי בתוך 15 עד 45 דקות.</p>\n                        </div>\n                    </div>\n                </div>\n\n                <div class=\"stack-md\">\n                    <div class=\"card stack-sm\">\n                        <span class=\"banner-kicker\">גורמים</span>\n                        <h3>ממה נגרמת הדליפה?</h3>\n                        <div class=\"grid-2\">\n                            <div class=\"callout-box callout-slate\"><strong>1. ניקור מותני (LP)</strong></div>\n                            <div class=\"callout-box callout-slate\"><strong>2. זריקת אפידורל</strong></div>\n                            <div class=\"callout-box callout-slate\"><strong>3. תאונה / מכה חזקה</strong></div>\n                            <div class=\"callout-box callout-slate\"><strong>4. דליפה ספונטנית</strong></div>\n                        </div>\n                    </div>\n\n                    <div class=\"card stack-sm\">\n                        <span class=\"banner-kicker\">סיווג אנטומי</span>\n                        <h3>סוגי דליפות שדרתיות</h3>\n                        <div class=\"callout-box callout-slate\">\n                            <strong>1. קרע במעטפת הדורה (Ventral Dural Tear)</strong>\n                            <p>חור או חתך קטן עקב בליטה גרמית זעירה (דרבן עצם דוקר) בעמוד השדרה.</p>\n                        </div>\n                        <div class=\"callout-box callout-slate\">\n                            <strong>2. ציסטה שנפרצה (Meningeal Diverticulum)</strong>\n                            <p>התרחבות טבעית של כיסית שורש עצב שנמתחת ונקרעת.</p>\n                        </div>\n                        <div class=\"callout-box callout-slate\">\n                            <strong>3. פיסטולה ורידית (CSF-Venous Fistula)</strong>\n                            <p>חיבור לא תקין בין שק הנוזל ישירות לווריד שדרתי (MRI רגיל לרוב ייראה תקין).</p>\n                        </div>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div id=\"med-tab-symptoms\" role=\"tabpanel\" class=\"stack-lg hidden\">\n            <div class=\"stack-sm\">\n                <h2>הקשת הרחבה של התסמינים הקליניים</h2>\n                <p>מכיוון שהצניחה של המוח מותחת עצבים שונים, דליפת נוזל שדרה גורמת לתסמינים רב-מערכתיים מגוונים:</p>\n            </div>\n            <div class=\"grid-asymmetric\">\n                <div class=\"grid-2\">\n                    <div class=\"card-subtle stack-sm\">\n                        <div class=\"icon-box icon-red\"><i class=\"fa-solid fa-head-side-virus\" aria-hidden=\"true\"></i></div>\n                        <h3>ראש</h3>\n                        <p>כאבי ראש תנוחתיים (אורתוסטטיים) החמורים בעמידה ובישיבה ומוקלים בשכיבה.</p>\n                    </div>\n                    <div class=\"card-subtle stack-sm\">\n                        <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-ear-listen\" aria-hidden=\"true\"></i></div>\n                        <h3>אוזניים ושמיעה</h3>\n                        <p>טנטון (צפצופים או דופק באוזניים), אטימות ומלאות (\"כמו במטוס\"), ורגישות חריגה לרעש.</p>\n                    </div>\n                    <div class=\"card-subtle stack-sm\">\n                        <div class=\"icon-box icon-teal\"><i class=\"fa-solid fa-eye\" aria-hidden=\"true\"></i></div>\n                        <h3>ראייה</h3>\n                        <p>רגישות חזקה לאור (פוטופוביה), ראייה מטושטשת או כפולה וכאב עיניים.</p>\n                    </div>\n                    <div class=\"card-subtle stack-sm\">\n                        <div class=\"icon-box icon-amber\"><i class=\"fa-solid fa-user-injured\" aria-hidden=\"true\"></i></div>\n                        <h3>צוואר ושכמות</h3>\n                        <p>נוקשות בצוואר וכאב חזק ברווח שבין השכמות (כאב \"קולב\" / Coat-hanger ache).</p>\n                    </div>\n                    <div class=\"card-subtle stack-sm\">\n                        <div class=\"icon-box icon-emerald\"><i class=\"fa-solid fa-scale-unbalanced\" aria-hidden=\"true\"></i></div>\n                        <h3>תחושות גוף ושיווי משקל</h3>\n                        <p>סחרחורת קלה, תחושת שיוט, חוסר יציבות בהליכה, בחילות והקאות.</p>\n                    </div>\n                    <div class=\"card-subtle stack-sm\">\n                        <div class=\"icon-box icon-purple\"><i class=\"fa-solid fa-brain\" aria-hidden=\"true\"></i></div>\n                        <h3>קוגניציה, אנרגיה ותסמינים נוספים</h3>\n                        <p>ערפול מוחי (Brain Fog), קושי בריכוז ובשליפת מילים, עייפות כבדה, רעידות ודופק מהיר.</p>\n                    </div>\n                </div>\n                <div class=\"card stack-sm\">\n                    <img src=\"symptoms-infographic.jpg\" alt=\"אינפוגרפיקה המסכמת את פיזור התסמינים בדליפת נוזל מוח-שדרה\">\n                    <p class=\"stat-desc\">תרשים קליני מסכם: פיזור התסמינים הרב-מערכתיים בדליפת נוזל מוח-שדרה (CSF Leak)</p>\n                </div>\n            </div>\n        </div>\n\n        <div id=\"med-tab-imaging\" role=\"tabpanel\" class=\"stack-md hidden\">\n            <div class=\"stack-sm\">\n                <h2>כיצד מאבחנים? בדיקות עזר והדמיות מרכזיות</h2>\n                <p>לחצו על כל בדיקה לצפייה בפרוטוקול המלא:</p>\n            </div>\n            <div class=\"stack-sm\">\n                <div class=\"accordion-item\">\n                    <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"diag-1\" aria-expanded=\"false\">\n                        <span class=\"accordion-title-wrap\">\n                            <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-diag-1\" aria-hidden=\"true\"></i>\n                            <span>1. MRI מוח ועמוד שדרה מלא עם חומר ניגוד (Gadolinium)</span>\n                        </span>\n                        <span class=\"badge-pill badge-sky\">בדיקת קו ראשון</span>\n                    </button>\n                    <div id=\"content-diag-1\" class=\"accordion-body hidden stack-sm\">\n                        <p><strong>מהי הבדיקה:</strong> בדיקת תהודה מגנטית של המוח (עם גדוליניום) לאיתור סימני SEEPS (האדרה דורלית, צניחת מוחון, הרחבת סינוסים ורידיים), וכן סריקת עמוד שדרה מלא (MR Myelography) לאיתור נוזל מחוץ לדורה.</p>\n                        <div class=\"callout-box callout-amber\"><strong>שימו לב:</strong> בכ-20% מהחולים עם דליפה מוכחת, ה-MRI המוחי תקין לחלוטין! MRI תקין אינו שולל דליפה.</div>\n                    </div>\n                </div>\n                <div class=\"accordion-item\">\n                    <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"diag-2\" aria-expanded=\"false\">\n                        <span class=\"accordion-title-wrap\">\n                            <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-diag-2\" aria-hidden=\"true\"></i>\n                            <span>2. CT מילוגרפיה (CT Myelography)</span>\n                        </span>\n                        <span class=\"badge-pill badge-amber\">דימות פולשני</span>\n                    </button>\n                    <div id=\"content-diag-2\" class=\"accordion-body hidden stack-sm\">\n                        <p><strong>מהי הבדיקה:</strong> בדיקת CT של עמוד השדרה לאחר הזרקת חומר ניגוד ישירות לתוך שק השדרה תחת שיקוף, המאפשרת לאתר דליפות מהירות, נקב דורלי או דרבן עצם דוקר.</p>\n                    </div>\n                </div>\n                <div class=\"accordion-item\">\n                    <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"diag-3\" aria-expanded=\"false\">\n                        <span class=\"accordion-title-wrap\">\n                            <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-diag-3\" aria-hidden=\"true\"></i>\n                            <span>3. מיאלוגרפיה דינמית בשיקוף רנטגן (DSM)</span>\n                        </span>\n                        <span class=\"badge-pill badge-purple\">מתקדם מאוד</span>\n                    </button>\n                    <div id=\"content-diag-3\" class=\"accordion-body hidden stack-sm\">\n                        <p><strong>מהי הבדיקה:</strong> הבדיקה המתקדמת ביותר (Digital Subtraction Myelography) המבוצעת על ידי נוירו-רדיולוג פולשני במספר תנוחות לאיתור מדויק של פיסטולות ורידיות (CSF-Venous Fistula) ודליפות זעירות.</p>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div id=\"med-tab-treatment\" role=\"tabpanel\" class=\"stack-md hidden\">\n            <div class=\"stack-sm\">\n                <h2>דרכי טיפול, חוק ה-BLT ולחץ חוזר</h2>\n                <p>לחצו על כל סעיף לקריאת ההנחיות המלאות:</p>\n            </div>\n            <div class=\"stack-sm\">\n                <div class=\"accordion-item\">\n                    <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"treat-1\" aria-expanded=\"false\">\n                        <span class=\"accordion-title-wrap\">\n                            <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-treat-1\" aria-hidden=\"true\"></i>\n                            <span>1. השלב השמרני (מנוחה, נוזלים וקפאין)</span>\n                        </span>\n                        <span class=\"badge-pill badge-sky\">שלב ראשוני</span>\n                    </button>\n                    <div id=\"content-treat-1\" class=\"accordion-body hidden\">\n                        <p>שכיבה שטוחה ממושכת, שתייה מרובה (3–4 ליטרים ביום) בשילוב מלחים/אלקטרוליטים, צריכת קפאין מוגברת המעודדת ייצור CSF ומכווצת כלי דם, ושימוש בחגורת בטן אלסטית.</p>\n                    </div>\n                </div>\n                <div class=\"accordion-item\">\n                    <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"treat-2\" aria-expanded=\"false\">\n                        <span class=\"accordion-title-wrap\">\n                            <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-treat-2\" aria-hidden=\"true\"></i>\n                            <span>2. טלאי דם אפידורלי (Epidural Blood Patch - EBP) וחוק ה-BLT</span>\n                        </span>\n                        <span class=\"badge-pill badge-solid-sky\">הטיפול הנפוץ</span>\n                    </button>\n                    <div id=\"content-treat-2\" class=\"accordion-body hidden stack-sm\">\n                        <p><strong>התהליך:</strong> שאיבת 20–40 מ\"ל דם ורידי עצמי והזרקתו לחלל האפידורלי בעמוד השדרה ליצירת אטימה ביולוגית טבעית והעלאת הלחץ סביב המוח.</p>\n                        <div class=\"callout-box callout-sky\">\n                            <strong>הנחיות קריטיות לאחר הפעולה (חוק ה-BLT):</strong> שכיבה אופקית מוחלטת למשך 2–4 שעות מיד לאחר הפעולה. לאחר מכן, במשך 4–6 שבועות יש להקפיד על: <strong>No Bending</strong> (ללא התכופפות), <strong>No Lifting</strong> (ללא הרמת משקל מעל 2–3 ק\"ג), ו-<strong>No Twisting</strong> (ללא פיתולי גב).\n                        </div>\n                    </div>\n                </div>\n                <div class=\"accordion-item\">\n                    <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"treat-3\" aria-expanded=\"false\">\n                        <span class=\"accordion-title-wrap\">\n                            <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-treat-3\" aria-hidden=\"true\"></i>\n                            <span>3. טלאי ממוקד עם דבק פיברין (Targeted Patch / Fibrin Glue)</span>\n                        </span>\n                        <span class=\"badge-pill badge-emerald\">ממוקד מטרה</span>\n                    </button>\n                    <div id=\"content-treat-3\" class=\"accordion-body hidden\">\n                        <p>הזרקת דם או דבק ביולוגי ייעודי (Fibrin Glue) תחת שיקוף רנטגן או CT בדיוק בנקודת הדליפה המזוהה.</p>\n                    </div>\n                </div>\n                <div class=\"accordion-item\">\n                    <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"treat-4\" aria-expanded=\"false\">\n                        <span class=\"accordion-title-wrap\">\n                            <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-treat-4\" aria-hidden=\"true\"></i>\n                            <span>4. צנתור ואמבוליזציה ורידית (Embolization) או תיקון כירורגי</span>\n                        </span>\n                        <span class=\"badge-pill badge-purple\">פרוצדורות ממוקדות</span>\n                    </button>\n                    <div id=\"content-treat-4\" class=\"accordion-body hidden\">\n                        <p>אמבוליזציה מיועדת לחסימת פיסטולות ורידיות מבפנים באמצעות צנתור ורידי ללא ניתוח פתוח. במקרים של קרע דורלי עיקש או דרבן עצם, מתבצע תיקון מיקרו-כירורגי על ידי נוירוכירורג.</p>\n                    </div>\n                </div>\n                <div class=\"accordion-item\">\n                    <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"treat-5\" aria-expanded=\"false\">\n                        <span class=\"accordion-title-wrap\">\n                            <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-treat-5\" aria-hidden=\"true\"></i>\n                            <span>5. תופעת \"לחץ חוזר\" (Rebound High Pressure)</span>\n                        </span>\n                        <span class=\"badge-pill badge-amber\">מידע חשוב לאחר אטימה</span>\n                    </button>\n                    <div id=\"content-treat-5\" class=\"accordion-body hidden\">\n                        <p><strong>מה זה?</strong> כאשר הדליפה נאטמת בהצלחה, הגוף שהתרגל לייצר נוזל בקצב מוגבר עלול לפתח עודף לחץ זמני. הכאב מתהפך: מורגש במצח ומאחורי העיניים, מתגבר בשכיבה ומשתפר בעמידה. זוהי לא הישנות של הדליפה אלא סימן מעודד שהחור נאטם! מטופל לרוב בתרופות המפחיתות ייצור נוזל (דיאמוקס/אורמוקס) והגבהת הראש בכריות.</p>\n                    </div>\n                </div>\n            </div>\n        </div>\n\n        <div id=\"med-tab-preparation\" role=\"tabpanel\" class=\"stack-md hidden\">\n            <div class=\"stack-sm\">\n                <h2>הכנה לפגישה רפואית 📝</h2>\n                <p>כשהולכים לרופא בנושא, כדאי להתמקד ולהגיע מוכנים עם הנתונים הבאים:</p>\n            </div>\n            <div class=\"card\">\n                <ul class=\"feature-list\">\n                    <li class=\"feature-list-item\">\n                        <i class=\"fa-solid fa-calendar-days\" aria-hidden=\"true\"></i>\n                        <div><strong>מתי זה התחיל?</strong> תאריך משוער ומה קרה סביב ההתחלה, אם זכור לי.</div>\n                    </li>\n                    <li class=\"feature-list-item\">\n                        <i class=\"fa-solid fa-triangle-exclamation\" aria-hidden=\"true\"></i>\n                        <div><strong>מה אני מרגיש/ה?</strong> שניים או שלושה תסמינים שהכי מפריעים לי.</div>\n                    </li>\n                    <li class=\"feature-list-item\">\n                        <i class=\"fa-solid fa-arrows-up-down\" aria-hidden=\"true\"></i>\n                        <div><strong>האם יש קשר לתנוחה?</strong> מה קורה בישיבה, בעמידה ובשכיבה? אם יש שינוי, אחרי כמה זמן הוא מורגש?</div>\n                    </li>\n                    <li class=\"feature-list-item\">\n                        <i class=\"fa-solid fa-heart-pulse\" aria-hidden=\"true\"></i>\n                        <div><strong>איך זה משפיע על היום שלי?</strong> דוגמה אחת, כמו קושי לעבוד מול מחשב, לנסוע או לשבת בארוחה.</div>\n                    </li>\n                    <li class=\"feature-list-item\">\n                        <i class=\"fa-solid fa-notes-medical\" aria-hidden=\"true\"></i>\n                        <div><strong>מה כבר עשיתי?</strong> בדיקות וטיפולים, עם תאריכים משוערים. אם טיפול עזר, לכמה זמן?</div>\n                    </li>\n                    <li class=\"feature-list-item\">\n                        <i class=\"fa-solid fa-circle-question\" aria-hidden=\"true\"></i>\n                        <div><strong>מה הכי חשוב לי לשאול?</strong> מה לדעתך יכול להסביר את התסמינים שלי? מה הצעד הבא, ומה הוא אמור לברר?</div>\n                    </li>\n                    <li class=\"feature-list-item\">\n                        <i class=\"fa-solid fa-file-medical\" aria-hidden=\"true\"></i>\n                        <div><strong>הדמיות ומסמכים:</strong> אם יש לי פענוחים או קבצי הדמיה (דיסקים), אכין אותם מראש כדי שיהיו זמינים בפגישה.</div>\n                    </li>\n                </ul>\n            </div>\n        </div>\n    </div>\n</section>\n"
+    },
+    "doctors": {
+        "title": "CSF Leak IL • רופאים ומרכזים רפואיים",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <span class=\"banner-kicker\">ניווט מקצועי במערכת הבריאות</span>\n        <h1 class=\"banner-title\">רופאים ומרכזים רפואיים בישראל</h1>\n        <p class=\"banner-desc\">\n            המרכזים הרפואיים והמומחים המובילים בישראל לאבחון וטיפול בדליפות נוזל מוח-שדרה (CSF Leak) ותת-לחץ תוך-גולגולתי (SIH).\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container stack-lg\">\n\n        <!-- ניווט לעמודי המרכזים הרפואיים -->\n        <div class=\"stack-md\">\n            <div class=\"stack-sm\">\n                <span class=\"banner-kicker\">מוקדי מצוינות קלינית</span>\n                <h2>המרכזים הרפואיים לטיפול בדליפות CSF בישראל</h2>\n                <p>בחרו במרכז הרפואי כדי לעבור לעמוד המרכז ולצפות בפרופילי המומחים, תחומי הטיפול ופרטי יצירת הקשר:</p>\n            </div>\n\n            <div class=\"centers-grid-nav\">\n                \n                <!-- 1. שערי צדק (מרכזי) -->\n                <a href=\"center-szmc.html\" data-page=\"center-szmc\" class=\"spa-link center-nav-card featured-center\">\n                    <div class=\"center-nav-top\">\n                        <span class=\"badge-pill badge-solid-sky\"><i class=\"fa-solid fa-star\" aria-hidden=\"true\"></i> המרכז הארצי המרכזי</span>\n                        <span class=\"center-loc\"><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> ירושלים</span>\n                    </div>\n                    <div class=\"center-nav-Main\">\n                        <div class=\"center-icon-wrap\"><i class=\"fa-solid fa-hospital\" aria-hidden=\"true\"></i></div>\n                        <div>\n                            <h3>המרכז הרפואי שערי צדק</h3>\n                            <p>מוקד המצוינות הרב-תחומי המרכזי בישראל לאבחון וטיפול בדליפות CSF: שירות כאבי ראש, דימות מתקדם ונוירוכירורגיה.</p>\n                        </div>\n                    </div>\n                    <div class=\"center-nav-footer\">\n                        <span><i class=\"fa-solid fa-user-doctor\" aria-hidden=\"true\"></i> ד\"ר אברהם אשכנזי • ד\"ר אליאל בן דוד • ד\"ר דניאל אגיון</span>\n                        <span class=\"center-open-btn\">לעמוד המרכז וצוות הרופאים <i class=\"fa-solid fa-arrow-left\" aria-hidden=\"true\"></i></span>\n                    </div>\n                </a>\n\n                <!-- 2. איכילוב -->\n                <a href=\"center-ichilov.html\" data-page=\"center-ichilov\" class=\"spa-link center-nav-card\">\n                    <div class=\"center-nav-top\">\n                        <span class=\"badge-pill badge-sky\">מרכז הארץ</span>\n                        <span class=\"center-loc\"><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> תל אביב</span>\n                    </div>\n                    <h3>המרכז הרפואי איכילוב</h3>\n                    <p>אבחון רדיולוגי מתקדם (DSM, CT Myelography) וצנתורים ורידיים לפיסטולות CSF.</p>\n                    <div class=\"center-nav-footer\">\n                        <span>ד\"ר אודי שדה</span>\n                        <span class=\"center-open-btn\">לעמוד המרכז <i class=\"fa-solid fa-arrow-left\" aria-hidden=\"true\"></i></span>\n                    </div>\n                </a>\n\n                <!-- 3. רמב\"ם -->\n                <a href=\"center-rambam.html\" data-page=\"center-rambam\" class=\"spa-link center-nav-card\">\n                    <div class=\"center-nav-top\">\n                        <span class=\"badge-pill badge-teal\">מוקד הצפון</span>\n                        <span class=\"center-loc\"><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> חיפה</span>\n                    </div>\n                    <h3>הקריה הרפואית רמב\"ם</h3>\n                    <p>מערך משולב של נוירורדיולוגיה פולשנית ומחלקת נוירוכירורגיה לתיקון דליפות שדרתיות.</p>\n                    <div class=\"center-nav-footer\">\n                        <span>ד\"ר גיל צור • פרופ' גיל סוירי</span>\n                        <span class=\"center-open-btn\">לעמוד המרכז <i class=\"fa-solid fa-arrow-left\" aria-hidden=\"true\"></i></span>\n                    </div>\n                </a>\n\n                <!-- 4. שיבא תל השומר -->\n                <a href=\"center-sheba.html\" data-page=\"center-sheba\" class=\"spa-link center-nav-card\">\n                    <div class=\"center-nav-top\">\n                        <span class=\"badge-pill badge-purple\">אזור המרכז</span>\n                        <span class=\"center-loc\"><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> רמת גן</span>\n                    </div>\n                    <h3>המרכז הרפואי שיבא</h3>\n                    <p>המרכז הנוירו-וסקולרי והיחידה לנוירורדיולוגיה התערבותית וצנתורי מוח וחוט שדרה.</p>\n                    <div class=\"center-nav-footer\">\n                        <span>ד\"ר דוד אוריון</span>\n                        <span class=\"center-open-btn\">לעמוד המרכז <i class=\"fa-solid fa-arrow-left\" aria-hidden=\"true\"></i></span>\n                    </div>\n                </a>\n            </div>\n        </div>\n\n        <!-- הסבר על תחומי המומחיות -->\n        <div class=\"stack-md\">\n            <h2>איזה מומחה אתם צריכים בכל שלב?</h2>\n            <div class=\"grid-4\">\n                <div class=\"card-subtle stack-sm\">\n                    <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-brain\" aria-hidden=\"true\"></i></div>\n                    <h3>נוירולוגים מומחי כאב ראש</h3>\n                    <p>הצעד הראשון. נותנים את האבחנה הקלינית הראשונית, מבדילים ממיגרנה ומפנים ל-MRI מוח ושדרה עם גדוליניום.</p>\n                </div>\n\n                <div class=\"card-subtle stack-sm\">\n                    <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-eye\" aria-hidden=\"true\"></i></div>\n                    <h3>נוירו-רדיולוגים פולשניים (INR)</h3>\n                    <p>אנשי המפתח שמפענחים בדיקות עמוד שדרה ברגישות גבוהה ומבצעים מילוגרפיה וטלאי דם ממוקדים תחת שיקוף ו-CT.</p>\n                </div>\n\n                <div class=\"card-subtle stack-sm\">\n                    <div class=\"icon-box icon-emerald\"><i class=\"fa-solid fa-syringe\" aria-hidden=\"true\"></i></div>\n                    <h3>מרדימים / מרפאות כאב</h3>\n                    <p>מבצעים לעיתים קרובות את טלאי הדם האפידורלי הלא-ממוקד הראשון בחלל האפידורלי המותני.</p>\n                </div>\n\n                <div class=\"card-subtle stack-sm\">\n                    <div class=\"icon-box icon-purple\"><i class=\"fa-solid fa-hospital-user\" aria-hidden=\"true\"></i></div>\n                    <h3>נוירוכירורגים של עמוד שדרה</h3>\n                    <p>מעורבים במקרים מורכבים שבהם זוהה קרע דורלי שמחייב תפירה מיקרו-כירורגית או שיוף בליטה גרמית דוקרת.</p>\n                </div>\n            </div>\n        </div>\n\n        <!-- צ'ק ליסט שאלות לרופא -->\n        <div class=\"card stack-md\">\n            <h2>צ'ק-ליסט: שאלות מומלצות לרופא בפגישת הייעוץ</h2>\n            <div class=\"grid-2\">\n                <div class=\"callout-box callout-slate\">\n                    <strong>• הערכה קלינית ודיסקים של הדמיות:</strong> האם הבאתי עמי את הדיסקים הפיזיים של בדיקות ה-MRI/CT (ולא רק פענוח כתוב) כדי לבחון סימני SEEPS במוח או נוזל מחוץ לדורה?\n                </div>\n                <div class=\"callout-box callout-slate\">\n                    <strong>• המשך בירור במקרה של MRI מוח תקין:</strong> בהתחשב בכך שעד 20% מחולי דליפת CSF מציגים MRI מוח תקין, האם נכון להפנותי ל-MRI עמוד שדרה מלא או לייעוץ נוירו-רדיולוג פולשני?\n                </div>\n                <div class=\"callout-box callout-slate\">\n                    <strong>• נפח טלאי הדם (Blood Patch):</strong> איזה נפח דם צפוי להיות מוזרק בפרוצדורת ה-EBP? (הספרות המקצועית ממליצה על נפח של לפחות 15–20 סמ\"ק, ולעיתים 20–40 מ\"ל בהתאם לסבילות).\n                </div>\n                <div class=\"callout-box callout-slate\">\n                    <strong>• הנחיית שיקוף ומיקום ההזרקה:</strong> האם הפרוצדורה תבוצע תחת שיקוף רנטגן/CT ממוקד או כטלאי דם \"עיוור\"? האם ישולב דבק פיברין (Fibrin Glue)?\n                </div>\n                <div class=\"callout-box callout-slate\">\n                    <strong>• זמן שכיבה בהתאוששות וחוק ה-BLT:</strong> האם מובטחת לי שכיבה אופקית שטוחה לחלוטין של 2–4 שעות במחלקת ההתאוששות לאחר הטלאי?\n                </div>\n                <div class=\"callout-box callout-slate\">\n                    <strong>• היערכות ל\"לחץ חוזר\" (Rebound Pressure):</strong> במידה ויופיע כאב ראש במצח שמתגבר בשכיבה לאחר הפעולה, למי עליי לדווח ומהו פרוטוקול המרשם לדיאמוקס/אורמוקס?\n                </div>\n            </div>\n            <div>\n                <button type=\"button\" id=\"downloadPdfBtn\" class=\"btn-primary-lg\">\n                    <i class=\"fa-solid fa-file-pdf\" aria-hidden=\"true\"></i>\n                    <span>הורדת מדריך CSF רפואי מלא וצ'ק-ליסט לרופא (PDF)</span>\n                </button>\n            </div>\n        </div>\n    </div>\n</section>"
+    },
+    "research": {
+        "title": "CSF Leak IL • מחקרים ועדכונים מהעולם",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <span class=\"banner-kicker\">מדע, מחקר וכלים לפגישה רפואית</span>\n        <h1 class=\"banner-title\">מחקרים, תובנות ודגשים למטופלים</h1>\n        <p class=\"banner-desc\">\n            סקירות מדעיות, הסברים על בדיקות ואבחונים, קישורים לארגונים בינלאומיים וכלים מעשיים להכנה לפגישה עם הצוות הרפואי.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container-narrow stack-lg\">\n        <div class=\"card stack-sm\">\n            <div class=\"card-header-flex\">\n                <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-book-open\" aria-hidden=\"true\"></i></div>\n                <h2>1. מחקר בדקה 📚 | איך דליפת CSF שדרתית משפיעה על איכות החיים?</h2>\n            </div>\n            <p><strong>מה בדקו?</strong> חוקרים שאלו אנשים עם דליפה שדרתית על איכות החיים והבריאות הנפשית שלהם לפני תיקון הדליפה בניתוח ואחריו.</p>\n            <p><strong>מה מצאו?</strong> בקרב המשתתפים שנבדקו לאחר הניתוח נצפה שיפור באיכות החיים ובמדדים של בריאות נפשית. המחקר מתאר תוצאות בקבוצת אנשים שעברו ניתוח, והתוצאות יכולות להשתנות מאדם לאדם.</p>\n            <div class=\"callout-box callout-sky\">\n                <strong>מה אפשר לקחת לפגישה?</strong> לצד התיאור של הכאב, כדאי לספר גם מה השתנה בחיים עצמם. למשל, ״פעם יכולתי לשבת בארוחה משפחתית שלמה, והיום אני צריכה לשכב באמצע״.\n            </div>\n            <div>\n                <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC10996905/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"banner-kicker\">\n                    למאמר המלא של Volz ועמיתיו, 2024 <i class=\"fa-solid fa-arrow-up-right-from-square\" aria-hidden=\"true\"></i>\n                </a>\n            </div>\n        </div>\n\n        <div class=\"card stack-sm\">\n            <div class=\"card-header-flex\">\n                <div class=\"icon-box icon-purple\"><i class=\"fa-solid fa-droplet\" aria-hidden=\"true\"></i></div>\n                <h2>2. מה זו פיסטולת CSF–וריד? 💧</h2>\n            </div>\n            <p>פיסטולה היא חיבור לא תקין. במקרה הזה, החיבור מאפשר לנוזל מוח־שדרה לעבור ישירות לווריד סמוך בעמוד השדרה.</p>\n            <div class=\"callout-box callout-purple\">\n                <strong>למה זה חשוב בבירור?</strong> מכיוון שהנוזל עובר לווריד, הוא עשוי שלא להצטבר סביב עמוד השדרה. כשיש חשד לפיסטולה, הצוות יכול לשקול מיאלוגרפיה ייעודית כדי לחפש את החיבור.\n            </div>\n            <div>\n                <a href=\"https://pmc.ncbi.nlm.nih.gov/articles/PMC10958270/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"banner-kicker\">\n                    סקירה רפואית עם תמונות והסברים על סוגי הדליפות <i class=\"fa-solid fa-arrow-up-right-from-square\" aria-hidden=\"true\"></i>\n                </a>\n            </div>\n        </div>\n\n        <div class=\"card stack-sm\">\n            <div class=\"card-header-flex\">\n                <div class=\"icon-box icon-amber\"><i class=\"fa-solid fa-clock\" aria-hidden=\"true\"></i></div>\n                <h2>3. כאב ראש תנוחתי — מה כדאי לשים לב אליו? 🕒</h2>\n            </div>\n            <p>כאב ראש תנוחתי משתנה בהתאם לתנוחה. בדליפת CSF שדרתית, הדפוס האופייני הוא כאב שמחמיר בישיבה או בעמידה ומשתפר בשכיבה. לפעמים השינוי מורגש מהר, ולפעמים רק אחרי זמן מה.</p>\n            <p>לקראת הפגישה אפשר לחשוב על יום טיפוסי. איך הרגשתי כשקמתי בבוקר? מתי התחיל הכאב? מה קרה כשנשכבתי, ואחרי כמה זמן?</p>\n            <div class=\"callout-box callout-amber\">\n                גם תיאור פשוט יכול לעזור: ״בבוקר אני מרגישה טוב יחסית. אחרי שעה מול המחשב הראש מתחיל לכאוב, ובשכיבה הכאב נחלש בהדרגה״.\n            </div>\n            <div>\n                <a href=\"https://spinalcsfleak.org/about-spinal-csf-leaks/symptoms-of-spinal-csf-leak/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"banner-kicker\">\n                    הסבר למטופלים על תסמינים של דליפת CSF שדרתית <i class=\"fa-solid fa-arrow-up-right-from-square\" aria-hidden=\"true\"></i>\n                </a>\n            </div>\n        </div>\n\n        <div class=\"card stack-sm\">\n            <div class=\"card-header-flex\">\n                <div class=\"icon-box icon-emerald\"><i class=\"fa-solid fa-clipboard-check\" aria-hidden=\"true\"></i></div>\n                <h2>4. עשיתי Blood Patch. מה כדאי לספר במעקב? 📝</h2>\n            </div>\n            <p>במעקב כדאי לתאר <strong>מה השתנה ולכמה זמן</strong>. אפשר לרשום שלוש שורות בטלפון:</p>\n            <ul class=\"feature-list\">\n                <li class=\"feature-list-item\"><i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i><div><strong>מה השתפר?</strong> למשל, ״הצלחתי לשבת לארוחת ערב בלי לקום באמצע כדי לשכב״.</div></li>\n                <li class=\"feature-list-item\"><i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i><div><strong>כמה זמן זה נמשך?</strong> למשל, ״השיפור התחיל ביום השני ונמשך כשבוע״.</div></li>\n                <li class=\"feature-list-item\"><i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i><div><strong>איך אני מרגישה עכשיו?</strong> האם חזרו התסמינים שהיו לפני הטיפול, או שהופיע משהו שונה?</div></li>\n            </ul>\n            <div class=\"callout-box callout-emerald\">\n                גם ״לא הרגשתי שינוי״ הוא מידע שכדאי להביא למעקב.\n            </div>\n            <div>\n                <a href=\"https://jnnp.bmj.com/content/early/2023/05/04/jnnp-2023-331166\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"banner-kicker\">\n                    הנחיות רפואיות על טיפול ומעקב בדליפת CSF שדרתית ספונטנית <i class=\"fa-solid fa-arrow-up-right-from-square\" aria-hidden=\"true\"></i>\n                </a>\n            </div>\n        </div>\n\n        <div class=\"card stack-sm\">\n            <div class=\"card-header-flex\">\n                <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-magnifying-glass-chart\" aria-hidden=\"true\"></i></div>\n                <h2>5. מה זה ״לחץ פתיחה״, ומה אומר ערך תקין? 🔍</h2>\n            </div>\n            <p>לחץ פתיחה הוא הלחץ של נוזל מוח־השדרה שנמדד בתחילת ניקור מותני, לפני שלוקחים דגימה.</p>\n            <p>בסקירה של מחקרים, בערך <strong>אחד מכל שלושה</strong> מהמטופלים שנמדד אצלם לחץ פתיחה קיבל ערך תקין, אף שהייתה להם תסמונת הקשורה לדליפה שדרתית ספונטנית. לכן הרופאים מפרשים את המספר יחד עם התסמינים וההדמיה. לפי ההנחיות, בדרך כלל אין צורך לבצע ניקור מותני רק כדי לבדוק את הלחץ כשיש חשד לדליפה שדרתית ספונטנית.</p>\n            <div class=\"top-bar-actions\">\n                <a href=\"https://jamanetwork.com/journals/jamaneurology/fullarticle/2774171\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"banner-kicker\">\n                    המחקר ב־JAMA Neurology <i class=\"fa-solid fa-arrow-up-right-from-square\" aria-hidden=\"true\"></i>\n                </a>\n                <span>·</span>\n                <a href=\"https://jnnp.bmj.com/content/early/2023/05/04/jnnp-2023-331166\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"banner-kicker\">\n                    הנחיות האבחון <i class=\"fa-solid fa-arrow-up-right-from-square\" aria-hidden=\"true\"></i>\n                </a>\n            </div>\n        </div>\n\n        <div class=\"card stack-md\">\n            <div class=\"card-header-flex\">\n                <div class=\"icon-box icon-sky\"><i class=\"fa-solid fa-globe\" aria-hidden=\"true\"></i></div>\n                <div>\n                    <h2>ארגונים בינלאומיים מובילים</h2>\n                    <span class=\"stat-desc\">גופים מרכזיים המובילים את המחקר והמודעות העולמית</span>\n                </div>\n            </div>\n            <div class=\"grid-2\">\n                <a href=\"https://spinalcsfleak.org/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"card-subtle card-Interactive\">\n                    <div class=\"stack-sm\">\n                        <h3>Spinal CSF Leak Foundation (ארה\"ב)</h3>\n                        <p>הארגון המוביל בארצות הברית להעלאת מודעות, תמיכה במחקרים קליניים והנגשת מידע מעודכן לחולים ולרופאים.</p>\n                    </div>\n                    <span class=\"banner-kicker\">מעבר לאתר הרשמי &larr;</span>\n                </a>\n                <a href=\"https://csfleak.uk/\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"card-subtle card-Interactive\">\n                    <div class=\"stack-sm\">\n                        <h3>CSF Leak Association (בריטניה)</h3>\n                        <p>עמותה בריטית מובילה הפועלת לסיוע לחולים, ליווי מערכתי וקידום סטנדרטים טיפוליים מתקדמים באירופה.</p>\n                    </div>\n                    <span class=\"banner-kicker\">מעבר לאתר הרשמי &larr;</span>\n                </a>\n            </div>\n        </div>\n    </div>\n</section>\n"
+    },
+    "faq": {
+        "title": "CSF Leak IL • שאלות נפוצות (FAQ)",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <span class=\"banner-kicker\">תשובות ברורות בגובה העיניים</span>\n        <h1 class=\"banner-title\">מאגר שאלות נפוצות (FAQ)</h1>\n        <p class=\"banner-desc\">\n            ריכוז השאלות המרכזיות שכל מתמודד חדש ובני משפחתו שואלים מיד עם תחילת הבירור או לקראת פרוצדורה.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container-narrow stack-md\">\n        <div class=\"accordion-item\">\n            <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"faq-1\" aria-expanded=\"false\">\n                <span class=\"accordion-title-wrap\">\n                    <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-faq-1\" aria-hidden=\"true\"></i>\n                    <span>1. למה לצפות אחרי טלאי דם (Blood Patch)?</span>\n                </span>\n                <span class=\"badge-pill badge-sky\">החלמה</span>\n            </button>\n            <div id=\"content-faq-1\" class=\"accordion-body hidden stack-sm\">\n                <p>חלק מהמטופלים חווים הקלה מהירה כבר בשעות הראשונות, בעוד שאצל אחרים תהליך בניית הרקמה והאטימה אורך מספר ימים עד שבועות. נפוץ לחוש כאב גב מקומי או נוקשות באזור ההזרקה במשך מספר ימים. יש להקפיד הקפדה מלאה על <strong>חוק ה-BLT</strong> (ללא התכופפות, הרמת משקל או פיתול גב) למשך 4–6 שבועות.</p>\n            </div>\n        </div>\n\n        <div class=\"accordion-item\">\n            <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"faq-2\" aria-expanded=\"false\">\n                <span class=\"accordion-title-wrap\">\n                    <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-faq-2\" aria-hidden=\"true\"></i>\n                    <span>2. מתי לפנות למיון ומתי ניתן להמתין ולטפל בבית?</span>\n                </span>\n                <span class=\"badge-pill badge-amber\">דגלים אדומים</span>\n            </button>\n            <div id=\"content-faq-2\" class=\"accordion-body hidden stack-sm\">\n                <p>פנו מיד לחדר מיון אם מופיעים תסמינים חריגים (\"דגלים אדומים\") כגון: חום גבוה או צמרמורות, הפרשה מוגלתית או אודם חריג באזור הדיקור בגב, כאב ראש \"רעם\" שמתפוצץ בשנייה אחת, בלבול חריף, קושי בדיבור, חולשת גפיים חדשה או אי-שליטה על סוגרים.</p>\n            </div>\n        </div>\n\n        <div class=\"accordion-item\">\n            <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"faq-3\" aria-expanded=\"false\">\n                <span class=\"accordion-title-wrap\">\n                    <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-faq-3\" aria-hidden=\"true\"></i>\n                    <span>3. האם מותר לטוס אחרי טלאי דם או סגירת דליפה?</span>\n                </span>\n                <span class=\"badge-pill badge-purple\">אורח חיים</span>\n            </button>\n            <div id=\"content-faq-3\" class=\"accordion-body hidden stack-sm\">\n                <p>בדרך כלל מומלץ להימנע מטיסות במשך 4 עד 6 שבועות לאחר טלאי דם או פרוצדורה שדרתית (ובהתאם להנחיית הרופא המטפל), הן בשל שינויי לחץ האוויר בתא הנוסעים והן כדי להימנע מהרמת מזוודות או ישיבה ממושכת שמעמיסה על הגב.</p>\n            </div>\n        </div>\n\n        <div class=\"accordion-item\">\n            <button type=\"button\" class=\"accordion-trigger\" data-acc-target=\"faq-4\" aria-expanded=\"false\">\n                <span class=\"accordion-title-wrap\">\n                    <i class=\"fa-solid fa-circle-chevron-down accordion-icon\" id=\"icon-faq-4\" aria-hidden=\"true\"></i>\n                    <span>4. איך מסבירים את המצב למשפחה ולמעסיק?</span>\n                </span>\n                <span class=\"badge-pill badge-emerald\">תקשורת</span>\n            </button>\n            <div id=\"content-faq-4\" class=\"accordion-body hidden stack-sm\">\n                <p>מכיוון שבשכיבה החולה נראה לעיתים \"רגיל\", הסביבה מתקשה להבין מדוע אינו יכול פשוט לשבת מול מחשב. מומלץ להסביר שמדובר בבעיה מכנית-פיזיולוגית: \"בדיוק כמו שבלון עם חור מאבד אוויר, כשהגוף עומד או יושב הנוזל שמגן על המוח יורד והמוח צונח על העצבים. שכיבה שטוחה היא לא פינוק – היא הדרך היחידה שבה המוח חוזר למקומו\".</p>\n            </div>\n        </div>\n    </div>\n</section>\n"
+    },
+    "caregivers": {
+        "title": "CSF Leak IL • ארגז כלים למשפחה ומלווים",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <span class=\"banner-kicker\">תמיכה במעגל הקרוב</span>\n        <h1 class=\"banner-title\">ארגז כלים לבני משפחה ומלווים (Caregiver Support)</h1>\n        <p class=\"banner-desc\">\n            המחלה אינה פוגעת רק במטופל אלא מעמיסה נטל פיזי ורגשי על בני הזוג והמשפחה. כך תעברו את התקופה הזו יחד.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container-narrow stack-lg\">\n        <div class=\"grid-2\">\n            <div class=\"card stack-sm\">\n                <div class=\"icon-box icon-teal\"><i class=\"fa-solid fa-eye-low-vision\" aria-hidden=\"true\"></i></div>\n                <h2>הבנת התסמינים הבלתי נראים</h2>\n                <p>\n                    חולה בדליפת CSF עלול להיראות בריא לחלוטין כשהוא שוכב במיטה, אך בתוך דקות של עמידה לחוות כאב משתק, בחילה, טנטון וערפול מוחי (Brain Fog) המקשה עליו אפילו לנהל שיחה. זכרו שהקושי הקוגניטיבי והרגישות לאור ולרעש הם תוצאה ישירה של מתיחת עצבי הגולגולת.\n                </p>\n            </div>\n\n            <div class=\"card stack-sm\">\n                <div class=\"icon-box icon-amber\"><i class=\"fa-solid fa-battery-half\" aria-hidden=\"true\"></i></div>\n                <h2>מניעת שחיקה (Caregiver Burnout)</h2>\n                <p>\n                    ליווי אדם המרותק למיטה לאורך שבועות או חודשים הוא מרתון ולא ספרינט. חלקו משימות קונקרטיות לבני משפחה וחברים (קניות, בישול, הסעות ילדים), שמרו על שעות אוורור לעצמכם, ואל תהססו להיעזר בקבוצת התמיכה שלנו גם כמלווים.\n                </p>\n            </div>\n        </div>\n\n        <div class=\"card stack-md\">\n            <h2>טיפים מעשיים לניהול הבית בתקופת השכיבה וחוק ה-BLT</h2>\n            <ul class=\"feature-list\">\n                <li class=\"feature-list-item\">\n                    <i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i>\n                    <div><strong>ארגון סביבת המיטה:</strong> מקמו שולחן צד נגיש בגובה המזרן עם בקבוק מים עם קשית (לשתייה בשכיבה ללא הרמת ראש), תרופות ומטען, כדי שהמטופל לא יצטרך להתכופף או להסתובב.</div>\n                </li>\n                <li class=\"feature-list-item\">\n                    <i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i>\n                    <div><strong>התאמת הבית לאחר טלאי דם:</strong> העבירו פריטים יומיומיים (מגבות, בגדים, כלי רחצה, אוכל במקרר) למדפים בגובה המותניים והחזה, כדי למנוע התכופפות (No Bending) או מתיחה למעלה.</div>\n                </li>\n                <li class=\"feature-list-item\">\n                    <i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i>\n                    <div><strong>ניהול תורים ובירוקרטיה:</strong> בזמן התקף כאב או ערפול מוחי, למטופל קשה מאוד לעקוב אחר תאריכים וטפסים. נהלו קלסר מסודר עם כל דיסקי ההדמיות (MRI/CT), סיכומי האשפוז וטופסי 17.</div>\n                </li>\n            </ul>\n        </div>\n    </div>\n</section>\n"
+    },
+    "support": {
+        "title": "CSF Leak IL • קבוצות תמיכה",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <span class=\"banner-kicker\">הבית הקהילתי שלנו</span>\n        <h1 class=\"banner-title\">קבוצות התמיכה של CSF Leak ישראל</h1>\n        <p class=\"banner-desc\">\n            מרחבי שיח בוואטסאפ המותאמים אישית לצרכים שלכם – לשיתוף, התייעצות ותמיכה הדדית.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container grid-asymmetric\">\n        <div class=\"card stack-md\">\n            <div class=\"card-header-flex\">\n                <div class=\"icon-box icon-emerald\"><i class=\"fa-brands fa-whatsapp\" aria-hidden=\"true\"></i></div>\n                <div>\n                    <h2>ערוצי הקהילה בוואטסאפ</h2>\n                    <span class=\"stat-desc\">מרחב בטוח, מפוקח ונטול אינטרסים מסחריים</span>\n                </div>\n            </div>\n            <div class=\"callout-box callout-slate stack-sm\">\n                <div class=\"top-bar-inner\">\n                    <h3>קבוצת שיח ותמיכה הדדית</h3>\n                    <span class=\"badge-pill badge-emerald\">פעילה 24/7</span>\n                </div>\n                <p>\n                    מרחב חם לפרוק כאב, להתייעץ לפני טלאי דם, לבקש המלצות מניסיון אישי ולדעת שאתם לא לבד.\n                </p>\n                <a href=\"https://chat.whatsapp.com/KkMA5mFbEn09BouBE7m4Dz\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"btn-emerald-block\">\n                    <i class=\"fa-brands fa-whatsapp\" aria-hidden=\"true\"></i> הצטרפות לקבוצת השיח הפעילה\n                </a>\n            </div>\n        </div>\n\n        <div class=\"card-dark stack-md\">\n            <span class=\"banner-kicker\">למי זה מתאים?</span>\n            <h3>מי מצטרף לקבוצות שלנו?</h3>\n            <ul class=\"feature-list\">\n                <li class=\"feature-list-item\">\n                    <i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i>\n                    <div><strong>מתמודדים מאובחנים:</strong> מי שעברו אבחנה של SIH או דליפת CSF ומחפשים ייעוץ מעשי לקראת פרוצדורות והחלמה.</div>\n                </li>\n                <li class=\"feature-list-item\">\n                    <i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i>\n                    <div><strong>מתמודדים בשלב הבירור:</strong> מי שסובלים מכאב ראש תנוחתי וחושדים בדליפת CSF.</div>\n                </li>\n                <li class=\"feature-list-item\">\n                    <i class=\"fa-solid fa-check\" aria-hidden=\"true\"></i>\n                    <div><strong>בני משפחה ומלווים:</strong> שמסייעים בניהול הבירור הרפואי וההחלמה בבית.</div>\n                </li>\n            </ul>\n        </div>\n    </div>\n</section>\n"
+    },
+    "contact": {
+        "title": "CSF Leak IL • צור קשר",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <span class=\"banner-kicker\">פנייה ישירה ומאובטחת</span>\n        <h1 class=\"banner-title\">יצירת קשר עם מובילי הקהילה</h1>\n        <p class=\"banner-desc\">\n            צריכים עזרה באיתור מומחה? רוצים להתייעץ בדיסקרטיות? הצוות שלנו כאן עבורכם בהתנדבות מלאה.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container grid-asymmetric\">\n        <div class=\"card\">\n            <form id=\"mainContactForm\">\n                <div class=\"grid-2\">\n                    <div class=\"form-group\">\n                        <label class=\"form-label\" for=\"contactName\">שם מלא *</label>\n                        <input type=\"text\" id=\"contactName\" required placeholder=\"ישראל ישראלי\" class=\"form-control\">\n                    </div>\n                    <div class=\"form-group\">\n                        <label class=\"form-label\" for=\"contactPhone\">מספר טלפון וואטסאפ *</label>\n                        <input type=\"tel\" id=\"contactPhone\" required placeholder=\"050-0000000\" class=\"form-control\">\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"form-label\" for=\"contactMsg\">במה נוכל לסייע לך? *</label>\n                    <textarea id=\"contactMsg\" rows=\"4\" required placeholder=\"תארו בקצרה את מצבכם...\" class=\"form-control\"></textarea>\n                </div>\n                <button type=\"submit\" class=\"btn-submit\">\n                    <i class=\"fa-solid fa-paper-plane\" aria-hidden=\"true\"></i>\n                    <span>שליחת הפנייה לצוות CSF Leak IL</span>\n                </button>\n            </form>\n        </div>\n\n        <div class=\"card-subtle stack-sm\">\n            <h3>פנייה ישירה בדוא\"ל</h3>\n            <div class=\"callout-box callout-slate\">\n                <i class=\"fa-regular fa-envelope\" aria-hidden=\"true\"></i>\n                <strong>דוא\"ל רשמי:</strong>\n                <div>contact@csfleakisrael.org.il</div>\n            </div>\n        </div>\n    </div>\n</section>\n"
+    },
+    "discussions": {
+        "title": "CSF Leak IL • דיונים ושאלות",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <span class=\"banner-kicker\">מרחב שיח משותף</span>\n        <h1 class=\"banner-title\">דיונים, שאלות וחוכמת המתמודדים</h1>\n        <p class=\"banner-desc\">מקום בטוח לשאול, לשתף אנונימית ולהתייעץ מניסיון של מי שהיו שם.</p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container stack-md\">\n        <div class=\"card stack-sm\">\n            <span class=\"badge-pill badge-amber\">התאוששות מ-Blood Patch</span>\n            <h3>כאב ראש של יתר-לחץ ריבאונד מול חזרת דליפה - איך מבדילים?</h3>\n            <p>עברתי טלאי דם לפני 5 ימים. הכאב האורתוסטטי של העמידה נעלם, אבל עכשיו כשאני שוכב אני מרגיש לחץ במצח ומאחורי העיניים...</p>\n        </div>\n    </div>\n</section>\n"
+    },
+    "center-szmc": {
+        "title": "CSF Leak IL • המרכז הרפואי שערי צדק - צוות הרופאים",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <div class=\"banner-top-nav\">\n            <a href=\"doctors.html\" data-page=\"doctors\" class=\"spa-link btn-back-center\">\n                <i class=\"fa-solid fa-arrow-right\" aria-hidden=\"true\"></i>\n                <span>חזרה לכל המרכזים הרפואיים</span>\n            </a>\n            <span class=\"badge-pill badge-solid-sky\"><i class=\"fa-solid fa-star\" aria-hidden=\"true\"></i> המרכז הארצי המרכזי • ירושלים</span>\n        </div>\n        <h1 class=\"banner-title\">המרכז הרפואי שערי צדק</h1>\n        <p class=\"banner-desc\">\n            מוקד המצוינות הרב-תחומי המוביל בישראל לאבחון וטיפול בדליפות נוזל מוח-שדרה (CSF Leak) ותת-לחץ תוך-גולגולתי (SIH). שיתוף פעולה הדוק בין שירות כאבי הראש, יחידת הדימות ומחלקת נוירוכירורגיה.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container stack-lg\">\n\n        <!-- מעבר מהיר בין מרכזים -->\n        <div class=\"centers-quick-bar\">\n            <span class=\"quick-bar-label\"><i class=\"fa-solid fa-hospital\" aria-hidden=\"true\"></i> מעבר בין מרכזים:</span>\n            <a href=\"center-szmc.html\" data-page=\"center-szmc\" class=\"spa-link quick-center-pill active\">שערי צדק (מרכזי)</a>\n            <a href=\"center-ichilov.html\" data-page=\"center-ichilov\" class=\"spa-link quick-center-pill\">איכילוב</a>\n            <a href=\"center-rambam.html\" data-page=\"center-rambam\" class=\"spa-link quick-center-pill\">רמב\"ם</a>\n            <a href=\"center-sheba.html\" data-page=\"center-sheba\" class=\"spa-link quick-center-pill\">שיבא (תל השומר)</a>\n        </div>\n\n        <div class=\"stack-sm\">\n            <span class=\"banner-kicker\">צוות המומחים הרב-תחומי</span>\n            <h2>הרופאים המובילים לטיפול בדליפות CSF בשערי צדק</h2>\n            <p>פרופיל מלא, תחומי מומחיות ופרטי התקשרות וזימון תורים לכל רופא:</p>\n        </div>\n\n        <div class=\"doctors-vertical-grid three-cols\">\n\n            <!-- 1. ד\"ר אברהם אשכנזי -->\n            <div class=\"doctor-vertical-card\">\n                <div class=\"doc-v-profile-wrap\">\n                    <div class=\"doc-v-avatar avatar-sky\">\n                        <i class=\"fa-solid fa-user-doctor\" aria-hidden=\"true\"></i>\n                    </div>\n                    <span class=\"doc-v-badge badge-sky\">נוירולוגיה וכאבי ראש</span>\n                    <h3 class=\"doc-v-name\">ד\"ר אברהם (אבי) אשכנזי</h3>\n                    <span class=\"doc-v-title\">מנהל שירות אבחון וטיפול בכאבי ראש, שערי צדק</span>\n                </div>\n\n                <div class=\"doc-v-body\">\n                    <p class=\"doc-v-bio\">\n                        נוירולוג מומחה בעל ניסיון של מעל 24 שנים והכשרה במרכזים המובילים בארה\"ב (חבר ה-AHS וה-IHS). מוביל את האבחון הקליני של כאבי ראש תנוחתיים ותת-לחץ תוך-גולגולתי (SIH), התאמת טיפול תרופתי, חסמים עצביים וליווי המטופל לאורך שלבי האטימה, ההחלמה ומעקב לחץ חוזר (Rebound).\n                    </p>\n                    <div class=\"doc-v-tags\">\n                        <span>אבחנה קלינית SIH</span>\n                        <span>ניהול כאב ראש תנוחתי</span>\n                        <span>מעקב Rebound</span>\n                    </div>\n                </div>\n\n                <div class=\"doc-v-contact\">\n                    <div class=\"doc-contact-heading\"><i class=\"fa-solid fa-address-card\" aria-hidden=\"true\"></i> פרטי יצירת קשר וזימון תורים:</div>\n                    <ul class=\"doc-contact-list\">\n                        <li><i class=\"fa-solid fa-phone\" aria-hidden=\"true\"></i> <strong>מוקד זימון תורים:</strong> <a href=\"tel:026555999\" dir=\"ltr\">02-6555999</a></li>\n                        <li><i class=\"fa-solid fa-building-user\" aria-hidden=\"true\"></i> <strong>מזכירות נוירולוגיה:</strong> <a href=\"tel:026666641\" dir=\"ltr\">02-6666641</a></li>\n                        <li><i class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i> <strong>דוא\"ל:</strong> <a href=\"mailto:neurology@szmc.org.il\">neurology@szmc.org.il</a></li>\n                        <li><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> <strong>מיקום:</strong> מרפאות נוירולוגיה, קומה 7, רח' שמואל בייט 12, ירושלים</li>\n                    </ul>\n                </div>\n            </div>\n\n            <!-- 2. ד\"ר אליאל בן דוד -->\n            <div class=\"doctor-vertical-card\">\n                <div class=\"doc-v-profile-wrap\">\n                    <div class=\"doc-v-avatar avatar-teal\">\n                        <i class=\"fa-solid fa-x-ray\" aria-hidden=\"true\"></i>\n                    </div>\n                    <span class=\"doc-v-badge badge-teal\">נוירורדיולוגיה ודימות מתקדם</span>\n                    <h3 class=\"doc-v-name\">ד\"ר אליאל בן דוד</h3>\n                    <span class=\"doc-v-title\">מנהל היחידה לדימות ראש וצוואר, שערי צדק</span>\n                </div>\n\n                <div class=\"doc-v-body\">\n                    <p class=\"doc-v-bio\">\n                        מומחה ברדיולוגיה אבחנתית ובעל תת-התמחות בנוירורדיולוגיה מבית החולים האוניברסיטאי George Washington בוושינגטון, ארה\"ב. מתמחה בפענוח רגיש של הדמיות מוח ועמוד שדרה (MRI/CT), מילוגרפיות, איתור מדויק של מוקד דליפת ה-CSF וביצוע טלאי דם ממוקדים תחת הדמיה.\n                    </p>\n                    <div class=\"doc-v-tags\">\n                        <span>פענוח MRI/CT</span>\n                        <span>מילוגרפיה ואיתור דליפה</span>\n                        <span>טלאי דם ממוקד</span>\n                    </div>\n                </div>\n\n                <div class=\"doc-v-contact\">\n                    <div class=\"doc-contact-heading\"><i class=\"fa-solid fa-address-card\" aria-hidden=\"true\"></i> פרטי יצירת קשר וזימון תורים:</div>\n                    <ul class=\"doc-contact-list\">\n                        <li><i class=\"fa-solid fa-phone\" aria-hidden=\"true\"></i> <strong>זימון תורים דימות:</strong> <a href=\"tel:026555999\" dir=\"ltr\">02-6555999</a></li>\n                        <li><i class=\"fa-solid fa-building-user\" aria-hidden=\"true\"></i> <strong>מכון דימות ורנטגן:</strong> <a href=\"tel:026555005\" dir=\"ltr\">02-6555005</a></li>\n                        <li><i class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i> <strong>דוא\"ל:</strong> <a href=\"mailto:rad@szmc.org.il\">rad@szmc.org.il</a></li>\n                        <li><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> <strong>מיקום:</strong> אגף הדימות, המרכז הרפואי שערי צדק, ירושלים</li>\n                    </ul>\n                </div>\n            </div>\n\n            <!-- 3. ד\"ר דניאל אגיון -->\n            <div class=\"doctor-vertical-card\">\n                <div class=\"doc-v-profile-wrap\">\n                    <div class=\"doc-v-avatar avatar-purple\">\n                        <i class=\"fa-solid fa-hospital-user\" aria-hidden=\"true\"></i>\n                    </div>\n                    <span class=\"doc-v-badge badge-purple\">נוירוכירורגיה ועמוד שדרה</span>\n                    <h3 class=\"doc-v-name\">ד\"ר דניאל אגיון / צוות נוירוכירורגיה</h3>\n                    <span class=\"doc-v-title\">המחלקה הנוירוכירורגית ומומחי עמוד שדרה, שערי צדק</span>\n                </div>\n\n                <div class=\"doc-v-body\">\n                    <p class=\"doc-v-bio\">\n                        מומחה לנוירוכירורגיה וניתוחי עמוד שדרה מורכבים (יחד עם מערך הנוירוכירורגיה בהובלת ד\"ר נבו מרגלית ומומחי עמוד השדרה). מתמחה בניתוחים מיקרו-כירורגיים וזעיר-פולשניים לתיקון דליפות CSF עקשניות, תפירת קרעים במעטפת הדורה ושיוף בליטות גרמיות דוקרות (Spurs).\n                    </p>\n                    <div class=\"doc-v-tags\">\n                        <span>סגירת קרע דורלי</span>\n                        <span>שיוף דרבן גרמי</span>\n                        <span>ניתוחי עמוד שדרה</span>\n                    </div>\n                </div>\n\n                <div class=\"doc-v-contact\">\n                    <div class=\"doc-contact-heading\"><i class=\"fa-solid fa-address-card\" aria-hidden=\"true\"></i> פרטי יצירת קשר וזימון תורים:</div>\n                    <ul class=\"doc-contact-list\">\n                        <li><i class=\"fa-solid fa-phone\" aria-hidden=\"true\"></i> <strong>מוקד זימון תורים:</strong> <a href=\"tel:026555999\" dir=\"ltr\">02-6555999</a></li>\n                        <li><i class=\"fa-solid fa-building-user\" aria-hidden=\"true\"></i> <strong>מזכירות נוירוכירורגיה:</strong> <a href=\"tel:026666265\" dir=\"ltr\">02-6666265</a></li>\n                        <li><i class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i> <strong>דוא\"ל:</strong> <a href=\"mailto:neurosurgery@szmc.org.il\">neurosurgery@szmc.org.il</a></li>\n                        <li><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> <strong>מיקום:</strong> מחלקת נוירוכירורגיה, קומה 6, שערי צדק, ירושלים</li>\n                    </ul>\n                </div>\n            </div>\n\n        </div>\n    </div>\n</section>"
+    },
+    "center-ichilov": {
+        "title": "CSF Leak IL • המרכז הרפואי איכילוב - צוות הרופאים",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <div class=\"banner-top-nav\">\n            <a href=\"doctors.html\" data-page=\"doctors\" class=\"spa-link btn-back-center\">\n                <i class=\"fa-solid fa-arrow-right\" aria-hidden=\"true\"></i>\n                <span>חזרה לכל המרכזים הרפואיים</span>\n            </a>\n            <span class=\"badge-pill badge-sky\"><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> מרכז הארץ • תל אביב</span>\n        </div>\n        <h1 class=\"banner-title\">המרכז הרפואי תל אביב (איכילוב)</h1>\n        <p class=\"banner-desc\">\n            מוקד מוביל באזור המרכז לאבחון רדיולוגי מתקדם (DSM, CT Myelography) וטיפולים אנדו-וסקולריים חדשניים בתסמונת תת-לחץ תוך-גולגולתי (SIH) ופיסטולות CSF.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container stack-lg\">\n\n        <!-- מעבר מהיר בין מרכזים -->\n        <div class=\"centers-quick-bar\">\n            <span class=\"quick-bar-label\"><i class=\"fa-solid fa-hospital\" aria-hidden=\"true\"></i> מעבר בין מרכזים:</span>\n            <a href=\"center-szmc.html\" data-page=\"center-szmc\" class=\"spa-link quick-center-pill\">שערי צדק (מרכזי)</a>\n            <a href=\"center-ichilov.html\" data-page=\"center-ichilov\" class=\"spa-link quick-center-pill active\">איכילוב</a>\n            <a href=\"center-rambam.html\" data-page=\"center-rambam\" class=\"spa-link quick-center-pill\">רמב\"ם</a>\n            <a href=\"center-sheba.html\" data-page=\"center-sheba\" class=\"spa-link quick-center-pill\">שיבא (תל השומר)</a>\n        </div>\n\n        <div class=\"stack-sm\">\n            <span class=\"banner-kicker\">צוות המומחים</span>\n            <h2>המומחים לטיפול בדליפות CSF באיכילוב</h2>\n            <p>פרופיל מלא, תחומי התמחות ופרטי יצירת קשר וזימון תורים:</p>\n        </div>\n\n        <div class=\"doctors-vertical-grid single-col\">\n\n            <!-- ד\"ר אודי שדה -->\n            <div class=\"doctor-vertical-card\">\n                <div class=\"doc-v-profile-wrap\">\n                    <div class=\"doc-v-avatar avatar-sky\">\n                        <i class=\"fa-solid fa-eye\" aria-hidden=\"true\"></i>\n                    </div>\n                    <span class=\"doc-v-badge badge-sky\">נוירורדיולוגיה פולשנית וצנתורי מוח ושדרה</span>\n                    <h3 class=\"doc-v-name\">ד\"ר אודי שדה</h3>\n                    <span class=\"doc-v-title\">נוירורדיולוג בכיר ומנהל השירות לצנתורי שבץ מוחי, אגף הדימות באיכילוב</span>\n                </div>\n\n                <div class=\"doc-v-body\">\n                    <p class=\"doc-v-bio\">\n                        עבר הכשרה והתמחות ייעודית באבחון וטיפול בתת-לחץ תוך-גולגולתי (SIH) במרכז היוקרתי <strong>Mayo Clinic בארה\"ב</strong>. מוביל בישראל ביצוע בדיקות מיאלוגרפיה דינמית (DSM), CT מילוגרפיה, ושיטת הטיפול החדשנית באמצעות צנתור ורידי (אמבוליזציה) לסגירת פיסטולות נוזל שדרה-וריד (CSF-Venous Fistula).\n                    </p>\n                    <div class=\"doc-v-tags\">\n                        <span>הכשרת Mayo Clinic ב-SIH</span>\n                        <span>מיאלוגרפיה דינמית (DSM)</span>\n                        <span>אמבוליזציה לפיסטולה ורידית</span>\n                        <span>CT מילוגרפיה</span>\n                    </div>\n                </div>\n\n                <div class=\"doc-v-contact\">\n                    <div class=\"doc-contact-heading\"><i class=\"fa-solid fa-address-card\" aria-hidden=\"true\"></i> פרטי יצירת קשר וזימון תורים:</div>\n                    <ul class=\"doc-contact-list\">\n                        <li><i class=\"fa-solid fa-phone\" aria-hidden=\"true\"></i> <strong>מוקד זימון תורים איכילוב:</strong> <a href=\"tel:036974000\" dir=\"ltr\">03-6974000</a> (*8801)</li>\n                        <li><i class=\"fa-solid fa-building-user\" aria-hidden=\"true\"></i> <strong>היחידה לנוירורדיולוגיה פולשנית:</strong> <a href=\"tel:036973504\" dir=\"ltr\">03-6973504</a></li>\n                        <li><i class=\"fa-solid fa-globe\" aria-hidden=\"true\"></i> <strong>פנייה מקוונת:</strong> <a href=\"https://www.tasmc.org.il\" target=\"_blank\" rel=\"noopener noreferrer\">אתר המרכז הרפואי ת\"א (איכילוב)</a></li>\n                        <li><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> <strong>מיקום:</strong> אגף הדימות, רח' ויצמן 6, תל אביב</li>\n                    </ul>\n                </div>\n            </div>\n\n        </div>\n    </div>\n</section>"
+    },
+    "center-rambam": {
+        "title": "CSF Leak IL • הקריה הרפואית רמב\"ם - צוות הרופאים",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <div class=\"banner-top-nav\">\n            <a href=\"doctors.html\" data-page=\"doctors\" class=\"spa-link btn-back-center\">\n                <i class=\"fa-solid fa-arrow-right\" aria-hidden=\"true\"></i>\n                <span>חזרה לכל המרכזים הרפואיים</span>\n            </a>\n            <span class=\"badge-pill badge-teal\"><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> מוקד הצפון • חיפה</span>\n        </div>\n        <h1 class=\"banner-title\">הקריה הרפואית רמב\"ם</h1>\n        <p class=\"banner-desc\">\n            מענה רב-מערכתי מקיף לתושבי הצפון המשלב אבחון וטיפול פולשני ביחידה לנוירורדיולוגיה פולשנית יחד עם מומחיות כירורגית בניתוחי עמוד שדרה ודליפות CSF.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container stack-lg\">\n\n        <!-- מעבר מהיר בין מרכזים -->\n        <div class=\"centers-quick-bar\">\n            <span class=\"quick-bar-label\"><i class=\"fa-solid fa-hospital\" aria-hidden=\"true\"></i> מעבר בין מרכזים:</span>\n            <a href=\"center-szmc.html\" data-page=\"center-szmc\" class=\"spa-link quick-center-pill\">שערי צדק (מרכזי)</a>\n            <a href=\"center-ichilov.html\" data-page=\"center-ichilov\" class=\"spa-link quick-center-pill\">איכילוב</a>\n            <a href=\"center-rambam.html\" data-page=\"center-rambam\" class=\"spa-link quick-center-pill active\">רמב\"ם</a>\n            <a href=\"center-sheba.html\" data-page=\"center-sheba\" class=\"spa-link quick-center-pill\">שיבא (תל השומר)</a>\n        </div>\n\n        <div class=\"stack-sm\">\n            <span class=\"banner-kicker\">צוות המומחים</span>\n            <h2>הרופאים המובילים לטיפול בדליפות CSF ברמב\"ם</h2>\n            <p>פרופיל מלא, תחומי התמחות ופרטי יצירת קשר וזימון תורים לכל מומחה:</p>\n        </div>\n\n        <div class=\"doctors-vertical-grid two-cols\">\n\n            <!-- 1. ד\"ר גיל צור -->\n            <div class=\"doctor-vertical-card\">\n                <div class=\"doc-v-profile-wrap\">\n                    <div class=\"doc-v-avatar avatar-teal\">\n                        <i class=\"fa-solid fa-x-ray\" aria-hidden=\"true\"></i>\n                    </div>\n                    <span class=\"doc-v-badge badge-teal\">נוירורדיולוגיה פולשנית</span>\n                    <h3 class=\"doc-v-name\">ד\"ר גיל צור</h3>\n                    <span class=\"doc-v-title\">מצנתר מוח ונוירורדיולוג בכיר, היחידה לנוירורדיולוגיה פולשנית ברמב\"ם</span>\n                </div>\n\n                <div class=\"doc-v-body\">\n                    <p class=\"doc-v-bio\">\n                        רופא ומצנתר בכיר ביחידה לנוירורדיולוגיה פולשנית (צנתורי מוח וחוט שדרה) במרכז הרפואי רמב\"ם. מבצע בדיקות דימות פולשניות של מערכת העצבים ועמוד השדרה, איתור דליפות ופיסטולות וטיפולים זעיר-פולשניים מוכווני שיקוף ו-CT.\n                    </p>\n                    <div class=\"doc-v-tags\">\n                        <span>נוירורדיולוגיה פולשנית</span>\n                        <span>דימות שדרה ממוקד</span>\n                        <span>צנתורי מוח וחוט שדרה</span>\n                    </div>\n                </div>\n\n                <div class=\"doc-v-contact\">\n                    <div class=\"doc-contact-heading\"><i class=\"fa-solid fa-address-card\" aria-hidden=\"true\"></i> פרטי יצירת קשר וזימון תורים:</div>\n                    <ul class=\"doc-contact-list\">\n                        <li><i class=\"fa-solid fa-phone\" aria-hidden=\"true\"></i> <strong>מוקד מידע וזימון תורים:</strong> <a href=\"tel:047773568\" dir=\"ltr\">04-7773568</a> (*5353)</li>\n                        <li><i class=\"fa-solid fa-building-user\" aria-hidden=\"true\"></i> <strong>היחידה לנוירורדיולוגיה פולשנית:</strong> <a href=\"tel:047772650\" dir=\"ltr\">04-7772650</a></li>\n                        <li><i class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i> <strong>דוא\"ל מרכז מידע:</strong> <a href=\"mailto:info@rmc.gov.il\">info@rmc.gov.il</a></li>\n                        <li><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> <strong>מיקום:</strong> אגף הדימות, הקריה הרפואית רמב\"ם, רח' העלייה השנייה 8, חיפה</li>\n                    </ul>\n                </div>\n            </div>\n\n            <!-- 2. פרופ' גיל סוירי -->\n            <div class=\"doctor-vertical-card\">\n                <div class=\"doc-v-profile-wrap\">\n                    <div class=\"doc-v-avatar avatar-purple\">\n                        <i class=\"fa-solid fa-hospital-user\" aria-hidden=\"true\"></i>\n                    </div>\n                    <span class=\"doc-v-badge badge-purple\">נוירוכירורגיה ועמוד שדרה</span>\n                    <h3 class=\"doc-v-name\">פרופ' גיל סוירי</h3>\n                    <span class=\"doc-v-title\">מנהל מחלקת נוירוכירורגיה, הקריה הרפואית רמב\"ם</span>\n                </div>\n\n                <div class=\"doc-v-body\">\n                    <p class=\"doc-v-bio\">\n                        בוגר הטכניון בהצטיינות ובעל תת-התמחות בכירורגיה של בסיס הגולגולת, כלי דם וניתוחי עמוד שדרה באוניברסיטת וושינגטון (סיאטל) ואוניברסיטת פיטסבורג בארה\"ב. מומחה מוביל בניתוחים לתיקון דלף נוזל מוח-שדרה (CSF), ניתוחי עמוד שדרה וחוט שדרה ומלפורמציות וסקולריות.\n                    </p>\n                    <div class=\"doc-v-tags\">\n                        <span>תיקון כירורגי של דלף CSF</span>\n                        <span>ניתוחי עמוד שדרה</span>\n                        <span>מלפורמציות בחוט השדרה</span>\n                    </div>\n                </div>\n\n                <div class=\"doc-v-contact\">\n                    <div class=\"doc-contact-heading\"><i class=\"fa-solid fa-address-card\" aria-hidden=\"true\"></i> פרטי יצירת קשר וזימון תורים:</div>\n                    <ul class=\"doc-contact-list\">\n                        <li><i class=\"fa-solid fa-phone\" aria-hidden=\"true\"></i> <strong>מוקד זימון תורים רמב\"ם:</strong> <a href=\"tel:047773568\" dir=\"ltr\">04-7773568</a> (*5353)</li>\n                        <li><i class=\"fa-solid fa-building-user\" aria-hidden=\"true\"></i> <strong>מזכירות מחלקת נוירוכירורגיה:</strong> <a href=\"tel:047772348\" dir=\"ltr\">04-7772348</a></li>\n                        <li><i class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i> <strong>דוא\"ל המחלקה:</strong> <a href=\"mailto:neurosurgery@rmc.gov.il\">neurosurgery@rmc.gov.il</a></li>\n                        <li><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> <strong>מיקום:</strong> בניין סמי עופר (בניין 1), הקריה הרפואית רמב\"ם, חיפה</li>\n                    </ul>\n                </div>\n            </div>\n\n        </div>\n    </div>\n</section>"
+    },
+    "center-sheba": {
+        "title": "CSF Leak IL • המרכז הרפואי שיבא - צוות הרופאים",
+        "html": "<section class=\"page-banner\">\n    <div class=\"container\">\n        <div class=\"banner-top-nav\">\n            <a href=\"doctors.html\" data-page=\"doctors\" class=\"spa-link btn-back-center\">\n                <i class=\"fa-solid fa-arrow-right\" aria-hidden=\"true\"></i>\n                <span>חזרה לכל המרכזים הרפואיים</span>\n            </a>\n            <span class=\"badge-pill badge-purple\"><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> אזור המרכז • רמת גן</span>\n        </div>\n        <h1 class=\"banner-title\">המרכז הרפואי שיבא (תל השומר)</h1>\n        <p class=\"banner-desc\">\n            המרכז הנוירו-וסקולרי והיחידה לנוירורדיולוגיה התערבותית וצנתורי מוח וחוט שדרה במרכז הרפואי שיבא.\n        </p>\n    </div>\n</section>\n\n<section class=\"section-block\">\n    <div class=\"container stack-lg\">\n\n        <!-- מעבר מהיר בין מרכזים -->\n        <div class=\"centers-quick-bar\">\n            <span class=\"quick-bar-label\"><i class=\"fa-solid fa-hospital\" aria-hidden=\"true\"></i> מעבר בין מרכזים:</span>\n            <a href=\"center-szmc.html\" data-page=\"center-szmc\" class=\"spa-link quick-center-pill\">שערי צדק (מרכזי)</a>\n            <a href=\"center-ichilov.html\" data-page=\"center-ichilov\" class=\"spa-link quick-center-pill\">איכילוב</a>\n            <a href=\"center-rambam.html\" data-page=\"center-rambam\" class=\"spa-link quick-center-pill\">רמב\"ם</a>\n            <a href=\"center-sheba.html\" data-page=\"center-sheba\" class=\"spa-link quick-center-pill active\">שיבא (תל השומר)</a>\n        </div>\n\n        <div class=\"stack-sm\">\n            <span class=\"banner-kicker\">צוות המומחים</span>\n            <h2>המומחים לטיפול בדליפות CSF בשיבא (תל השומר)</h2>\n            <p>פרופיל מלא, תחומי התמחות ופרטי יצירת קשר וזימון תורים:</p>\n        </div>\n\n        <div class=\"doctors-vertical-grid single-col\">\n\n            <!-- ד\"ר דוד אוריון -->\n            <div class=\"doctor-vertical-card\">\n                <div class=\"doc-v-profile-wrap\">\n                    <div class=\"doc-v-avatar avatar-purple\">\n                        <i class=\"fa-solid fa-brain\" aria-hidden=\"true\"></i>\n                    </div>\n                    <span class=\"doc-v-badge badge-purple\">נוירולוגיה ונוירורדיולוגיה התערבותית</span>\n                    <h3 class=\"doc-v-name\">ד\"ר דוד אוריון</h3>\n                    <span class=\"doc-v-title\">מנהל המרכז הנוירו-וסקולרי והיחידה לנוירורדיולוגיה התערבותית, שיבא</span>\n                </div>\n\n                <div class=\"doc-v-body\">\n                    <p class=\"doc-v-bio\">\n                        נוירולוג מומחה ומצנתר מוח בכיר (בוגר האוניברסיטה העברית והדסה בהצטיינות, נבחר ברציפות לרשימת הרופאים הטובים של פורבס). מתמחה בצנתורי מוח וחוט שדרה, טיפול במלפורמציות וסקולריות במוח ובחוט השדרה, ובירור וטיפול בטנטון וסחרחורות ממקור וסקולרי או תוך-גולגולתי.\n                    </p>\n                    <div class=\"doc-v-tags\">\n                        <span>נוירולוג ומצנתר בכיר</span>\n                        <span>צנתורי חוט שדרה ומוח</span>\n                        <span>בירור טנטון וסקולרי</span>\n                    </div>\n                </div>\n\n                <div class=\"doc-v-contact\">\n                    <div class=\"doc-contact-heading\"><i class=\"fa-solid fa-address-card\" aria-hidden=\"true\"></i> פרטי יצירת קשר וזימון תורים:</div>\n                    <ul class=\"doc-contact-list\">\n                        <li><i class=\"fa-solid fa-phone\" aria-hidden=\"true\"></i> <strong>מוקד זימון תורים שיבא:</strong> <a href=\"tel:035305000\" dir=\"ltr\">03-5305000</a></li>\n                        <li><i class=\"fa-solid fa-building-user\" aria-hidden=\"true\"></i> <strong>מזכירות צנתורי מוח / נוירולוגיה:</strong> <a href=\"tel:035302663\" dir=\"ltr\">03-5302663</a></li>\n                        <li><i class=\"fa-solid fa-envelope\" aria-hidden=\"true\"></i> <strong>דוא\"ל זימון תורים:</strong> <a href=\"mailto:zimun.torim@sheba.health.gov.il\">zimun.torim@sheba.health.gov.il</a></li>\n                        <li><i class=\"fa-solid fa-location-dot\" aria-hidden=\"true\"></i> <strong>מיקום:</strong> בניין האשפוז המרכזי, המרכז הרפואי שיבא, תל השומר, רמת גן</li>\n                    </ul>\n                </div>\n            </div>\n\n        </div>\n    </div>\n</section>"
+    }
+};
+
+// דגל שמונע התנגשות בין ניווט יזום לבין אירוע popstate של הדפדפן
+let isInternalNavigation = false;
+
+/* --------------------------------------------------------------------------
+   1. אתחול האתר וטעינת הרכיבים החוזרים (Header & Footer)
+   -------------------------------------------------------------------------- */
+document.addEventListener('DOMContentLoaded', async () => {
+    initGlobalEventDelegation();
+
+    await loadSharedLayout();
+    restoreAccessibilityState();
+
+    const initialPage = detectCurrentPageKey();
+    
+    const currentAttr = document.body.getAttribute('data-current-page');
+    if (initialPage && initialPage !== currentAttr && PAGES_CACHE[initialPage]) {
+        await navigateToPage(initialPage, false);
+    } else {
+        highlightActiveNav(initialPage);
+    }
 });
 
+async function loadSharedLayout() {
+    const headerSlot = document.getElementById('site-header-placeholder');
+    const footerSlot = document.getElementById('site-footer-placeholder');
+    const isLocalFile = window.location.protocol === 'file:';
+
+    if (headerSlot) {
+        if (isLocalFile) {
+            headerSlot.innerHTML = SHARED_HEADER_FALLBACK;
+        } else {
+            try {
+                const res = await fetch('header.html');
+                headerSlot.innerHTML = res.ok ? await res.text() : SHARED_HEADER_FALLBACK;
+            } catch (e) {
+                headerSlot.innerHTML = SHARED_HEADER_FALLBACK;
+            }
+        }
+    }
+
+    if (footerSlot) {
+        if (isLocalFile) {
+            footerSlot.innerHTML = SHARED_FOOTER_FALLBACK;
+        } else {
+            try {
+                const res = await fetch('footer.html');
+                footerSlot.innerHTML = res.ok ? await res.text() : SHARED_FOOTER_FALLBACK;
+            } catch (e) {
+                footerSlot.innerHTML = SHARED_FOOTER_FALLBACK;
+            }
+        }
+    }
+}
+
+function detectCurrentPageKey() {
+    const hashPage = window.location.hash.replace('#', '').trim();
+    if (hashPage && PAGES_CACHE[hashPage]) {
+        return hashPage;
+    }
+
+    const pathFile = window.location.pathname.split('/').pop().replace('.html', '');
+    if (pathFile && PAGES_CACHE[pathFile]) {
+        return pathFile;
+    }
+
+    const bodyPage = document.body.getAttribute('data-current-page');
+    if (bodyPage && PAGES_CACHE[bodyPage]) {
+        return bodyPage;
+    }
+
+    return 'index';
+}
+
+/* --------------------------------------------------------------------------
+   2. מנגנון טעינת כל העמודים מתוך הדף הראשי (SPA Router)
+   -------------------------------------------------------------------------- */
+async function navigateToPage(pageKey, pushToHistory = true) {
+    if (!PAGES_CACHE[pageKey]) pageKey = 'index';
+    const mainContainer = document.getElementById('page-content');
+    if (!mainContainer) return;
+
+    const targetFile = pageKey + '.html';
+    let loadedHtml = null;
+    let loadedTitle = PAGES_CACHE[pageKey].title;
+
+    if (window.location.protocol !== 'file:') {
+        try {
+            const response = await fetch(targetFile);
+            if (response.ok) {
+                const rawText = await response.text();
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(rawText, 'text/html');
+                const extractedMain = doc.getElementById('page-content');
+                if (extractedMain) {
+                    loadedHtml = extractedMain.innerHTML;
+                }
+                if (doc.title) {
+                    loadedTitle = doc.title;
+                }
+            }
+        } catch (err) {
+            // מעבר אוטומטי למטמון המובנה
+        }
+    }
+
+    if (!loadedHtml) {
+        loadedHtml = PAGES_CACHE[pageKey].html;
+    }
+
+    mainContainer.innerHTML = loadedHtml;
+    document.title = loadedTitle;
+    document.body.setAttribute('data-current-page', pageKey);
+
+    if (pushToHistory) {
+        isInternalNavigation = true;
+        try {
+            if (window.location.protocol === 'file:') {
+                window.history.pushState({ pageKey }, loadedTitle, '#' + pageKey);
+            } else {
+                window.history.pushState({ pageKey }, loadedTitle, targetFile);
+            }
+        } catch (e) {
+            window.location.hash = pageKey;
+        }
+        setTimeout(() => {
+            isInternalNavigation = false;
+        }, 100);
+    }
+
+    highlightActiveNav(pageKey);
+    closeMobileNav();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+window.addEventListener('popstate', (event) => {
+    if (isInternalNavigation) return;
+
+    let pageKey = null;
+    if (event.state && event.state.pageKey) {
+        pageKey = event.state.pageKey;
+    } else {
+        pageKey = detectCurrentPageKey();
+    }
+
+    const currentRenderedPage = document.body.getAttribute('data-current-page');
+    if (pageKey && pageKey !== currentRenderedPage) {
+        navigateToPage(pageKey, false);
+    }
+});
+
+function highlightActiveNav(pageKey) {
+    const activeTopKey = (pageKey && pageKey.startsWith('center-')) ? 'doctors' : pageKey;
+    document.querySelectorAll('.nav-link').forEach(link => {
+        const linkPage = link.getAttribute('data-page');
+        if (linkPage === activeTopKey) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+}
+
+/* --------------------------------------------------------------------------
+   3. ניהול כל האירועים באתר (Event Delegation)
+   -------------------------------------------------------------------------- */
+function initGlobalEventDelegation() {
+    document.addEventListener('click', (e) => {
+        // א. קישורי מעבר בין עמודים (SPA)
+        const spaLink = e.target.closest('.spa-link');
+        if (spaLink) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            let targetPage = spaLink.getAttribute('data-page');
+            if (!targetPage) {
+                const href = spaLink.getAttribute('href') || '';
+                targetPage = href.split('/').pop().replace('.html', '').replace('#', '');
+            }
+
+            if (targetPage && PAGES_CACHE[targetPage]) {
+                navigateToPage(targetPage, true);
+            }
+            return;
+        }
+
+        // ב. כפתור תפריט נייד
+        if (e.target.closest('#mobileMenuBtn')) {
+            toggleMobileNav();
+            return;
+        }
+
+        // ג. כפתור מצב קריאה עדין בבר העליון
+        if (e.target.closest('#calmToggleBtn')) {
+            toggleAccessibilityFeature('calm');
+            return;
+        }
+
+        // ד. פתיחה/סגירה של ווידג'ט הנגישות
+        if (e.target.closest('#accToggleBtn')) {
+            toggleAccPanel();
+            return;
+        }
+        if (e.target.closest('#accCloseBtn')) {
+            closeAccPanel();
+            return;
+        }
+
+        // ה. פעולות בתוך תפריט הנגישות
+        const accBtn = e.target.closest('[data-acc-action]');
+        if (accBtn) {
+            const action = accBtn.getAttribute('data-acc-action');
+            if (action === 'reset') {
+                resetAllAccessibility();
+            } else {
+                toggleAccessibilityFeature(action);
+            }
+            return;
+        }
+
+        // ו. מעבר בין טאבים בעמוד המידע הרפואי
+        const medTabBtn = e.target.closest('[data-med-tab]');
+        if (medTabBtn) {
+            const tabKey = medTabBtn.getAttribute('data-med-tab');
+            switchMedicalTab(tabKey, medTabBtn);
+            return;
+        }
+
+        // ו-2. מעבר בין 4 המרכזים הרפואיים (שערי צדק / איכילוב / רמב"ם / שיבא)
+        const centerTabBtn = e.target.closest('[data-center-tab]');
+        if (centerTabBtn) {
+            const centerKey = centerTabBtn.getAttribute('data-center-tab');
+            switchMedicalCenter(centerKey, centerTabBtn);
+            return;
+        }
+
+        // ז. פתיחה/סגירה של אקורדיונים (בדיקות, טיפולים, שאלות נפוצות)
+        const accTrigger = e.target.closest('[data-acc-target]');
+        if (accTrigger) {
+            const targetId = accTrigger.getAttribute('data-acc-target');
+            toggleAccordion(targetId, accTrigger);
+            return;
+        }
+
+        // ח. כפתור הורדת מדריך PDF לרופא
+        if (e.target.closest('#downloadPdfBtn')) {
+            downloadDoctorBrief();
+            return;
+        }
+    });
+
+    // טיפול בשליחת טפסים
+    document.addEventListener('submit', (e) => {
+        if (e.target && e.target.id === 'mainContactForm') {
+            e.preventDefault();
+            e.target.reset();
+            showToast("פנייתך התקבלה בסודיות מלאה. נציג הקהילה ייצור קשר בהקדם!");
+        }
+    });
+}
+
+/* --------------------------------------------------------------------------
+   4. פונקציות עזר לתפריטים, טאבים, מרכזים רפואיים ואקורדיונים
+   -------------------------------------------------------------------------- */
 function toggleMobileNav() {
     const menu = document.getElementById('mobileMenu');
     if (menu) menu.classList.toggle('hidden');
 }
+
 function closeMobileNav() {
     const menu = document.getElementById('mobileMenu');
     if (menu) menu.classList.add('hidden');
 }
 
-let calmModeActive = false;
-function toggleCalmMode() {
-    calmModeActive = !calmModeActive;
-    const btn = document.getElementById('calmToggleBtn');
-    if (calmModeActive) {
-        document.body.classList.add('calm-mode');
-        showToast("מצב קריאה רגוע הופעל: ניגודיות מופחתת להקלה על כאבי ראש");
-        if (btn) btn.innerHTML = '<i class="fa-solid fa-eye text-sky-400"></i><span>ביטול מצב רגוע</span>';
-    } else {
-        document.body.classList.remove('calm-mode');
-        showToast("חזרת למצב צפייה רגיל");
-        if (btn) btn.innerHTML = '<i class="fa-solid fa-eye-slash text-sky-400"></i><span>מצב קריאה עדין</span>';
-    }
-}
-
-function switchMedicalTab(tabKey, btn) {
-    document.querySelectorAll('#medicalTabContainer .tab-btn').forEach(b => {
-        b.classList.remove('active');
-        b.classList.add('bg-white', 'text-navy-800');
+function switchMedicalTab(tabKey, activeBtn) {
+    document.querySelectorAll('#medicalTabContainer .tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
     });
-    if (btn) {
-        btn.classList.add('active');
-        btn.classList.remove('bg-white', 'text-navy-800');
+
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.setAttribute('aria-selected', 'true');
     }
 
-    ['mechanism', 'symptoms', 'imaging', 'treatment'].forEach(key => {
-        const el = document.getElementById('med-tab-' + key);
-        if (el) {
+    ['mechanism', 'symptoms', 'imaging', 'treatment', 'preparation'].forEach(key => {
+        const panel = document.getElementById('med-tab-' + key);
+        if (panel) {
             if (key === tabKey) {
-                el.classList.remove('hidden');
+                panel.classList.remove('hidden');
             } else {
-                el.classList.add('hidden');
+                panel.classList.add('hidden');
             }
         }
     });
 }
 
-function toggleAccordion(id) {
+function switchMedicalCenter(centerKey, activeBtn) {
+    document.querySelectorAll('.center-nav-card').forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+    });
+
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+        activeBtn.setAttribute('aria-selected', 'true');
+    }
+
+    ['szmc', 'ichilov', 'rambam', 'sheba'].forEach(key => {
+        const panel = document.getElementById('center-panel-' + key);
+        if (panel) {
+            if (key === centerKey) {
+                panel.classList.remove('hidden');
+            } else {
+                panel.classList.add('hidden');
+            }
+        }
+    });
+}
+
+function toggleAccordion(id, triggerBtn) {
     const content = document.getElementById('content-' + id);
     const icon = document.getElementById('icon-' + id);
-    if (content && icon) {
-        if (content.classList.contains('hidden')) {
-            content.classList.remove('hidden');
-            icon.classList.add('rotate-180');
-        } else {
-            content.classList.add('hidden');
-            icon.classList.remove('rotate-180');
-        }
+    if (!content) return;
+
+    const isHidden = content.classList.contains('hidden');
+    if (isHidden) {
+        content.classList.remove('hidden');
+        if (icon) icon.classList.add('rotate-180');
+        if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'true');
+    } else {
+        content.classList.add('hidden');
+        if (icon) icon.classList.remove('rotate-180');
+        if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'false');
     }
-}
-
-function applyDiscFilter(cat, btn) {
-    document.querySelectorAll('#discFilterTabs .tab-btn').forEach(b => {
-        b.classList.remove('active');
-        b.classList.add('bg-white', 'text-navy-800');
-    });
-    if (btn) {
-        btn.classList.add('active');
-        btn.classList.remove('bg-white', 'text-navy-800');
-    }
-
-    const items = document.querySelectorAll('.disc-item');
-    items.forEach(item => {
-        if (cat === 'all' || item.getAttribute('data-cat') === cat) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-}
-
-function searchDiscussions() {
-    const input = document.getElementById('discSearchInput');
-    if (!input) return;
-    const query = input.value.toLowerCase();
-    const items = document.querySelectorAll('.disc-item');
-    items.forEach(item => {
-        const text = item.innerText.toLowerCase();
-        if (text.includes(query)) {
-            item.style.display = 'block';
-        } else {
-            item.style.display = 'none';
-        }
-    });
-}
-
-function openForumModal() {
-    const modal = document.getElementById('forumModal');
-    if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    }
-}
-function closeForumModal() {
-    const modal = document.getElementById('forumModal');
-    if (modal) {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-    }
-}
-
-function postNewDiscussion(e) {
-    e.preventDefault();
-    const catEl = document.getElementById('newDiscCat');
-    const nameEl = document.getElementById('newDiscName');
-    const titleEl = document.getElementById('newDiscTitle');
-    const textEl = document.getElementById('newDiscText');
-
-    if (!titleEl) return;
-
-    const cat = catEl ? catEl.value : 'diagnosis';
-    const author = nameEl ? nameEl.value : 'אנונימי';
-    const title = titleEl.value;
-    const text = textEl ? textEl.value : '';
-
-    const categoryLabels = {
-        bloodpatch: 'התאוששות מ-Blood Patch',
-        diagnosis: 'אבחון והדמיות',
-        rights: 'זכויות וביטוח לאומי',
-        life: 'חיים בשכיבה'
-    };
-
-    const container = document.getElementById('discListContainer');
-    if (container) {
-        const newElem = document.createElement('div');
-        newElem.className = 'disc-item p-6 rounded-2xl bg-white border border-gold/30 shadow-card transition';
-        newElem.setAttribute('data-cat', cat);
-        newElem.innerHTML = `
-            <div class="flex items-start justify-between gap-4">
-                <div class="space-y-2">
-                    <div class="flex items-center gap-2">
-                        <span class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-amber-50 text-amber-800 border border-amber-200">${categoryLabels[cat] || 'כללי'}</span>
-                        <span class="text-xs text-gray-400">הרגע • מאת ${author}</span>
-                    </div>
-                    <h3 class="font-heading font-bold text-lg text-navy-800">${title}</h3>
-                    <p class="text-xs text-navy-700/85 leading-relaxed">${text}</p>
-                </div>
-                <div class="flex flex-col items-center justify-center p-3 rounded-xl bg-cream-50 border border-gold/20 min-w-[75px]">
-                    <i class="fa-regular fa-comment-dots text-tealBrand text-lg"></i>
-                    <span class="text-xs font-bold text-navy-800 mt-1">חדש</span>
-                </div>
-            </div>
-        `;
-        container.prepend(newElem);
-    }
-    closeForumModal();
-    titleEl.value = '';
-    if (textEl) textEl.value = '';
-    showToast("שאלתך נוספה בהצלחה לדיוני הקהילה!");
-}
-
-function handleContactSubmit(e) {
-    e.preventDefault();
-    showToast("פנייתך התקבלה בסודיות מלאה. נציג הקהילה ייצור קשר בהקדם!");
-    const form = document.getElementById('mainContactForm');
-    if (form) form.reset();
 }
 
 function downloadDoctorBrief() {
@@ -192,32 +413,118 @@ function showToast(msg) {
     const toastText = document.getElementById('toastText');
     if (toast && toastText) {
         toastText.textContent = msg;
-        toast.classList.remove('translate-y-36');
-        toast.classList.add('translate-y-0');
+        toast.classList.add('show');
         setTimeout(() => {
-            toast.classList.remove('translate-y-0');
-            toast.classList.add('translate-y-36');
-        }, 4500);
+            toast.classList.remove('show');
+        }, 4200);
     }
 }
 
-function switchMedicalTab(tabKey, btn) {
-    document.querySelectorAll('#medicalTabContainer .tab-btn').forEach(b => {
-        b.classList.remove('active');
-        b.classList.add('bg-white', 'text-navy-800');
-    });
-    if (btn) {
-        btn.classList.add('active');
-        btn.classList.remove('bg-white', 'text-navy-800');
+/* --------------------------------------------------------------------------
+   5. מערכת הנגישות המלאה (Accessibility & Calm Mode)
+   -------------------------------------------------------------------------- */
+const accState = {
+    calm: false,
+    'font-lg': false,
+    'font-xl': false,
+    contrast: false,
+    links: false,
+    readable: false,
+    animations: false
+};
+
+function toggleAccPanel() {
+    const panel = document.getElementById('accWidgetPanel');
+    const btn = document.getElementById('accToggleBtn');
+    if (!panel) return;
+    const isHidden = panel.classList.contains('hidden');
+    if (isHidden) {
+        panel.classList.remove('hidden');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+    } else {
+        panel.classList.add('hidden');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
     }
-    ['mechanism', 'symptoms', 'imaging', 'treatment', 'preparation'].forEach(key => {
-        const el = document.getElementById('med-tab-' + key);
-        if (el) {
-            if (key === tabKey) {
-                el.classList.remove('hidden');
-            } else {
-                el.classList.add('hidden');
-            }
+}
+
+function closeAccPanel() {
+    const panel = document.getElementById('accWidgetPanel');
+    const btn = document.getElementById('accToggleBtn');
+    if (panel) panel.classList.add('hidden');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
+}
+
+function toggleAccessibilityFeature(key) {
+    if (key === 'font-lg' && !accState['font-lg']) {
+        accState['font-xl'] = false;
+    }
+    if (key === 'font-xl' && !accState['font-xl']) {
+        accState['font-lg'] = false;
+    }
+    if (key === 'contrast' && !accState['contrast']) {
+        accState.calm = false;
+    }
+    if (key === 'calm' && !accState.calm) {
+        accState.contrast = false;
+    }
+
+    accState[key] = !accState[key];
+    applyAccessibilityClasses();
+    saveAccessibilityState();
+
+    if (key === 'calm') {
+        showToast(accState.calm ? "מצב קריאה עדין הופעל" : "חזרת למצב תצוגה רגיל");
+    }
+}
+
+function resetAllAccessibility() {
+    Object.keys(accState).forEach(k => accState[k] = false);
+    applyAccessibilityClasses();
+    saveAccessibilityState();
+    showToast("הגדרות הנגישות אופסו בהצלחה");
+}
+
+function applyAccessibilityClasses() {
+    document.body.classList.toggle('calm-mode', accState.calm);
+    document.documentElement.classList.toggle('acc-font-lg', accState['font-lg']);
+    document.documentElement.classList.toggle('acc-font-xl', accState['font-xl']);
+    document.body.classList.toggle('acc-high-contrast', accState.contrast);
+    document.body.classList.toggle('acc-underline-links', accState.links);
+    document.body.classList.toggle('acc-readable-font', accState.readable);
+    document.body.classList.toggle('acc-stop-animations', accState.animations);
+
+    document.querySelectorAll('[data-acc-action]').forEach(btn => {
+        const act = btn.getAttribute('data-acc-action');
+        if (accState[act]) {
+            btn.classList.add('active');
+        } else {
+            btn.classList.remove('active');
         }
     });
+
+    const calmBtn = document.getElementById('calmToggleBtn');
+    if (calmBtn) {
+        calmBtn.innerHTML = accState.calm
+            ? '<i class="fa-solid fa-eye" aria-hidden="true"></i> <span>ביטול מצב קריאה עדין</span>'
+            : '<i class="fa-solid fa-eye-slash" aria-hidden="true"></i> <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>';
+    }
+}
+
+function saveAccessibilityState() {
+    try {
+        localStorage.setItem('csf_leak_acc_state', JSON.stringify(accState));
+    } catch (e) {}
+}
+
+function restoreAccessibilityState() {
+    try {
+        const saved = localStorage.getItem('csf_leak_acc_state');
+        if (saved) {
+            const parsed = JSON.parse(saved);
+            Object.keys(accState).forEach(k => {
+                if (typeof parsed[k] === 'boolean') accState[k] = parsed[k];
+            });
+            applyAccessibilityClasses();
+        }
+    } catch (e) {}
 }

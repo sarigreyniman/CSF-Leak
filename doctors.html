@@ -1,278 +1,179 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl" class="scroll-smooth">
+<html lang="he" dir="rtl">
 
 <head>
     <meta name="google-site-verification" content="google8c739a2b46051f97" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CSF Leak IL • רופאים ומרכזים</title>
-    <link rel="icon" type="image/png" href="logo.png">
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>CSF Leak IL • רופאים ומרכזים רפואיים</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;500;600;700;800&family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Assistant', 'sans-serif'],
-                        heading: ['Rubik', 'sans-serif'],
-                    },
-                    colors: {
-                        cream: {50: '#FDFCF9', 100: '#FAF8F4', 200: '#F5F1E9', 300: '#ECE6D9'},
-                        navy: {900: '#0B1726', 800: '#0E2338', 700: '#15324D', 600: '#1D4468'},
-                        tealBrand: {DEFAULT: '#1FA2A6', light: '#E6F7F7', dark: '#147D80', accent: '#3BB4B8'},
-                        gold: {DEFAULT: '#CCA86E', light: '#FAF4E8', dark: '#A68449'}
-                    },
-                    boxShadow: {
-                        'subtle': '0 4px 20px -2px rgba(14, 35, 56, 0.05)',
-                        'card': '0 10px 30px -4px rgba(14, 35, 56, 0.07), 0 1px 3px 0 rgba(204, 168, 110, 0.1)',
-                        'lifted': '0 20px 40px -10px rgba(14, 35, 56, 0.12)',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 
-<body class="min-h-screen flex flex-col selection:bg-tealBrand selection:text-white">
+<body data-current-page="doctors">
 
-    <!-- הודעות טוסט -->
-    <div id="toastBox"
-        class="fixed bottom-6 left-6 z-50 transform translate-y-36 transition-all duration-300 max-w-md bg-navy-800 text-white px-5 py-4 rounded-2xl shadow-lifted border border-gold/40 flex items-center gap-3">
-        <i class="fa-solid fa-circle-check text-tealBrand-accent text-xl"></i>
-        <div class="text-xs sm:text-sm font-medium" id="toastText">הפעולה בוצעה בהצלחה</div>
+    <!-- רכיב Header, תפריט ניווט ונגישות משותף (נטען אוטומטית מ-header.html / script.js) -->
+    <div id="site-header-placeholder"></div>
+
+    <!-- אזור תוכן מרכזי דינמי (נטען מהדף הראשי של הבית ללא רענון דפדפן) -->
+    <main id="page-content" class="main-wrapper">
+<section class="page-banner">
+    <div class="container">
+        <span class="banner-kicker">ניווט מקצועי במערכת הבריאות</span>
+        <h1 class="banner-title">רופאים ומרכזים רפואיים בישראל</h1>
+        <p class="banner-desc">
+            המרכזים הרפואיים והמומחים המובילים בישראל לאבחון וטיפול בדליפות נוזל מוח-שדרה (CSF Leak) ותת-לחץ תוך-גולגולתי (SIH).
+        </p>
     </div>
+</section>
 
-    <!-- בר עליון -->
-    <div class="bg-navy-900 text-cream-200 text-xs py-2 px-4 border-b border-navy-700/60">
-        <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-2 text-sky-400">
-                <i class="fa-solid fa-shield-heart"></i>
-                <span class="hidden sm:inline">מרחב בטוח, נטול אינטרסים מסחריים, למתמודדים עם דליפת נוזל מוח-שדרה</span>
-                <span class="sm:hidden">מרחב תמיכה לדליפת CSF</span>
+<section class="section-block">
+    <div class="container stack-lg">
+
+        <!-- ניווט לעמודי המרכזים הרפואיים -->
+        <div class="stack-md">
+            <div class="stack-sm">
+                <span class="banner-kicker">מוקדי מצוינות קלינית</span>
+                <h2>המרכזים הרפואיים לטיפול בדליפות CSF בישראל</h2>
+                <p>בחרו במרכז הרפואי כדי לעבור לעמוד המרכז ולצפות בפרופילי המומחים, תחומי הטיפול ופרטי יצירת הקשר:</p>
             </div>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleCalmMode()" id="calmToggleBtn"
-                    class="hover:text-white transition flex items-center gap-1.5 cursor-pointer font-medium">
-                    <i class="fa-solid fa-eye-slash text-sky-400"></i>
-                    <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>
-                </button>
-                <span class="text-navy-600">|</span>
-                <a href="contact.html" class="hover:text-white transition font-bold">סיוע מיידי</a>
-            </div>
-        </div>
-    </div>
 
-    <!-- Header & Navigation -->
-    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 transition-all shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-24 flex items-center justify-between">
-            <a href="index.html" class="flex items-center gap-3 group">
-                <div
-                    class="w-12 h-12 flex-shrink-0 relative overflow-hidden rounded-full border border-sky-200 shadow-sm">
-                    <img src="logo.png" alt="CSF Leak IL - לוגו הקהילה"
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
-                </div>
-                <div class="flex flex-col">
-                    <span class="font-heading font-black text-lg tracking-tight text-sky-700 leading-none">CSF LEAK
-                        IL</span>
-                    <span class="text-[10px] font-semibold text-slate-600 tracking-tight mt-1">קהילת מתמודדי דליפת CSF
-                        בישראל</span>
-                </div>
-            </a>
+            <div class="centers-grid-nav">
+                
+                <!-- 1. שערי צדק (מרכזי) -->
+                <a href="center-szmc.html" data-page="center-szmc" class="spa-link center-nav-card featured-center">
+                    <div class="center-nav-top">
+                        <span class="badge-pill badge-solid-sky"><i class="fa-solid fa-star" aria-hidden="true"></i> המרכז הארצי המרכזי</span>
+                        <span class="center-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> ירושלים</span>
+                    </div>
+                    <div class="center-nav-Main">
+                        <div class="center-icon-wrap"><i class="fa-solid fa-hospital" aria-hidden="true"></i></div>
+                        <div>
+                            <h3>המרכז הרפואי שערי צדק</h3>
+                            <p>מוקד המצוינות הרב-תחומי המרכזי בישראל לאבחון וטיפול בדליפות CSF: שירות כאבי ראש, דימות מתקדם ונוירוכירורגיה.</p>
+                        </div>
+                    </div>
+                    <div class="center-nav-footer">
+                        <span><i class="fa-solid fa-user-doctor" aria-hidden="true"></i> ד"ר אברהם אשכנזי • ד"ר אליאל בן דוד • ד"ר דניאל אגיון</span>
+                        <span class="center-open-btn">לעמוד המרכז וצוות הרופאים <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></span>
+                    </div>
+                </a>
 
-            <nav class="hidden lg:flex items-center gap-7 text-sm font-semibold text-slate-700">
-                <a href="index.html" class="nav-link py-2 transition hover:text-sky-600">דף הבית</a>
-                <a href="info.html" class="nav-link py-2 transition hover:text-sky-600">מידע רפואי</a>
-                <a href="doctors.html" class="nav-link py-2 transition hover:text-sky-600">רופאים ומרכזים</a>
-                <!-- <a href="discussions.html" class="nav-link py-2 transition hover:text-sky-600">דיונים ושאלות</a> -->
-                <a href="research.html" class="nav-link py-2 transition hover:text-sky-600">חדשות ומחקרים</a>
-                <a href="support.html" class="nav-link py-2 transition hover:text-sky-600">תמיכה</a>
-                <a href="contact.html" class="nav-link py-2 transition hover:text-sky-600">צור קשר</a>
-            </nav>
+                <!-- 2. איכילוב -->
+                <a href="center-ichilov.html" data-page="center-ichilov" class="spa-link center-nav-card">
+                    <div class="center-nav-top">
+                        <span class="badge-pill badge-sky">מרכז הארץ</span>
+                        <span class="center-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> תל אביב</span>
+                    </div>
+                    <h3>המרכז הרפואי איכילוב</h3>
+                    <p>אבחון רדיולוגי מתקדם (DSM, CT Myelography) וצנתורים ורידיים לפיסטולות CSF.</p>
+                    <div class="center-nav-footer">
+                        <span>ד"ר אודי שדה</span>
+                        <span class="center-open-btn">לעמוד המרכז <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></span>
+                    </div>
+                </a>
 
-            <div class="hidden sm:flex items-center gap-3">
-                <a href="support.html"
-                    class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-sm transition">
-                    <i class="fa-brands fa-whatsapp text-white text-sm"></i>
-                    <span>הצטרפות לקבוצה</span>
+                <!-- 3. רמב"ם -->
+                <a href="center-rambam.html" data-page="center-rambam" class="spa-link center-nav-card">
+                    <div class="center-nav-top">
+                        <span class="badge-pill badge-teal">מוקד הצפון</span>
+                        <span class="center-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> חיפה</span>
+                    </div>
+                    <h3>הקריה הרפואית רמב"ם</h3>
+                    <p>מערך משולב של נוירורדיולוגיה פולשנית ומחלקת נוירוכירורגיה לתיקון דליפות שדרתיות.</p>
+                    <div class="center-nav-footer">
+                        <span>ד"ר גיל צור • פרופ' גיל סוירי</span>
+                        <span class="center-open-btn">לעמוד המרכז <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></span>
+                    </div>
+                </a>
+
+                <!-- 4. שיבא תל השומר -->
+                <a href="center-sheba.html" data-page="center-sheba" class="spa-link center-nav-card">
+                    <div class="center-nav-top">
+                        <span class="badge-pill badge-purple">אזור המרכז</span>
+                        <span class="center-loc"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> רמת גן</span>
+                    </div>
+                    <h3>המרכז הרפואי שיבא</h3>
+                    <p>המרכז הנוירו-וסקולרי והיחידה לנוירורדיולוגיה התערבותית וצנתורי מוח וחוט שדרה.</p>
+                    <div class="center-nav-footer">
+                        <span>ד"ר דוד אוריון</span>
+                        <span class="center-open-btn">לעמוד המרכז <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></span>
+                    </div>
                 </a>
             </div>
-
-            <button onclick="toggleMobileNav()" aria-label="פתח תפריט"
-                class="lg:hidden p-2.5 rounded-xl text-navy-800 hover:bg-slate-100 transition">
-                <i class="fa-solid fa-bars text-xl"></i>
-            </button>
         </div>
 
-        <div id="mobileMenu" class="hidden lg:hidden bg-white border-b border-slate-200 px-6 py-5 shadow-xl space-y-3">
-            <a href="index.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">דף הבית</a>
-            <a href="info.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">מידע רפואי</a>
-            <a href="doctors.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">רופאים ומרכזים רפואיים</a>
-            <!-- <a href="discussions.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600" onclick="closeMobileNav()">דיונים ושאלות קהילה</a> -->
-            <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">תמיכה</a>
-            <a href="support.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">תמיכה</a>
-            <a href="contact.html" class="block py-2 text-base font-bold text-slate-800 hover:text-sky-600"
-                onclick="closeMobileNav()">צור קשר</a>
-        </div>
-    </header>
+        <!-- הסבר על תחומי המומחיות -->
+        <div class="stack-md">
+            <h2>איזה מומחה אתם צריכים בכל שלב?</h2>
+            <div class="grid-4">
+                <div class="card-subtle stack-sm">
+                    <div class="icon-box icon-sky"><i class="fa-solid fa-brain" aria-hidden="true"></i></div>
+                    <h3>נוירולוגים מומחי כאב ראש</h3>
+                    <p>הצעד הראשון. נותנים את האבחנה הקלינית הראשונית, מבדילים ממיגרנה ומפנים ל-MRI מוח ושדרה עם גדוליניום.</p>
+                </div>
 
-    <main class="flex-grow">
-        <section class="py-12 bg-sky-50 border-b border-slate-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <span class="text-xs font-bold uppercase tracking-wider text-sky-700">ניווט מקצועי במערכת הבריאות</span>
-                <h1 class="text-3xl sm:text-4xl font-heading font-extrabold text-navy-800 mt-2">רופאים ומרכזים רפואיים
-                    בישראל</h1>
-                <p class="text-base text-navy-700/80 max-w-3xl mt-2">
-                    התמחויות מפתח, כיצד לצלוח את ועדות קופות החולים, וצ'ק ליסט שאלות חובה לכל פגישת ייעוץ.
-                </p>
+                <div class="card-subtle stack-sm">
+                    <div class="icon-box icon-sky"><i class="fa-solid fa-eye" aria-hidden="true"></i></div>
+                    <h3>נוירו-רדיולוגים פולשניים (INR)</h3>
+                    <p>אנשי המפתח שמפענחים בדיקות עמוד שדרה ברגישות גבוהה ומבצעים מילוגרפיה וטלאי דם ממוקדים תחת שיקוף ו-CT.</p>
+                </div>
+
+                <div class="card-subtle stack-sm">
+                    <div class="icon-box icon-emerald"><i class="fa-solid fa-syringe" aria-hidden="true"></i></div>
+                    <h3>מרדימים / מרפאות כאב</h3>
+                    <p>מבצעים לעיתים קרובות את טלאי הדם האפידורלי הלא-ממוקד הראשון בחלל האפידורלי המותני.</p>
+                </div>
+
+                <div class="card-subtle stack-sm">
+                    <div class="icon-box icon-purple"><i class="fa-solid fa-hospital-user" aria-hidden="true"></i></div>
+                    <h3>נוירוכירורגים של עמוד שדרה</h3>
+                    <p>מעורבים במקרים מורכבים שבהם זוהה קרע דורלי שמחייב תפירה מיקרו-כירורגית או שיוף בליטה גרמית דוקרת.</p>
+                </div>
             </div>
-        </section>
+        </div>
 
-        <section class="py-14 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <!-- צ'ק ליסט שאלות לרופא -->
+        <div class="card stack-md">
+            <h2>צ'ק-ליסט: שאלות מומלצות לרופא בפגישת הייעוץ</h2>
+            <div class="grid-2">
+                <div class="callout-box callout-slate">
+                    <strong>• הערכה קלינית ודיסקים של הדמיות:</strong> האם הבאתי עמי את הדיסקים הפיזיים של בדיקות ה-MRI/CT (ולא רק פענוח כתוב) כדי לבחון סימני SEEPS במוח או נוזל מחוץ לדורה?
+                </div>
+                <div class="callout-box callout-slate">
+                    <strong>• המשך בירור במקרה של MRI מוח תקין:</strong> בהתחשב בכך שעד 20% מחולי דליפת CSF מציגים MRI מוח תקין, האם נכון להפנותי ל-MRI עמוד שדרה מלא או לייעוץ נוירו-רדיולוג פולשני?
+                </div>
+                <div class="callout-box callout-slate">
+                    <strong>• נפח טלאי הדם (Blood Patch):</strong> איזה נפח דם צפוי להיות מוזרק בפרוצדורת ה-EBP? (הספרות המקצועית ממליצה על נפח של לפחות 15–20 סמ"ק, ולעיתים 20–40 מ"ל בהתאם לסבילות).
+                </div>
+                <div class="callout-box callout-slate">
+                    <strong>• הנחיית שיקוף ומיקום ההזרקה:</strong> האם הפרוצדורה תבוצע תחת שיקוף רנטגן/CT ממוקד או כטלאי דם "עיוור"? האם ישולב דבק פיברין (Fibrin Glue)?
+                </div>
+                <div class="callout-box callout-slate">
+                    <strong>• זמן שכיבה בהתאוששות וחוק ה-BLT:</strong> האם מובטחת לי שכיבה אופקית שטוחה לחלוטין של 2–4 שעות במחלקת ההתאוששות לאחר הטלאי?
+                </div>
+                <div class="callout-box callout-slate">
+                    <strong>• היערכות ל"לחץ חוזר" (Rebound Pressure):</strong> במידה ויופיע כאב ראש במצח שמתגבר בשכיבה לאחר הפעולה, למי עליי לדווח ומהו פרוטוקול המרשם לדיאמוקס/אורמוקס?
+                </div>
+            </div>
             <div>
-                <h2 class="text-2xl font-heading font-bold text-navy-800 mb-6">איזה מומחה אתם צריכים בכל שלב?</h2>
-                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-3">
-                            <i class="fa-solid fa-brain"></i>
-                        </div>
-                        <h3 class="font-bold text-navy-800 text-base">נוירולוגים מומחי כאב ראש</h3>
-                        <p class="text-xs text-navy-700/80 leading-relaxed">
-                            הצעד הראשון. נותנים את האבחנה הקלינית הראשונית, מבדילים ממיגרנה ומפנים ל-MRI מוח ושדרה עם
-                            גדוליניום.
-                        </p>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center text-xl mb-3">
-                            <i class="fa-solid fa-eye"></i>
-                        </div>
-                        <h3 class="font-bold text-navy-800 text-base">נוירו-רדיולוגים פולשניים (INR)</h3>
-                        <p class="text-xs text-navy-700/80 leading-relaxed">
-                            אנשי המפתח שמפענחים בדיקות עמוד שדרה ברגישות גבוהה ומבצעים טלאי דם ממוקדים תחת שיקוף ו-CT.
-                        </p>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-xl mb-3">
-                            <i class="fa-solid fa-syringe"></i>
-                        </div>
-                        <h3 class="font-bold text-navy-800 text-base">מרדימים / מרפאות כאב</h3>
-                        <p class="text-xs text-navy-700/80 leading-relaxed">
-                            מבצעים לעיתים קרובות את טלאי הדם הלא-ממוקד הראשון בחלל האפידורלי המותני.
-                        </p>
-                    </div>
-
-                    <div class="p-6 rounded-2xl bg-white border border-slate-200 shadow-subtle space-y-2">
-                        <div
-                            class="w-12 h-12 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center text-xl mb-3">
-                            <i class="fa-solid fa-hospital-user"></i>
-                        </div>
-                        <h3 class="font-bold text-navy-800 text-base">נוירוכירורגים של עמוד שדרה</h3>
-                        <p class="text-xs text-navy-700/80 leading-relaxed">
-                            מעורבים במקרים מורכבים שבהם זוהה קרע דורלי שמחייב תפירה כירורגית או בליטה גרמית דוקרת.
-                        </p>
-                    </div>
-                </div>
+                <button type="button" id="downloadPdfBtn" class="btn-primary-lg">
+                    <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+                    <span>הורדת מדריך CSF רפואי מלא וצ'ק-ליסט לרופא (PDF)</span>
+                </button>
             </div>
-
-            <div class="space-y-4">
-                <h2 class="text-2xl font-heading font-bold text-navy-800">צ'ק-ליסט: שאלות חובה לרופא בפגישת הייעוץ</h2>
-                <div class="grid sm:grid-cols-2 gap-3 text-xs text-navy-700/90">
-                    <div class="p-3.5 rounded-xl bg-white border border-slate-200">
-                        <strong>• דיסקים של הדמיות:</strong> האם הבאתם עמכם את הדיסקים הפיזיים (ולא רק פענוח כתוב)?
-                    </div>
-                    <div class="p-3.5 rounded-xl bg-white border border-slate-200">
-                        <strong>• נפח הטלאי:</strong> איזה נפח דם אתם מזריקים ב-Blood Patch (ההמלצה היא לפחות 15-20
-                        סמ"ק)?
-                    </div>
-                    <div class="p-3.5 rounded-xl bg-white border border-slate-200">
-                        <strong>• הנחיית שיקוף:</strong> האם הפרוצדורה מבוצעת תחת שיקוף רנטגן/CT או בעיוורון?
-                    </div>
-                    <div class="p-3.5 rounded-xl bg-white border border-slate-200">
-                        <strong>• זמן שכיבה בהתאוששות:</strong> האם מובטחת שכיבה אופקית מוחלטת של שעתיים לפחות לאחר
-                        הטלאי?
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
+    </div>
+</section>
     </main>
 
-    <footer class="bg-navy-900 text-cream-100 pt-16 pb-12 border-t-2 border-sky-600 mt-auto">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-12 gap-10 pb-12 border-b border-navy-700/60">
-                <div class="md:col-span-5 space-y-4">
-                    <div class="flex items-center gap-3">
-                        <div
-                            class="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-sky-600 rounded-xl text-white font-bold">
-                            <i class="fa-solid fa-shield-heart"></i>
-                        </div>
-                        <div>
-                            <span class="font-heading font-black text-xl text-white">CSF Leak IL</span>
-                            <div class="text-[11px] text-gray-300">קהילת מתמודדי דליפת CSF בישראל</div>
-                        </div>
-                    </div>
-                    <p class="text-xs text-gray-400 leading-relaxed max-w-sm">
-                        מרחב התנדבותי ללא כוונת רווח, המחבר ומלווה מטופלים ובני משפחה המתמודדים עם דליפת נוזל מוח-שדרה
-                        ו-SIH בישראל.
-                    </p>
-                </div>
+    <!-- רכיב הבהרה משפטית ו-Footer משותף (נטען אוטומטית מ-footer.html / script.js) -->
+    <div id="site-footer-placeholder"></div>
 
-                <div class="md:col-span-3 space-y-2 text-xs text-gray-300">
-                    <div class="font-bold text-white text-sm mb-3">מעבר בין עמודי הפורטל</div>
-                    <div><a href="index.html" class="hover:text-sky-400 transition">דף הבית</a></div>
-                    <div><a href="info.html" class="hover:text-sky-400 transition">מידע רפואי</a></div>
-                    <div><a href="doctors.html" class="hover:text-sky-400 transition">רופאים ומרכזים</a></div>
-                    <!-- <div><a href="discussions.html" class="hover:text-sky-400 transition">דיונים ושאלות</a></div> -->
-                    <div><a href="support.html" class="hover:text-sky-400 transition">תמיכה</a></div>
-                    <div><a href="contact.html" class="hover:text-sky-400 transition">צור קשר</a></div>
-                </div>
-
-                <div class="md:col-span-4 space-y-3">
-                    <div class="font-bold text-white text-sm">ארגונים בינלאומיים שותפים</div>
-                    <p class="text-xs text-gray-400">אנו פועלים בהתאם לפרוטוקולים של הארגונים המובילים בעולם:</p>
-                    <div class="flex flex-col gap-2 text-xs text-sky-400">
-                        <a href="https://spinalcsfleak.org/" target="_blank" rel="noopener noreferrer"
-                            class="cursor-pointer hover:underline">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> Spinal CSF Leak
-                            Foundation (ארה"ב)
-                        </a>
-                        <a href="https://csfleak.uk/" target="_blank" rel="noopener noreferrer"
-                            class="cursor-pointer hover:underline">
-                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1"></i> CSF Leak Association
-                            (בריטניה)
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pt-8 text-center space-y-3">
-                <div
-                    class="p-4 rounded-2xl bg-white/5 border border-white/10 max-w-4xl mx-auto text-[11px] text-gray-400 leading-relaxed">
-                    <strong class="text-sky-400">הבהרה רפואית חשובה:</strong> כל התכנים, הדיונים והמידע המופיעים בפורטל
-                    "CSF Leak IL" ובקבוצות הקהילה נכתבו על ידי מטופלים ומתנדבים למטרות תמיכה הדדית ושיתוף ידע בלבד. הם
-                    אינם מהווים ייעוץ רפואי, המלצה רפואית או תחליף לפגישה עם רופא נוירולוג או מומחה מוסמך.
-                </div>
-                <div class="text-[11px] text-gray-500">
-                    © 2026 כל הזכויות שמורות • CSF Leak IL • קהילת מתמודדי דליפת CSF בישראל
-                </div>
-            </div>
-        </div>
-    </footer>
     <script src="script.js"></script>
 </body>
 

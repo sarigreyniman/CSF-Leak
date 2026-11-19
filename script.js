@@ -206,22 +206,23 @@ const ALL_SITE_PAGES = [
 const runtimePagesCache = {};
 let isInternalNavigation = false;
 
+const isInCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
 const communityUrl = isInCenters
     ? '../community/Pages/index.html'
     : 'community/Pages/index.html';
 
 function getFilePathForPage(pageKey) {
-    const isInCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
+    const inCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
     if (pageKey && pageKey.startsWith('center-')) {
-        return isInCenters ? pageKey + '.html' : 'centers/' + pageKey + '.html';
+        return inCenters ? pageKey + '.html' : 'centers/' + pageKey + '.html';
     }
-    return isInCenters ? '../' + pageKey + '.html' : pageKey + '.html';
+    return inCenters ? '../' + pageKey + '.html' : pageKey + '.html';
 }
 
 function processTemplate(template) {
-    const isInCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
-    const p = isInCenters ? '../' : '';
-    const communityUrl = isInCenters ? '../community/Pages/index.html' : 'community/Pages/index.html';
+    const inCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
+    const p = inCenters ? '../' : '';
+    const resolvedCommunityUrl = inCenters ? '../community/Pages/index.html' : 'community/Pages/index.html';
 
     return template
         .replace(/LOGO_URL/g, p + 'images/logo.png')
@@ -232,7 +233,7 @@ function processTemplate(template) {
         .replace(/FAQ_URL/g, p + 'faq.html')
         .replace(/CAREGIVERS_URL/g, p + 'caregivers.html')
         .replace(/CONTACT_URL/g, p + 'contact.html')
-        .replace(/COMMUNITY_URL/g, communityUrl);
+        .replace(/COMMUNITY_URL/g, resolvedCommunityUrl);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {

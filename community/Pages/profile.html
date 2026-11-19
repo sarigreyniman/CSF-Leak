@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>אזור אישי | CSF Leak IL</title>
+    <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../CSS/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-brand">CSF Leak IL — קהילה</div>
+    <nav class="topbar-nav">
+      <a href="index.html">פורום</a>
+      <a href="profile.html">אזור אישי</a>
+    </nav>
+  </header>
+
+  <main class="page-wrap">
+    <div class="page-header">
+      <h1>אזור אישי ויומן תסמינים</h1>
+    </div>
+
+    <section class="card">
+      <h2 class="post-title" style="margin-top: 0;">הגדרת כינוי</h2>
+      <form id="nickname-form">
+        <div class="form-field">
+          <label for="profile-nickname">כינוי לתצוגה</label>
+          <input type="text" id="profile-nickname" placeholder="למשל: שמיים כחולים" required />
+        </div>
+        <button type="submit" class="btn">שמירת כינוי</button>
+        <div id="nickname-status" class="status-msg"></div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2 class="post-title" style="margin-top: 0;">רישום תסמין חדש</h2>
+      <form id="symptom-form">
+        <div class="form-field">
+          <label for="symptom-level">עוצמת תסמין (1–10)</label>
+          <input type="number" id="symptom-level" min="1" max="10" required />
+        </div>
+        <div class="form-field">
+          <label for="symptom-notes">הערות (תנוחה, שעה, הערות אישיות)</label>
+          <textarea id="symptom-notes" rows="3" placeholder="למשל: החמרה בעמידה משעות הצהריים..."></textarea>
+        </div>
+        <button type="submit" class="btn">הוספה ליומן</button>
+        <div id="symptom-status" class="status-msg"></div>
+      </form>
+    </section>
+
+    <section class="card">
+      <h2 class="post-title" style="margin-top: 0;">הרשומות שלי</h2>
+      <div id="logs-list">טוען רשומות...</div>
+    </section>
+  </main>
+
+  <script type="module" src="../JS/profile.js"></script>
+  <script type="module" src="../JS/navbar.js"></script>
+</body>
+</html>

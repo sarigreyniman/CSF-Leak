@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>התחברות והרשמה • CSF Leak IL</title>
+    <link rel="icon" type="image/png" href="../../favicon.png">
+  <link rel="stylesheet" href="../CSS/style.css">
+</head>
+<body>
+  <main class="container auth-page-wrap">
+    <div class="auth-card">
+      <div class="auth-header">
+        <div class="auth-icon-badge">
+          <i class="fa-solid fa-user-shield" aria-hidden="true"></i>
+        </div>
+        <h2>ברוכים הבאים לקהילה</h2>
+        <p>התחברו כדי לפתוח דיונים, להגיב בשרשורים ולהשתתף בשיח הקהילתי</p>
+      </div>
+
+      <!-- טאבים: התחברות / הרשמה -->
+      <div class="auth-tabs" role="tablist">
+        <button type="button" id="tab-login" class="auth-tab-btn active">התחברות</button>
+        <button type="button" id="tab-signup" class="auth-tab-btn">הרשמה חדשה</button>
+      </div>
+
+      <!-- כניסה מהירה עם Google -->
+      <button type="button" id="google-login-btn" class="btn-google">
+        <i class="fa-brands fa-google" aria-hidden="true"></i>
+        <span>המשך באמצעות חשבון Google</span>
+      </button>
+
+      <div class="auth-divider">
+        <span>או באמצעות אימייל וסיסמה</span>
+      </div>
+
+      <!-- טופס אימייל וסיסמה -->
+      <form id="email-auth-form">
+        <div id="nickname-field" style="display: none;">
+          <label for="auth-nickname">כינוי בקהילה (יוצג ליד ההודעות שלך) *</label>
+          <input type="text" id="auth-nickname" placeholder="לדוגמה: שרה / חבר קהילה">
+        </div>
+
+        <div>
+          <label for="auth-email">כתובת אימייל *</label>
+          <input type="email" id="auth-email" required placeholder="name@example.com" dir="ltr" style="text-align: right;">
+        </div>
+
+        <div>
+          <label for="auth-password">סיסמה *</label>
+          <input type="password" id="auth-password" required placeholder="לפחות 6 תווים" dir="ltr" style="text-align: right;">
+        </div>
+
+        <button type="submit" id="email-submit-btn" class="btn auth-submit-btn">התחברות</button>
+      </form>
+
+      <p id="auth-status" role="status" aria-live="polite"></p>
+    </div>
+  </main>
+
+  <script type="module" src="../JS/navbar.js"></script>
+  <script type="module" src="../JS/auth.js"></script>
+</body>
+</html>

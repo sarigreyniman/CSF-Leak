@@ -1,9 +1,8 @@
 /* ==========================================================================
    CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js)
-   גרסה סופית ויציבה - תמיכה מלאה בתיקיית centers/ ובקישורי התפריט
+   גרסה מתוקנת - ללא קישור "תמיכה" ב-NAV, עם תמיכה בקהילה (community/Pages/index.html)
    ========================================================================== */
 
-// פונקציה שמזהה אוטומטית אם אנחנו בתוך תיקיית centers/
 function getCorrectPath(filename) {
     const isInCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
     return isInCenters ? '../' + filename : filename;
@@ -103,12 +102,12 @@ const SHARED_HEADER_FALLBACK = `<!-- הודעות טוסט מערכתיות -->
             <a href="RESEARCH_URL" data-page="research" class="nav-link spa-link">חדשות ומחקרים</a>
             <a href="FAQ_URL" data-page="faq" class="nav-link spa-link">שאלות נפוצות</a>
             <a href="CAREGIVERS_URL" data-page="caregivers" class="nav-link spa-link">משפחה ומלווים</a>
-            <a href="SUPPORT_URL" data-page="support" class="nav-link spa-link">תמיכה</a>
             <a href="CONTACT_URL" data-page="contact" class="nav-link spa-link">צור קשר</a>
+            <a href="COMMUNITY_URL" target="_blank" rel="noopener noreferrer" class="nav-link">קהילה</a>
         </nav>
 
         <div class="header-cta">
-            <a href="SUPPORT_URL" data-page="support" class="spa-link btn-whatsapp-nav">
+            <a href="CONTACT_URL" data-page="contact" class="spa-link btn-whatsapp-nav">
                 <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
                 <span>הצטרפות לקבוצה</span>
             </a>
@@ -126,8 +125,8 @@ const SHARED_HEADER_FALLBACK = `<!-- הודעות טוסט מערכתיות -->
         <a href="RESEARCH_URL" data-page="research" class="spa-link">חדשות ומחקרים</a>
         <a href="FAQ_URL" data-page="faq" class="spa-link">שאלות נפוצות (FAQ)</a>
         <a href="CAREGIVERS_URL" data-page="caregivers" class="spa-link">משפחה ומלווים</a>
-        <a href="SUPPORT_URL" data-page="support" class="spa-link">תמיכה</a>
         <a href="CONTACT_URL" data-page="contact" class="spa-link">צור קשר</a>
+        <a href="COMMUNITY_URL" target="_blank" rel="noopener noreferrer">קהילה</a>
     </div>
 </header>`;
 
@@ -171,8 +170,8 @@ const SHARED_FOOTER_FALLBACK = `<!-- הבהרה משפטית ואזהרת אי-�
                 <a href="RESEARCH_URL" data-page="research" class="spa-link">חדשות ומחקרים</a>
                 <a href="FAQ_URL" data-page="faq" class="spa-link">שאלות נפוצות (FAQ)</a>
                 <a href="CAREGIVERS_URL" data-page="caregivers" class="spa-link">ארגז כלים למשפחה ומלווים</a>
-                <a href="SUPPORT_URL" data-page="support" class="spa-link">קבוצות תמיכה</a>
                 <a href="CONTACT_URL" data-page="contact" class="spa-link">צור קשר</a>
+                <a href="COMMUNITY_URL" target="_blank" rel="noopener noreferrer">קהילה</a>
             </div>
 
             <div class="footer-links-list">
@@ -200,12 +199,16 @@ const SHARED_FOOTER_FALLBACK = `<!-- הבהרה משפטית ואזהרת אי-�
 
 const ALL_SITE_PAGES = [
     'index', 'info', 'doctors', 'research', 'faq',
-    'caregivers', 'support', 'contact',
+    'caregivers', 'contact',
     'center-szmc', 'center-ichilov', 'center-rambam', 'center-sheba'
 ];
 
 const runtimePagesCache = {};
 let isInternalNavigation = false;
+
+const communityUrl = isInCenters
+    ? '../community/Pages/index.html'
+    : 'community/Pages/index.html';
 
 function getFilePathForPage(pageKey) {
     const isInCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
@@ -218,6 +221,7 @@ function getFilePathForPage(pageKey) {
 function processTemplate(template) {
     const isInCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
     const p = isInCenters ? '../' : '';
+    const communityUrl = isInCenters ? '../community/Pages/index.html' : 'community/Pages/index.html';
 
     return template
         .replace(/LOGO_URL/g, p + 'images/logo.png')
@@ -227,11 +231,12 @@ function processTemplate(template) {
         .replace(/RESEARCH_URL/g, p + 'research.html')
         .replace(/FAQ_URL/g, p + 'faq.html')
         .replace(/CAREGIVERS_URL/g, p + 'caregivers.html')
-        .replace(/SUPPORT_URL/g, p + 'support.html')
-        .replace(/CONTACT_URL/g, p + 'contact.html');
+        .replace(/CONTACT_URL/g, p + 'contact.html')
+        .replace(/COMMUNITY_URL/g, communityUrl);
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
+    document.body.classList.add('portal-page');
     initGlobalEventDelegation();
 
     await loadSharedLayout();
@@ -239,7 +244,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const currentPage = detectCurrentPageKey();
     const mainContainer = document.getElementById('page-content');
-    
+
     if (mainContainer) {
         runtimePagesCache[currentPage] = {
             title: document.title,
@@ -254,7 +259,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 async function loadSharedLayout() {
     const headerSlot = document.getElementById('site-header-placeholder');
     const footerSlot = document.getElementById('site-footer-placeholder');
-    const isLocalFile = window.location.protocol === 'file:';
 
     const processedHeader = processTemplate(SHARED_HEADER_FALLBACK);
     const processedFooter = processTemplate(SHARED_FOOTER_FALLBACK);

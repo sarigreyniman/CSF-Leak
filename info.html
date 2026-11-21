@@ -11,9 +11,9 @@
         gtag('js', new Date());
     </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>דליפת CSF, תת־לחץ תוך־גולגולתי, אבחון וטיפול | CSF Leak IL</title>
+    <title>דליפת CSF, פיסטולה ורידית, תת־לחץ תוך־גולגולתי, אבחון וטיפול | CSF Leak IL</title>
     <meta name="description"
-        content="מדריך רפואי בעברית על דליפת נוזל מוחי־שדרתי (CSF) ותת־לחץ תוך־גולגולתי: תסמינים וכאב ראש תנוחתי, בדיקות MRI ומיאלוגרפיה, טלאי דם, טיפולים מסייעים ולחץ חוזר.">
+        content="מדריך רפואי בעברית על דליפת נוזל מוחי־שדרתי (CSF), פיסטולה ורידית (CSF-Venous Fistula / CVF) ותת־לחץ תוך־גולגולתי (SIH): תסמינים וכאב ראש תנוחתי, MRI, מיאלוגרפיה דינמית DSM, טלאי דם ואמבוליזציה ורידית.">
     <link rel="icon" type="image/png" href="/favicon.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,13 +28,14 @@
   "@graph": [
     {
       "@type": "MedicalWebPage",
-      "name": "מדריך רפואי מקיף: דליפת נוזל מוח-שדרה (CSF Leak) ותת־לחץ תוך־גולגולתי",
+      "name": "מדריך רפואי מקיף: דליפת נוזל מוח-שדרה (CSF Leak), פיסטולה ורידית ותת־לחץ תוך־גולגולתי",
       "inLanguage": "he",
       "about": [
         { "@type": "MedicalCondition", "name": "דליפת נוזל מוחי־שדרתי (CSF Leak)" },
-        { "@type": "MedicalCondition", "name": "תת־לחץ תוך־גולגולתי (Intracranial Hypotension)" },
-        { "@type": "MedicalTest", "name": "MRI מוח ועמוד שדרה עם חומר ניגוד" },
-        { "@type": "MedicalProcedure", "name": "טלאי דם אפידורלי (Epidural Blood Patch)" }
+        { "@type": "MedicalCondition", "name": "פיסטולה ורידית (CSF-Venous Fistula / CVF)" },
+        { "@type": "MedicalCondition", "name": "תת־לחץ תוך־גולגולתי (Intracranial Hypotension / SIH)" },
+        { "@type": "MedicalTest", "name": "MRI מוח ועמוד שדרה עם חומר ניגוד ומיאלוגרפיה דינמית (DSM)" },
+        { "@type": "MedicalProcedure", "name": "טלאי דם אפידורלי (Epidural Blood Patch) ואמבוליזציה ורידית" }
       ]
     },
     {
@@ -50,10 +51,18 @@
         },
         {
           "@type": "Question",
-          "name": "האם MRI מוח תקין שולל דליפת CSF?",
+          "name": "מהי פיסטולה CSF ורידית (CSF-Venous Fistula) ואיך מאבחנים אותה?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "לא. בכ-20% מהחולים עם דליפת נוזל שדרה בדיקת MRI מוח ראשונית עשויה להיות תקינה, ולכן לעיתים נדרשות בדיקות נוספות כגון CT מיאלוגרפיה או מיאלוגרפיה דינמית (DSM)."
+            "text": "פיסטולה ורידית היא חיבור לא תקין בין שק נוזל השדרה לבין וריד שדרתי סמוך, שבו נוזל ה-CSF זורם ישירות אל מערכת הוורידים ללא דליפה חיצונית גלויה. היא שכיחה יחסית גם כאשר MRI מוח תקין, ולעיתים מאותרת באמצעות מיאלוגרפיה דינמית (DSM) או CT מיאלוגרפיה בתנוחות ייעודיות ומטופלת בצנתור ואמבוליזציה ורידית."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "האם MRI מוח תקין שולל דליפת CSF או פיסטולה ורידית?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "לא. בכ-20% מהחולים עם דליפת נוזל שדרה או פיסטולה ורידית בדיקת MRI מוח ראשונית עשויה להיות תקינה, ולכן לעיתים נדרשות בדיקות נוספות כגון CT מיאלוגרפיה או מיאלוגרפיה דינמית (DSM)."
           }
         },
         {
@@ -61,7 +70,7 @@
           "name": "מהי תופעת לחץ חוזר (Rebound High Pressure) לאחר סגירת דליפה?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "לאחר אטימת הדליפה עלול להיווצר עודף לחץ זמני שמורגש לרוב במצח ומאחורי העיניים ומתגבר בשכיבה. חשוב לדווח לרופא המטפל, ולרוב מטפלים בכך בהנחייתו באמצעות תרופות להפחתת ייצור נוזל והגבהת הראש."
+            "text": "לאחר אטימת הדליפה או סגירת פיסטולה עלול להיווצר עודף לחץ זמני שמורגש לרוב במצח ומאחורי העיניים ומתגבר בשכיבה. חשוב לדווח לרופא המטפל, ולרוב מטפלים בכך בהנחייתו באמצעות תרופות להפחתת ייצור נוזל והגבהת הראש."
           }
         }
       ]
@@ -81,10 +90,9 @@
         <section class="page-banner">
             <div class="container">
                 <span class="banner-kicker">אנציקלופדיית הידע של הקהילה</span>
-                <h1 class="banner-title">מדריך רפואי מקיף: דליפת נוזל מוח-שדרה (CSF Leak) ותת־לחץ תוך־גולגולתי</h1>
+                <h1 class="banner-title">מדריך רפואי מקיף: דליפת נוזל מוח-שדרה (CSF Leak), פיסטולה ורידית ותת־לחץ תוך־גולגולתי</h1>
                 <p class="banner-desc">
-                    מהו נוזל ה-CSF ולמה הוא משמש, מדוע נוצר כאב ראש תנוחתי, פירוט מלא של התסמינים, סוגי הדליפות, בדיקות
-                    אבחון, טיפולים והכנה לפגישה רפואית.
+                    מהו נוזל ה-CSF ולמה הוא משמש, מדוע נוצר כאב ראש תנוחתי, פיסטולה CSF ורידית (CSF-Venous Fistula), פירוט מלא של התסמינים, סוגי הדליפות, בדיקות אבחון, טיפולים והכנה לפגישה רפואית.
                 </p>
             </div>
         </section>
@@ -185,7 +193,7 @@
                                     <div class="callout-box callout-slate"><strong>1. ניקור מותני (LP)</strong></div>
                                     <div class="callout-box callout-slate"><strong>2. זריקת אפידורל</strong></div>
                                     <div class="callout-box callout-slate"><strong>3. תאונה / מכה חזקה</strong></div>
-                                    <div class="callout-box callout-slate"><strong>4. דליפה ספונטנית</strong></div>
+                                    <div class="callout-box callout-slate"><strong>4. דליפה ספונטנית / פיסטולה ורידית</strong></div>
                                 </div>
                             </div>
 
@@ -194,15 +202,15 @@
                                 <h3>סוגי דליפות שדרתיות</h3>
                                 <div class="callout-box callout-slate">
                                     <strong>1. קרע במעטפת הדורה (Ventral Dural Tear)</strong>
-                                    <p>חור או חתך קטן עקב בליטה גרמית זעירה (דרבן עצם דוקר) בעמוד השדרה.</p>
+                                    <p>חור או חתך קטן עקב בליטה גרמית זעירה (דרבן עצם דוקר / Osteophyte) בעמוד השדרה.</p>
                                 </div>
                                 <div class="callout-box callout-slate">
                                     <strong>2. מסעפת (Meningeal Diverticulum)</strong>
-                                    <p>פריצה של הקרום הדק של תעלת השידרה לדורה.</p>
+                                    <p>פריצה או התרחבות של הקרום הדק של תעלת השידרה / שרוול שורש עצב (Nerve Root Sleeve).</p>
                                 </div>
                                 <div class="callout-box callout-slate">
-                                    <strong>3. פיסטולה ורידית (CSF-Venous Fistula)</strong>
-                                    <p>חיבור לא תקין בין שק הנוזל ישירות לווריד שדרתי (MRI רגיל לרוב ייראה תקין).</p>
+                                    <strong>3. פיסטולה CSF ורידית (CSF-Venous Fistula / CVF)</strong>
+                                    <p>חיבור לא תקין בין שק נוזל השדרה או מסעפת לבין וריד שדרתי סמוך, כך שנוזל ה-CSF מתנקז ישירות לזרם הוורידי (ללא אוסף נוזל חיצוני גלוי; MRI רגיל לרוב ייראה תקין ומאובחן לרוב ב-DSM או CT מיאלוגרפיה).</p>
                                 </div>
                             </div>
                         </div>
@@ -213,9 +221,9 @@
                     <div class="stack-sm">
                         <h2>הקשת הרחבה של התסמינים הקליניים</h2>
                         <p>
-                            האבחון הוא קשה ולעיתים גם מתפספס בגלל חוסר ידע, תסמינים מגוונים וקושי לאתר את הדליפה.
+                            האבחון הוא קשה ולעיתים גם מתפספס בגלל חוסר ידע, תסמינים מגוונים וקושי לאתר את הדליפה — כולל במקרים של פיסטולה CSF ורידית.
                         </p>
-                        <p>מכיוון שהצניחה של המוח מותחת עצבים שונים, דליפת נוזל שדרה גורמת לתסמינים רב-מערכתיים מגוונים:
+                        <p>מכיוון שהצניחה של המוח מותחת עצבים שונים, דליפת נוזל שדרה או פיסטולה ורידית גורמת לתסמינים רב-מערכתיים מגוונים:
                         </p>
                     </div>
                     <div class="grid-asymmetric">
@@ -295,7 +303,7 @@
                                     ניגוד (גדוליניום) המוזרק לווריד.</p>
                                 <p><strong>איך היא מתבצעת:</strong> שכיבה במכשיר סריקה למשך 20–40 דקות לזיהוי צניחת מוח
                                     או עיבוי קרומים.</p>
-                                <div class="callout-box callout-amber"><strong>שימו לב:</strong> בכ-20% מהחולים הדליפה
+                                <div class="callout-box callout-amber"><strong>שימו לב:</strong> בכ-20% מהחולים (ובמיוחד במקרים של פיסטולה CSF ורידית) הדליפה
                                     קיימת למרות MRI מוח תקין!</div>
                             </div>
                         </div>
@@ -311,9 +319,9 @@
                             </button>
                             <div id="content-diag-2" class="accordion-body hidden stack-sm">
                                 <p><strong>מהי הבדיקה:</strong> בדיקת CT של עמוד השדרה לאחר הזרקת חומר ניגוד ישירות לתוך
-                                    שק/תעלת השדרה.</p>
+                                    שק/תעלת השדרה (כולל CT מילוגרפיה ממוקדת או בתנוחה צידית/שכיבה).</p>
                                 <p><strong>איך היא מתבצעת:</strong> תחת CT, מתבצע דיקור עדין בגב התחתון (ניקור מותני)
-                                    להזרקת חומר הניגוד ואיתור מדויק של הקרע.</p>
+                                    להזרקת חומר הניגוד ואיתור מדויק של הקרע או ניקוז ורידי של חומר הניגוד בפיסטולה ורידית.</p>
                             </div>
                         </div>
                         <div class="accordion-item">
@@ -322,14 +330,12 @@
                                 <span class="accordion-title-wrap">
                                     <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-diag-3"
                                         aria-hidden="true"></i>
-                                    <span>3. מיאלוגרפיה דינמית (DSM)</span>
+                                    <span>3. מיאלוגרפיה דינמית (DSM – Digital Subtraction Myelography)</span>
                                 </span>
                                 <span class="badge-pill badge-purple">מתקדם מאוד</span>
                             </button>
                             <div id="content-diag-3" class="accordion-body hidden stack-sm">
-                                <p><strong>מהי הבדיקה:</strong> הבדיקה המתקדמת ביותר לאיתור פיסטולות ורידיות (CSF-Venous
-                                    Fistula) ודליפות נוספות תחת שיקוף רנטגן בזמן אמת במספר תנוחות. זוהי טכניקה נוספת של
-                                    שיקוף.</p>
+                                <p><strong>מהי הבדיקה:</strong> הבדיקה המתקדמת ביותר לאיתור <strong>פיסטולות CSF ורידיות (CSF-Venous Fistula / CVF)</strong> ודליפות מהירות אחרות תחת שיקוף רנטגן בזמן אמת (לעיתים תוך נשימה עמוקה או שינוי תנוחה) כדי לראות את מעבר חומר הניגוד לוורידים השדרתיים.</p>
                             </div>
                         </div>
                     </div>
@@ -337,7 +343,7 @@
 
                 <div id="med-tab-treatment" role="tabpanel" class="stack-md hidden">
                     <div class="stack-sm">
-                        <h2>דרכי טיפול, טיפולים מסייעים, חוק ה-BLT ולחץ חוזר</h2>
+                        <h2>דרכי טיפול, פיסטולה ורידית, טיפולים מסייעים, חוק ה-BLT ולחץ חוזר</h2>
                         <p>לחצו על כל סעיף לקריאת ההנחיות המלאות:</p>
                     </div>
                     <div class="stack-sm">
@@ -398,13 +404,12 @@
                                 <span class="accordion-title-wrap">
                                     <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-treat-4"
                                         aria-hidden="true"></i>
-                                    <span>4. צנתור ואמבוליזציה ורידית (Embolization) או תיקון כירורגי</span>
+                                    <span>4. צנתור ואמבוליזציה ורידית לפיסטולה CSF (Embolization) או תיקון כירורגי</span>
                                 </span>
                                 <span class="badge-pill badge-purple">פרוצדורות ממוקדות</span>
                             </button>
                             <div id="content-treat-4" class="accordion-body hidden">
-                                <p>אמבוליזציה מיועדת לחסימת פיסטולות ורידיות מבפנים באמצעות צנתור ורידי ללא ניתוח פתוח.
-                                    במקרים של קרע דורלי עיקש או דרבן עצם, מתבצע תיקון מיקרו-כירורגי על ידי נוירוכירורג.
+                                <p><strong>צנתור ואמבוליזציה ורידית (Transvenous Embolization):</strong> טיפול ממוקד לחסימת <strong>פיסטולה CSF ורידית</strong> מבפנים דרך מערכת הוורידים ללא ניתוח פתוח. במקרים של קרע דורלי עיקש, דרבן עצם או פיסטולה שלא נסגרה בצנתור, מתבצע תיקון מיקרו-כירורגי על ידי נוירוכירורג.
                                 </p>
                             </div>
                         </div>
@@ -437,7 +442,7 @@
                             </button>
                             <div id="content-treat-5" class="accordion-body hidden stack-sm">
                                 <p>
-                                    <strong>תופעה שחשוב להכיר: "לחץ חוזר" (Rebound High Pressure)</strong> – כאשר הדליפה
+                                    <strong>תופעה שחשוב להכיר: "לחץ חוזר" (Rebound High Pressure)</strong> – כאשר הדליפה או הפיסטולה הורידית
                                     נאטמת בהצלחה, המערכת שהתרגלה לייצר המון נוזל עלולה לפתח עודף לחץ זמני.
                                 </p>
                                 <p>

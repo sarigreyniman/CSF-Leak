@@ -665,3 +665,42 @@ function restoreAccessibilityState() {
         }
     } catch (e) {}
 }
+/* ==========================================================================
+   הודעת קוקיז עדינה (Cookie Notice)
+   ========================================================================== */
+function initCookieNotice() {
+    // בדיקה אם הגולש כבר אישר בעבר (דרך קוקי או localStorage)
+    const hasCookie = document.cookie.split('; ').some(row => row.startsWith('csf_leak_cookie_consent='));
+    let hasStorage = false;
+    try {
+        hasStorage = localStorage.getItem('csf_leak_cookie_consent') === 'accepted';
+    } catch (e) {}
+
+    if (hasCookie || hasStorage) return;
+
+    const banner = document.createElement('div');
+    banner.id = 'cookieBanner';
+    banner.className = 'cookie-banner';
+    banner.setAttribute('role', 'region');
+    banner.setAttribute('aria-label', 'הודעת שימוש בקובצי Cookie');
+    banner.innerHTML = `
+        <span>
+            אתר זה משתמש בקובצי Cookie ובכלי מדידה סטטיסטיים אנונימיים (Google Analytics) לשיפור חוויית הגלישה ושמירת הגדרות הנגישות שלך.
+        </span>
+        <button type="button" id="acceptCookiesBtn" class="cookie-banner-btn">הבנתי</button>
+    `;
+
+    document.body.appendChild(banner);
+
+    document.getElementById('acceptCookiesBtn').addEventListener('click', () => {
+        // שמירת קוקי ל-180 ימים
+        const maxAge = 60 * 60 * 24 * 180;
+        document.cookie = `csf_leak_cookie_consent=accepted; max-age=${maxAge}; path=/; SameSite=Lax`;
+        try {
+            localStorage.setItem('csf_leak_cookie_consent', 'accepted');
+        } catch (e) {}
+        banner.classList.add('hidden');
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initCookieNotice);

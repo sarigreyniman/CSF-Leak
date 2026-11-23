@@ -1,6 +1,6 @@
 /* ==========================================================================
    CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js)
-   גרסה מתוקנת - ללא קישור "תמיכה" ב-NAV, עם תמיכה בקהילה (community/Pages/index.html)
+   גרסה מתוקנת - כולל בורר שפות מעוצב, תרגום נסתר וחזרה חלקה לעברית
    ========================================================================== */
 
 function getCorrectPath(filename) {
@@ -77,6 +77,18 @@ const SHARED_HEADER_FALLBACK = `<!-- הודעות טוסט מערכתיות -->
                 <span>מצב קריאה עדין (הפחתת ניגודיות לכאב ראש)</span>
             </button>
             <span class="top-divider" aria-hidden="true">|</span>
+            <div class="lang-picker-wrap">
+                <span class="lang-picker-icon" aria-hidden="true"><i class="fa-solid fa-globe"></i></span>
+                <select id="siteLangSelect" class="lang-picker-select" aria-label="בחירת שפה">
+                    <option value="he">עברית</option>
+                    <option value="en">English</option>
+                    <option value="ru">Русский</option>
+                    <option value="ar">العربية</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+            <span class="top-divider" aria-hidden="true">|</span>
             <a href="CONTACT_URL" data-page="contact" class="spa-link urgent-link">סיוע מיידי</a>
         </div>
     </div>
@@ -127,7 +139,22 @@ const SHARED_HEADER_FALLBACK = `<!-- הודעות טוסט מערכתיות -->
         <a href="CAREGIVERS_URL" data-page="caregivers" class="spa-link">משפחה ומלווים</a>
         <a href="CONTACT_URL" data-page="contact" class="spa-link">צור קשר</a>
         <a href="COMMUNITY_URL" target="_blank" rel="noopener noreferrer">קהילה</a>
+        <div class="mobile-lang-wrap">
+            <div class="lang-picker-wrap">
+                <span class="lang-picker-icon" aria-hidden="true"><i class="fa-solid fa-globe"></i></span>
+                <select id="siteLangSelectMobile" class="lang-picker-select" aria-label="בחירת שפה בנייד">
+                    <option value="he">עברית</option>
+                    <option value="en">English</option>
+                    <option value="ru">Русский</option>
+                    <option value="ar">العربية</option>
+                    <option value="fr">Français</option>
+                    <option value="es">Español</option>
+                </select>
+            </div>
+        </div>
     </div>
+
+    <div id="google_translate_element" class="goog-hidden-host"></div>
 </header>`;
 
 const SHARED_FOOTER_FALLBACK = `<!-- הבהרה משפטית ואזהרת אי-לקיחת אחריות רפואית קבועה -->
@@ -242,6 +269,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     await loadSharedLayout();
     restoreAccessibilityState();
+    loadGoogleTranslate();
 
     const currentPage = detectCurrentPageKey();
     const mainContainer = document.getElementById('page-content');
@@ -342,6 +370,7 @@ async function navigateToPage(pageKey, pushToHistory = true) {
 
         highlightActiveNav(pageKey);
         closeMobileNav();
+        renderTranslateWidgets();
         window.scrollTo({ top: 0, behavior: 'instant' });
 
     } catch (err) {
@@ -665,11 +694,99 @@ function restoreAccessibilityState() {
         }
     } catch (e) {}
 }
+
+/* ==========================================================================
+   תרגום שפות נקי מאחורי הקלעים (Google Translate Hidden Engine)
+   ========================================================================== */
+function clearGoogleTranslateCookies() {
+    const host = window.location.hostname;
+    const hostParts = host.split('.');
+    const domains = ['', host, '.' + host];
+    if (hostParts.length >= 2) {
+        domains.push('.' + hostParts.slice(-2).join('.'));
+    }
+
+    domains.forEach(domain => {
+        const domainAttr = domain ? `; domain=${domain}` : '';
+        document.cookie = `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/${domainAttr}; SameSite=Lax`;
+    });
+}
+
+function setGoogleTranslateLanguage(langCode) {
+    if (langCode === 'he') {
+        clearGoogleTranslateCookies();
+        window.location.reload();
+        return;
+    }
+
+    const cookieValue = `/he/${langCode}`;
+    document.cookie = `googtrans=${cookieValue}; path=/; SameSite=Lax`;
+    const hostParts = window.location.hostname.split('.');
+    if (hostParts.length >= 2) {
+        const rootDomain = '.' + hostParts.slice(-2).join('.');
+        document.cookie = `googtrans=${cookieValue}; domain=${rootDomain}; path=/; SameSite=Lax`;
+    }
+
+    const combo = document.querySelector('#google_translate_element select.goog-te-combo');
+    if (combo) {
+        combo.value = langCode;
+        combo.dispatchEvent(new Event('change'));
+    } else {
+        window.location.reload();
+    }
+
+    ['siteLangSelect', 'siteLangSelectMobile'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (sel && sel.value !== langCode) sel.value = langCode;
+    });
+}
+
+function renderTranslateWidgets() {
+    if (window.google && google.translate && google.translate.TranslateElement) {
+        const host = document.getElementById('google_translate_element');
+        if (host && !host.querySelector('.goog-te-gadget')) {
+            new google.translate.TranslateElement({
+                pageLanguage: 'he',
+                includedLanguages: 'he,en,ru,ar,fr,es',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+    }
+
+    const match = document.cookie.match(/(?:^|;\s*)googtrans=\/[^/]+\/([^;]+)/);
+    const currentLang = (match && match[1]) ? match[1] : 'he';
+
+    ['siteLangSelect', 'siteLangSelectMobile'].forEach(id => {
+        const sel = document.getElementById(id);
+        if (!sel) return;
+        sel.value = currentLang;
+        if (!sel.dataset.bound) {
+            sel.dataset.bound = 'true';
+            sel.addEventListener('change', (e) => {
+                setGoogleTranslateLanguage(e.target.value);
+            });
+        }
+    });
+}
+
+window.googleTranslateElementInit = renderTranslateWidgets;
+
+function loadGoogleTranslate() {
+    renderTranslateWidgets();
+    if (window.location.protocol === 'file:') return;
+    if (document.getElementById('google-translate-script')) return;
+
+    const script = document.createElement('script');
+    script.id = 'google-translate-script';
+    script.src = 'https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+    script.async = true;
+    document.body.appendChild(script);
+}
+
 /* ==========================================================================
    הודעת קוקיז עדינה (Cookie Notice)
    ========================================================================== */
 function initCookieNotice() {
-    // בדיקה אם הגולש כבר אישר בעבר (דרך קוקי או localStorage)
     const hasCookie = document.cookie.split('; ').some(row => row.startsWith('csf_leak_cookie_consent='));
     let hasStorage = false;
     try {
@@ -693,7 +810,6 @@ function initCookieNotice() {
     document.body.appendChild(banner);
 
     document.getElementById('acceptCookiesBtn').addEventListener('click', () => {
-        // שמירת קוקי ל-180 ימים
         const maxAge = 60 * 60 * 24 * 180;
         document.cookie = `csf_leak_cookie_consent=accepted; max-age=${maxAge}; path=/; SameSite=Lax`;
         try {

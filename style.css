@@ -71,7 +71,7 @@
 }
 
 /* ==========================================================================
-   1. איפוס, טיפוגרפיה והגדרות קריאות
+1. איפוס, טיפוגרפיה והגדרות קריאות
    ========================================================================== */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -96,6 +96,8 @@ body {
     text-align: right;
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
+    top: 0 !important;
+    position: static !important;
 }
 
 h1, h2, h3, h4, .heading-font {
@@ -147,8 +149,20 @@ button, input, select, textarea {
     display: none !important;
 }
 
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
 /* ==========================================================================
-   2. מכולות ומבנה עמוד (Layout)
+2. מכולות ומבנה עמוד (Layout)
    ========================================================================== */
 .container {
     width: 100%;
@@ -169,7 +183,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   3. בר עליון וניווט ראשי (Top Bar & Clean Open Header)
+3. בר עליון וניווט ראשי (Top Bar & Clean Open Header)
    ========================================================================== */
 .top-bar {
     background: linear-gradient(90deg, var(--navy-950) 0%, var(--navy-900) 100%);
@@ -199,6 +213,7 @@ button, input, select, textarea {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 }
 
 .btn-calm-mode {
@@ -236,6 +251,60 @@ button, input, select, textarea {
 .urgent-link:hover {
     color: var(--white);
     text-decoration: underline;
+}
+
+/* בורר שפות מעוצב ונקי */
+.lang-picker-wrap {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    background-color: var(--white);
+    border: 1px solid var(--slate-300);
+    border-radius: 999px;
+    padding: 0.18rem 0.65rem;
+    gap: 0.4rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lang-picker-wrap:hover {
+    border-color: var(--sky-600);
+    box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.14);
+}
+
+.lang-picker-icon {
+    color: var(--sky-700);
+    font-size: 0.82rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.lang-picker-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    color: var(--navy-900);
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding-left: 0.35rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.mobile-lang-wrap {
+    padding: 0.65rem 0.85rem 0.25rem;
+}
+
+/* הסתרה מוחלטת של הווידג'ט והסרגל העליון של Google Translate */
+.goog-hidden-host,
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-te-gadget-icon {
+    display: none !important;
+    visibility: hidden !important;
 }
 
 .site-header {
@@ -428,7 +497,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   4. באנרים וגיבור דף הבית (Hero & Page Banners)
+4. באנרים וגיבור דף הבית (Hero & Page Banners)
    ========================================================================== */
 .hero-section {
     position: relative;
@@ -565,7 +634,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   5. סרגל טאבים אופקי בראש העמוד (Horizontal Tabs Bar)
+5. סרגל טאבים אופקי בראש העמוד (Horizontal Tabs Bar)
    ========================================================================== */
 .tabs-bar {
     display: flex;
@@ -616,7 +685,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   6. אזורי תוכן, רשתות וכרטיסים (Grids & Cards)
+6. אזורי תוכן, רשתות וכרטיסים (Grids & Cards)
    ========================================================================== */
 .section-block {
     padding: 3.25rem 0;
@@ -737,7 +806,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   7. אייקונים, מדדים ותיבות מידע רפואיות (Icons, Stats & Callouts)
+7. אייקונים, מדדים ותיבות מידע רפואיות (Icons, Stats & Callouts)
    ========================================================================== */
 .icon-box {
     width: 3rem;
@@ -854,7 +923,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   8. אקורדיונים ורשימות (Accordions & Feature Lists)
+8. אקורדיונים ורשימות (Accordions & Feature Lists)
    ========================================================================== */
 .accordion-item {
     border: 1px solid var(--slate-200);
@@ -968,7 +1037,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   9. טפסים וכפתורים (Forms & Buttons)
+9. טפסים וכפתורים (Forms & Buttons)
    ========================================================================== */
 .form-group {
     margin-bottom: 1.25rem;
@@ -1045,7 +1114,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   10. הבהרה משפטית ופוטר (Disclaimer & Footer)
+10. הבהרה משפטית ופוטר (Disclaimer & Footer)
    ========================================================================== */
 .legal-disclaimer-section {
     margin: 2.5rem auto;
@@ -1142,7 +1211,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   11. הודעות מערכת ונגישות (Toast & Accessibility Widget)
+11. הודעות מערכת ונגישות (Toast & Accessibility Widget)
    ========================================================================== */
 .toast-notification {
     position: fixed;
@@ -1273,7 +1342,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   12. עיצוב מתקדם לניווט מרכזים רפואיים וצוותי רופאים (Master-Detail Showcase)
+12. עיצוב מתקדם לניווט מרכזים רפואיים וצוותי רופאים (Master-Detail Showcase)
    ========================================================================== */
 .centers-grid-nav {
     display: grid;
@@ -1281,7 +1350,6 @@ button, input, select, textarea {
     gap: 1.25rem;
 }
 
-/* שערי צדק תופס את כל השורה העליונה כמרכז הדגל הארצי */
 .center-nav-card.featured-center {
     grid-column: 1 / -1;
     background: linear-gradient(135deg, #F0F9FF 0%, #FFFFFF 65%, #E0F2FE 100%);
@@ -1410,7 +1478,6 @@ button, input, select, textarea {
     border-radius: 999px;
 }
 
-/* חלון הראווה של המרכז הנבחר */
 .center-showcase-panel {
     background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%);
     border: 1px solid var(--sky-200);
@@ -1450,7 +1517,6 @@ button, input, select, textarea {
     color: var(--slate-700);
 }
 
-/* רשת כרטיסי הרופאים בתוך חלון הראווה */
 .doctors-profile-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1567,7 +1633,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-   13. מצבי נגישות ומצב קריאה עדין (Calm Mode למיגרנה/כאב ראש)
+13. מצבי נגישות ומצב קריאה עדין (Calm Mode למיגרנה/כאב ראש)
    ========================================================================== */
 body.calm-mode {
     background-color: #EDE8DC !important;
@@ -1667,7 +1733,7 @@ body.acc-stop-animations *::after {
 }
 
 /* ==========================================================================
-   14. התאמה מלאה למסכים ניידים וטאבלטים (Responsive)
+14. התאמה מלאה למסכים ניידים וטאבלטים (Responsive)
    ========================================================================== */
 @media (max-width: 1024px) {
     .main-nav, .header-cta {
@@ -1707,7 +1773,7 @@ body.acc-stop-animations *::after {
 }
 
 /* ==========================================================================
-   15. עיצוב עמודי מרכזים רפואיים וכרטיסי רופאים אנכיים (פרופיל, שם, הסבר ויצירת קשר)
+15. עיצוב עמודי מרכזים רפואיים וכרטיסי רופאים אנכיים (פרופיל, שם, הסבר ויצירת קשר)
    ========================================================================== */
 .banner-top-nav {
     display: flex;
@@ -1739,7 +1805,6 @@ body.acc-stop-animations *::after {
     transform: translateX(3px);
 }
 
-/* סרגל מעבר מהיר בין עמודי המרכזים הרפואיים */
 .centers-quick-bar {
     display: flex;
     align-items: center;
@@ -1790,7 +1855,6 @@ body.acc-stop-animations *::after {
     box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
 }
 
-/* רשת כרטיסי רופאים אנכיים */
 .doctors-vertical-grid {
     display: grid;
     gap: 2rem;
@@ -1832,7 +1896,6 @@ body.acc-stop-animations *::after {
     border-top-color: var(--sky-500);
 }
 
-/* חלק עליון ממורכז: תמונת פרופיל גדולה ומתחתיה השם והתפקיד */
 .doc-v-profile-wrap {
     display: flex;
     flex-direction: column;
@@ -1913,7 +1976,6 @@ body.acc-stop-animations *::after {
     max-width: 95%;
 }
 
-/* גוף ההסבר על הרופא */
 .doc-v-body {
     display: flex;
     flex-direction: column;
@@ -1945,7 +2007,6 @@ body.acc-stop-animations *::after {
     border-radius: 0.5rem;
 }
 
-/* תיבת פרטי יצירת קשר בתחתית הכרטיס */
 .doc-v-contact {
     background-color: var(--slate-50);
     border: 1px solid var(--slate-200);
@@ -2001,7 +2062,6 @@ body.acc-stop-animations *::after {
     text-decoration: underline;
 }
 
-/* התאמת כרטיסי רופאים למסכים ניידים ומצבי נגישות */
 @media (max-width: 1024px) {
     .doctors-vertical-grid.three-cols,
     .doctors-vertical-grid.two-cols {
@@ -2023,79 +2083,157 @@ body.acc-high-contrast .doc-v-contact {
     border-color: #FFD700 !important;
 }
 
-/* באנר ניהול הסכמה לקוקיז בתחתית המסך */
-.cookie-banner {
-    position: fixed;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
-    max-width: 780px;
-    margin: 0 auto;
-    background-color: #0f172a;
-    color: #f8fafc;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 14px 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-    z-index: 9998;
-    font-size: 0.95rem;
-    line-height: 1.5;
+/* ==========================================================================
+   הסתרה מוחלטת של הווידג'ט והסרגל העבה של Google Translate + עיצוב בורר נקי
+   ========================================================================== */
+html, body {
+    top: 0 !important;
+    margin-top: 0 !important;
+    position: static !important;
 }
 
-.cookie-banner.hidden {
+/* הסתרת הסרגל העליון של גוגל (גרסה ישנה וחדשה) */
+body > .skiptranslate,
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate,
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
+#goog-gt-tt,
+.goog-te-balloon-frame,
+.goog-te-gadget-icon {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+/* הסתרת המארח של גוגל מחוץ למסך (כדי שימשיך לתרגם ברקע בלי להיראות) */
+.goog-hidden-host {
+    position: fixed !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+}
+
+/* עיצוב דק ועדין לבורר השפות בבר העליון */
+.lang-picker-wrap {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+    gap: 0.4rem;
+    height: 1.75rem;
+}
+
+.lang-picker-wrap:hover {
+    background: rgba(56, 189, 248, 0.2);
+    border-color: var(--sky-400);
+}
+
+.lang-picker-icon {
+    color: var(--sky-400);
+    font-size: 0.78rem;
+    display: inline-flex;
+    align-items: center;
+}
+
+.lang-picker-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: transparent;
+    border: none;
+    color: var(--white);
+    font-family: inherit;
+    font-size: 0.78rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+}
+
+.lang-picker-select option {
+    background-color: var(--navy-900);
+    color: var(--white);
+}
+
+/* התאמת בורר השפות בתפריט המובייל */
+.mobile-lang-wrap {
+    padding: 0.65rem 0.85rem;
+}
+
+.mobile-lang-wrap .lang-picker-wrap {
+    background: var(--slate-50);
+    border-color: var(--slate-300);
+    width: 100%;
+    height: 2.3rem;
+}
+
+.mobile-lang-wrap .lang-picker-icon {
+    color: var(--sky-700);
+}
+
+.mobile-lang-wrap .lang-picker-select {
+    color: var(--navy-900);
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.mobile-lang-wrap .lang-picker-select option {
+    background-color: var(--white);
+    color: var(--navy-900);
+}
+
+/* ==========================================================================
+   התאמת תפריט הניווט (NAV) כאשר האתר מתורגם לשפות ארוכות יותר
+   ========================================================================== */
+html.translated-ltr .header-inner,
+html.translated-rtl .header-inner {
+    gap: 0.75rem;
+}
+
+html.translated-ltr .main-nav,
+html.translated-rtl .main-nav {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
+    padding: 0.4rem 0;
+}
+
+html.translated-ltr .nav-link,
+html.translated-rtl .nav-link {
+    font-size: 0.82rem;
+    height: 2.6rem;
+    padding: 0 0.15rem;
+}
+
+html.translated-ltr .brand-subtitle,
+html.translated-rtl .brand-subtitle {
     display: none;
 }
 
-.cookie-banner-actions {
-    display: flex;
-    gap: 10px;
-    flex-shrink: 0;
+html.translated-ltr .btn-whatsapp-nav,
+html.translated-rtl .btn-whatsapp-nav {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.85rem;
 }
 
-.cookie-btn-accept {
-    background-color: #0284c7;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 8px 16px;
-    font-family: inherit;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.cookie-btn-accept:hover {
-    background-color: #0369a1;
-}
-
-.cookie-btn-decline {
-    background-color: transparent;
-    color: #cbd5e1;
-    border: 1px solid #475569;
-    border-radius: 8px;
-    padding: 8px 14px;
-    font-family: inherit;
-    font-weight: 500;
-    cursor: pointer;
-    white-space: nowrap;
-}
-
-.cookie-btn-decline:hover {
-    background-color: #1e293b;
-    color: #ffffff;
-}
-
-@media (max-width: 640px) {
-    .cookie-banner {
-        flex-direction: column;
-        align-items: stretch;
-        text-align: center;
+/* מעבר מוקדם יותר לתפריט מובייל כאשר האתר מתורגם */
+@media (max-width: 1240px) {
+    html.translated-ltr .main-nav,
+    html.translated-ltr .header-cta,
+    html.translated-rtl .main-nav,
+    html.translated-rtl .header-cta {
+        display: none;
     }
-    .cookie-banner-actions {
-        justify-content: center;
+    html.translated-ltr .mobile-menu-btn,
+    html.translated-rtl .mobile-menu-btn {
+        display: block;
     }
 }

@@ -18,6 +18,7 @@
     --sky-50: #F0F9FF;
     --sky-100: #E0F2FE;
     --sky-200: #BAE6FD;
+    --sky-300: #7DD3FC;
     --sky-400: #38BDF8;
     --sky-500: #0EA5E9;
     --sky-600: #0284C7;
@@ -82,6 +83,9 @@
 html {
     scroll-behavior: smooth;
     font-size: 16.5px;
+    top: 0 !important;
+    margin-top: 0 !important;
+    position: static !important;
 }
 
 body {
@@ -97,6 +101,7 @@ body {
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
     top: 0 !important;
+    margin-top: 0 !important;
     position: static !important;
 }
 
@@ -183,7 +188,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-3. בר עליון וניווט ראשי (Top Bar & Clean Open Header)
+3. בר עליון, בורר שפות וניווט ראשי (Top Bar, Language & Clean Open Header)
    ========================================================================== */
 .top-bar {
     background: linear-gradient(90deg, var(--navy-950) 0%, var(--navy-900) 100%);
@@ -258,22 +263,24 @@ button, input, select, textarea {
     position: relative;
     display: inline-flex;
     align-items: center;
-    background-color: var(--white);
-    border: 1px solid var(--slate-300);
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.22);
     border-radius: 999px;
-    padding: 0.18rem 0.65rem;
+    padding: 0.2rem 0.65rem;
     gap: 0.4rem;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    height: 1.75rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .lang-picker-wrap:hover {
-    border-color: var(--sky-600);
+    background: rgba(56, 189, 248, 0.2);
+    border-color: var(--sky-400);
     box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.14);
 }
 
 .lang-picker-icon {
-    color: var(--sky-700);
-    font-size: 0.82rem;
+    color: var(--sky-400);
+    font-size: 0.78rem;
     display: inline-flex;
     align-items: center;
 }
@@ -283,28 +290,70 @@ button, input, select, textarea {
     -webkit-appearance: none;
     background: transparent;
     border: none;
-    color: var(--navy-900);
+    color: var(--white);
     font-family: inherit;
-    font-size: 0.8rem;
-    font-weight: 700;
-    padding-left: 0.35rem;
+    font-size: 0.78rem;
+    font-weight: 600;
     cursor: pointer;
     outline: none;
+    padding: 0;
+}
+
+.lang-picker-select option {
+    background-color: var(--navy-900);
+    color: var(--white);
 }
 
 .mobile-lang-wrap {
-    padding: 0.65rem 0.85rem 0.25rem;
+    padding: 0.65rem 0.85rem;
+}
+
+.mobile-lang-wrap .lang-picker-wrap {
+    background: var(--slate-50);
+    border-color: var(--slate-300);
+    width: 100%;
+    height: 2.3rem;
+}
+
+.mobile-lang-wrap .lang-picker-icon {
+    color: var(--sky-700);
+}
+
+.mobile-lang-wrap .lang-picker-select {
+    color: var(--navy-900);
+    width: 100%;
+    font-size: 0.9rem;
+}
+
+.mobile-lang-wrap .lang-picker-select option {
+    background-color: var(--white);
+    color: var(--navy-900);
 }
 
 /* הסתרה מוחלטת של הווידג'ט והסרגל העליון של Google Translate */
-.goog-hidden-host,
+body > .skiptranslate,
 .goog-te-banner-frame,
 .goog-te-banner-frame.skiptranslate,
+iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
+.VIpgJd-ZVi9od-ORHb-OEVmcd,
 #goog-gt-tt,
 .goog-te-balloon-frame,
 .goog-te-gadget-icon {
     display: none !important;
     visibility: hidden !important;
+    height: 0 !important;
+    opacity: 0 !important;
+}
+
+.goog-hidden-host {
+    position: fixed !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
 .site-header {
@@ -494,6 +543,52 @@ button, input, select, textarea {
 .mobile-nav a:hover {
     background-color: var(--sky-50);
     color: var(--sky-700);
+}
+
+/* התאמת תפריט הניווט כאשר האתר מתורגם */
+html.translated-ltr .header-inner,
+html.translated-rtl .header-inner {
+    gap: 0.75rem;
+}
+
+html.translated-ltr .main-nav,
+html.translated-rtl .main-nav {
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    height: auto;
+    padding: 0.4rem 0;
+}
+
+html.translated-ltr .nav-link,
+html.translated-rtl .nav-link {
+    font-size: 0.82rem;
+    height: 2.6rem;
+    padding: 0 0.15rem;
+}
+
+html.translated-ltr .brand-subtitle,
+html.translated-rtl .brand-subtitle {
+    display: none;
+}
+
+html.translated-ltr .btn-whatsapp-nav,
+html.translated-rtl .btn-whatsapp-nav {
+    font-size: 0.78rem;
+    padding: 0.45rem 0.85rem;
+}
+
+@media (max-width: 1240px) {
+    html.translated-ltr .main-nav,
+    html.translated-ltr .header-cta,
+    html.translated-rtl .main-nav,
+    html.translated-rtl .header-cta {
+        display: none;
+    }
+    html.translated-ltr .mobile-menu-btn,
+    html.translated-rtl .mobile-menu-btn {
+        display: block;
+    }
 }
 
 /* ==========================================================================
@@ -805,6 +900,45 @@ button, input, select, textarea {
     color: var(--sky-400);
 }
 
+/* סימטריה וגובה אחיד לכרטיסים במידע רפואי */
+#med-tab-mechanism .grid-asymmetric,
+#med-tab-symptoms .grid-asymmetric {
+    align-items: stretch;
+    gap: 1.25rem;
+}
+
+#med-tab-mechanism .grid-asymmetric > .card,
+#med-tab-symptoms .grid-asymmetric > .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#med-tab-mechanism .grid-2 {
+    align-items: stretch;
+    gap: 0.85rem;
+}
+
+#med-tab-mechanism .grid-2 > .callout-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+    margin: 0;
+}
+
+#med-tab-mechanism .grid-3 {
+    align-items: stretch;
+    gap: 1rem;
+}
+
+#med-tab-mechanism .grid-3 > .stat-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+}
+
 /* ==========================================================================
 7. אייקונים, מדדים ותיבות מידע רפואיות (Icons, Stats & Callouts)
    ========================================================================== */
@@ -923,7 +1057,229 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-8. אקורדיונים ורשימות (Accordions & Feature Lists)
+8. הדגמת עיגול מלא נוזל, אייקון מוח גדול ודליפת CSF מהגב
+   ========================================================================== */
+.sim-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.sim-toggle-btn {
+    flex: 1 1 220px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.85rem 1.2rem;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--slate-200);
+    background-color: var(--slate-50);
+    color: var(--navy-900);
+    font-weight: 700;
+    font-size: 0.94rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.sim-toggle-btn:hover {
+    border-color: var(--sky-500);
+    background-color: var(--sky-50);
+}
+
+.sim-toggle-btn.active[data-sim-posture="lying"] {
+    background: linear-gradient(135deg, var(--emerald-600), var(--teal-700));
+    color: var(--white);
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(5, 150, 105, 0.25);
+}
+
+.sim-toggle-btn.active[data-sim-posture="standing"] {
+    background: linear-gradient(135deg, var(--amber-600), #B45309);
+    color: var(--white);
+    border-color: transparent;
+    box-shadow: 0 6px 16px rgba(217, 119, 6, 0.25);
+}
+
+.sim-stage-grid {
+    display: grid;
+    grid-template-columns: minmax(250px, 5fr) 7fr;
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.sim-visual-box {
+    background: linear-gradient(180deg, var(--sky-50) 0%, var(--white) 100%);
+    border: 1px solid var(--sky-200);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.sim-circle-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 24px;
+}
+
+.brain-water-circle {
+    position: relative;
+    width: 230px;
+    height: 230px;
+    border-radius: 50%;
+    border: 4px solid var(--sky-600);
+    background: #F1F5F9;
+    overflow: hidden;
+    box-shadow: 0 10px 26px rgba(2, 132, 199, 0.2), inset 0 4px 14px rgba(3, 105, 161, 0.18);
+}
+
+.water-level-fill {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 96%;
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.78) 0%, rgba(2, 132, 199, 0.92) 65%, rgba(3, 105, 161, 0.96) 100%);
+    transition: height 0.8s cubic-bezier(0.22, 1, 0.36, 1), background 0.45s ease;
+    z-index: 1;
+}
+
+.water-surface-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background-color: var(--sky-100);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.85);
+}
+
+.brain-float-icon {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-12px);
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.brain-float-icon i {
+    font-size: 8.6rem;
+    line-height: 1;
+    color: var(--white);
+    filter: drop-shadow(0 5px 12px rgba(12, 32, 54, 0.36));
+}
+
+.csf-leak-stream {
+    position: absolute;
+    bottom: -4px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-6px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    opacity: 0;
+    transition: opacity 0.45s ease, transform 0.45s ease;
+    z-index: 4;
+}
+
+.leak-dot {
+    width: 8px;
+    height: 10px;
+    border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+    background-color: var(--sky-600);
+    border: 1.5px solid var(--white);
+    box-shadow: 0 2px 6px rgba(2, 132, 199, 0.45);
+}
+
+.leak-dot-2 {
+    width: 7px;
+    height: 9px;
+}
+
+.leak-dot-3 {
+    width: 6px;
+    height: 8px;
+}
+
+.leak-label {
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--amber-800);
+    background-color: var(--amber-100);
+    border: 1px solid var(--amber-600);
+    padding: 0.12rem 0.5rem;
+    border-radius: 999px;
+    white-space: nowrap;
+}
+
+.sim-visual-box[data-state="standing"] .water-level-fill {
+    height: 30%;
+    background: linear-gradient(180deg, rgba(56, 189, 248, 0.65) 0%, rgba(2, 132, 199, 0.9) 100%);
+}
+
+.sim-visual-box[data-state="standing"] .brain-float-icon {
+    transform: translateY(42px);
+}
+
+.sim-visual-box[data-state="standing"] .brain-float-icon i {
+    color: var(--navy-950);
+    filter: drop-shadow(0 2px 6px rgba(255, 255, 255, 0.65));
+}
+
+.sim-visual-box[data-state="standing"] .csf-leak-stream {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.sim-badge-status {
+    font-size: 0.84rem;
+    font-weight: 800;
+    color: var(--sky-800);
+    background-color: var(--sky-100);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    display: inline-block;
+}
+
+.sim-visual-box[data-state="standing"] .sim-badge-status {
+    background-color: var(--amber-100);
+    color: var(--amber-800);
+}
+
+.sim-info-box {
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .sim-stage-grid {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+    }
+
+    .brain-water-circle {
+        width: 202px;
+        height: 202px;
+    }
+
+    .brain-float-icon i {
+        font-size: 7.4rem;
+    }
+}
+
+/* ==========================================================================
+9. אקורדיונים ורשימות (Accordions & Feature Lists)
    ========================================================================== */
 .accordion-item {
     border: 1px solid var(--slate-200);
@@ -1037,7 +1393,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-9. טפסים וכפתורים (Forms & Buttons)
+10. טפסים וכפתורים (Forms & Buttons)
    ========================================================================== */
 .form-group {
     margin-bottom: 1.25rem;
@@ -1114,7 +1470,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-10. הבהרה משפטית ופוטר (Disclaimer & Footer)
+11. הבהרה משפטית ופוטר (Disclaimer & Footer)
    ========================================================================== */
 .legal-disclaimer-section {
     margin: 2.5rem auto;
@@ -1211,7 +1567,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-11. הודעות מערכת ונגישות (Toast & Accessibility Widget)
+12. הודעות מערכת ונגישות (Toast & Accessibility Widget)
    ========================================================================== */
 .toast-notification {
     position: fixed;
@@ -1342,7 +1698,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-12. עיצוב מתקדם לניווט מרכזים רפואיים וצוותי רופאים (Master-Detail Showcase)
+13. עיצוב מתקדם לניווט מרכזים רפואיים וצוותי רופאים (Master-Detail Showcase)
    ========================================================================== */
 .centers-grid-nav {
     display: grid;
@@ -1633,147 +1989,7 @@ button, input, select, textarea {
 }
 
 /* ==========================================================================
-13. מצבי נגישות ומצב קריאה עדין (Calm Mode למיגרנה/כאב ראש)
-   ========================================================================== */
-body.calm-mode {
-    background-color: #EDE8DC !important;
-    color: #1E2630 !important;
-}
-
-body.calm-mode .site-header {
-    background-color: #E4DEC9 !important;
-}
-
-body.calm-mode .card,
-body.calm-mode .card-subtle,
-body.calm-mode .accordion-item,
-body.calm-mode .accordion-trigger,
-body.calm-mode .accordion-body,
-body.calm-mode .tabs-bar,
-body.calm-mode .legal-disclaimer-box,
-body.calm-mode .center-nav-card,
-body.calm-mode .center-showcase-panel,
-body.calm-mode .doc-profile-card {
-    background: #F6F2E7 !important;
-    border-color: #D5C9B8 !important;
-}
-
-body.calm-mode .page-banner,
-body.calm-mode .hero-section {
-    background: #DFD8C5 !important;
-    color: #1E2630 !important;
-}
-
-body.calm-mode .page-banner .banner-title,
-body.calm-mode .page-banner .banner-desc {
-    color: #1E2630 !important;
-}
-
-html.acc-font-lg { font-size: 18.5px !important; }
-html.acc-font-xl { font-size: 20.5px !important; }
-
-body.acc-high-contrast {
-    background-color: #000000 !important;
-    color: #FFFFFF !important;
-}
-
-body.acc-high-contrast .site-header,
-body.acc-high-contrast .site-footer,
-body.acc-high-contrast .card,
-body.acc-high-contrast .card-subtle,
-body.acc-high-contrast .page-banner,
-body.acc-high-contrast .hero-section,
-body.acc-high-contrast .accordion-item,
-body.acc-high-contrast .accordion-trigger,
-body.acc-high-contrast .accordion-body,
-body.acc-high-contrast .tabs-bar,
-body.acc-high-contrast .legal-disclaimer-box,
-body.acc-high-contrast .center-nav-card,
-body.acc-high-contrast .center-showcase-panel,
-body.acc-high-contrast .doc-profile-card {
-    background: #0A0A0A !important;
-    color: #FFFFFF !important;
-    border-color: #FFD700 !important;
-}
-
-body.acc-high-contrast h1,
-body.acc-high-contrast h2,
-body.acc-high-contrast h3,
-body.acc-high-contrast h4,
-body.acc-high-contrast p,
-body.acc-high-contrast span,
-body.acc-high-contrast div,
-body.acc-high-contrast li {
-    color: #FFFFFF !important;
-}
-
-body.acc-high-contrast a,
-body.acc-high-contrast .nav-link {
-    color: #00FFFF !important;
-}
-
-body.acc-underline-links a {
-    text-decoration: underline !important;
-    text-underline-offset: 4px !important;
-}
-
-body.acc-readable-font,
-body.acc-readable-font * {
-    font-family: Arial, Helvetica, sans-serif !important;
-    letter-spacing: 0.02em !important;
-    line-height: 1.85 !important;
-}
-
-body.acc-stop-animations *,
-body.acc-stop-animations *::before,
-body.acc-stop-animations *::after {
-    animation: none !important;
-    transition: none !important;
-    scroll-behavior: auto !important;
-}
-
-/* ==========================================================================
-14. התאמה מלאה למסכים ניידים וטאבלטים (Responsive)
-   ========================================================================== */
-@media (max-width: 1024px) {
-    .main-nav, .header-cta {
-        display: none;
-    }
-    .mobile-menu-btn {
-        display: block;
-    }
-    .grid-4 {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    .grid-asymmetric, .footer-grid, .centers-grid-nav, .doctors-profile-grid, .doctors-profile-grid.two-cols {
-        grid-template-columns: 1fr;
-    }
-    .center-nav-card.active::after {
-        display: none;
-    }
-}
-
-@media (max-width: 640px) {
-    .grid-2, .grid-3, .grid-4 {
-        grid-template-columns: 1fr;
-    }
-    .card, .center-showcase-panel {
-        padding: 1.35rem;
-    }
-    .center-nav-Main {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .top-bar-badge span {
-        font-size: 0.72rem;
-    }
-    .tab-btn {
-        width: 100%;
-    }
-}
-
-/* ==========================================================================
-15. עיצוב עמודי מרכזים רפואיים וכרטיסי רופאים אנכיים (פרופיל, שם, הסבר ויצירת קשר)
+14. עיצוב עמודי מרכזים רפואיים וכרטיסי רופאים אנכיים
    ========================================================================== */
 .banner-top-nav {
     display: flex;
@@ -2062,178 +2278,214 @@ body.acc-stop-animations *::after {
     text-decoration: underline;
 }
 
-@media (max-width: 1024px) {
-    .doctors-vertical-grid.three-cols,
-    .doctors-vertical-grid.two-cols {
-        grid-template-columns: 1fr;
-    }
+/* ==========================================================================
+15. מצבי נגישות ומצב קריאה עדין (Calm Mode למיגרנה/כאב ראש)
+   ========================================================================== */
+body.calm-mode {
+    background-color: #EDE8DC !important;
+    color: #1E2630 !important;
 }
 
+body.calm-mode .site-header {
+    background-color: #E4DEC9 !important;
+}
+
+body.calm-mode .card,
+body.calm-mode .card-subtle,
+body.calm-mode .accordion-item,
+body.calm-mode .accordion-trigger,
+body.calm-mode .accordion-body,
+body.calm-mode .tabs-bar,
+body.calm-mode .legal-disclaimer-box,
+body.calm-mode .center-nav-card,
+body.calm-mode .center-showcase-panel,
+body.calm-mode .doc-profile-card,
 body.calm-mode .doctor-vertical-card,
 body.calm-mode .centers-quick-bar,
-body.calm-mode .doc-v-contact {
+body.calm-mode .doc-v-contact,
+body.calm-mode .sim-visual-box {
     background: #F6F2E7 !important;
     border-color: #D5C9B8 !important;
 }
 
+body.calm-mode .page-banner,
+body.calm-mode .hero-section {
+    background: #DFD8C5 !important;
+    color: #1E2630 !important;
+}
+
+body.calm-mode .page-banner .banner-title,
+body.calm-mode .page-banner .banner-desc {
+    color: #1E2630 !important;
+}
+
+html.acc-font-lg { font-size: 18.5px !important; }
+html.acc-font-xl { font-size: 20.5px !important; }
+
+body.acc-high-contrast {
+    background-color: #000000 !important;
+    color: #FFFFFF !important;
+}
+
+body.acc-high-contrast .site-header,
+body.acc-high-contrast .site-footer,
+body.acc-high-contrast .card,
+body.acc-high-contrast .card-subtle,
+body.acc-high-contrast .page-banner,
+body.acc-high-contrast .hero-section,
+body.acc-high-contrast .accordion-item,
+body.acc-high-contrast .accordion-trigger,
+body.acc-high-contrast .accordion-body,
+body.acc-high-contrast .tabs-bar,
+body.acc-high-contrast .legal-disclaimer-box,
+body.acc-high-contrast .center-nav-card,
+body.acc-high-contrast .center-showcase-panel,
+body.acc-high-contrast .doc-profile-card,
 body.acc-high-contrast .doctor-vertical-card,
 body.acc-high-contrast .centers-quick-bar,
 body.acc-high-contrast .doc-v-contact {
     background: #0A0A0A !important;
+    color: #FFFFFF !important;
     border-color: #FFD700 !important;
 }
 
-/* ==========================================================================
-   הסתרה מוחלטת של הווידג'ט והסרגל העבה של Google Translate + עיצוב בורר נקי
-   ========================================================================== */
-html, body {
-    top: 0 !important;
-    margin-top: 0 !important;
-    position: static !important;
+body.acc-high-contrast h1,
+body.acc-high-contrast h2,
+body.acc-high-contrast h3,
+body.acc-high-contrast h4,
+body.acc-high-contrast p,
+body.acc-high-contrast span,
+body.acc-high-contrast div,
+body.acc-high-contrast li {
+    color: #FFFFFF !important;
 }
 
-/* הסתרת הסרגל העליון של גוגל (גרסה ישנה וחדשה) */
-body > .skiptranslate,
-.goog-te-banner-frame,
-.goog-te-banner-frame.skiptranslate,
-iframe.VIpgJd-ZVi9od-ORHb-OEVmcd,
-.VIpgJd-ZVi9od-ORHb-OEVmcd,
-#goog-gt-tt,
-.goog-te-balloon-frame,
-.goog-te-gadget-icon {
-    display: none !important;
-    visibility: hidden !important;
-    height: 0 !important;
-    opacity: 0 !important;
+body.acc-high-contrast a,
+body.acc-high-contrast .nav-link {
+    color: #00FFFF !important;
 }
 
-/* הסתרת המארח של גוגל מחוץ למסך (כדי שימשיך לתרגם ברקע בלי להיראות) */
-.goog-hidden-host {
-    position: fixed !important;
-    top: -9999px !important;
-    left: -9999px !important;
-    width: 1px !important;
-    height: 1px !important;
-    overflow: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
+body.acc-underline-links a {
+    text-decoration: underline !important;
+    text-underline-offset: 4px !important;
 }
 
-/* עיצוב דק ועדין לבורר השפות בבר העליון */
-.lang-picker-wrap {
-    display: inline-flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    border-radius: 999px;
-    padding: 0.2rem 0.65rem;
-    gap: 0.4rem;
-    height: 1.75rem;
+body.acc-readable-font,
+body.acc-readable-font * {
+    font-family: Arial, Helvetica, sans-serif !important;
+    letter-spacing: 0.02em !important;
+    line-height: 1.85 !important;
 }
 
-.lang-picker-wrap:hover {
-    background: rgba(56, 189, 248, 0.2);
-    border-color: var(--sky-400);
-}
-
-.lang-picker-icon {
-    color: var(--sky-400);
-    font-size: 0.78rem;
-    display: inline-flex;
-    align-items: center;
-}
-
-.lang-picker-select {
-    appearance: none;
-    -webkit-appearance: none;
-    background: transparent;
-    border: none;
-    color: var(--white);
-    font-family: inherit;
-    font-size: 0.78rem;
-    font-weight: 600;
-    cursor: pointer;
-    outline: none;
-    padding: 0;
-}
-
-.lang-picker-select option {
-    background-color: var(--navy-900);
-    color: var(--white);
-}
-
-/* התאמת בורר השפות בתפריט המובייל */
-.mobile-lang-wrap {
-    padding: 0.65rem 0.85rem;
-}
-
-.mobile-lang-wrap .lang-picker-wrap {
-    background: var(--slate-50);
-    border-color: var(--slate-300);
-    width: 100%;
-    height: 2.3rem;
-}
-
-.mobile-lang-wrap .lang-picker-icon {
-    color: var(--sky-700);
-}
-
-.mobile-lang-wrap .lang-picker-select {
-    color: var(--navy-900);
-    width: 100%;
-    font-size: 0.9rem;
-}
-
-.mobile-lang-wrap .lang-picker-select option {
-    background-color: var(--white);
-    color: var(--navy-900);
+body.acc-stop-animations *,
+body.acc-stop-animations *::before,
+body.acc-stop-animations *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
 }
 
 /* ==========================================================================
-   התאמת תפריט הניווט (NAV) כאשר האתר מתורגם לשפות ארוכות יותר
+16. התאמה מלאה למסכים ניידים וטאבלטים (Responsive)
    ========================================================================== */
-html.translated-ltr .header-inner,
-html.translated-rtl .header-inner {
-    gap: 0.75rem;
-}
-
-html.translated-ltr .main-nav,
-html.translated-rtl .main-nav {
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    height: auto;
-    padding: 0.4rem 0;
-}
-
-html.translated-ltr .nav-link,
-html.translated-rtl .nav-link {
-    font-size: 0.82rem;
-    height: 2.6rem;
-    padding: 0 0.15rem;
-}
-
-html.translated-ltr .brand-subtitle,
-html.translated-rtl .brand-subtitle {
-    display: none;
-}
-
-html.translated-ltr .btn-whatsapp-nav,
-html.translated-rtl .btn-whatsapp-nav {
-    font-size: 0.78rem;
-    padding: 0.45rem 0.85rem;
-}
-
-/* מעבר מוקדם יותר לתפריט מובייל כאשר האתר מתורגם */
-@media (max-width: 1240px) {
-    html.translated-ltr .main-nav,
-    html.translated-ltr .header-cta,
-    html.translated-rtl .main-nav,
-    html.translated-rtl .header-cta {
+@media (max-width: 1024px) {
+    .main-nav, .header-cta {
         display: none;
     }
-    html.translated-ltr .mobile-menu-btn,
-    html.translated-rtl .mobile-menu-btn {
+    .mobile-menu-btn {
         display: block;
     }
+    .grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .grid-asymmetric,
+    .footer-grid,
+    .centers-grid-nav,
+    .doctors-profile-grid,
+    .doctors-profile-grid.two-cols,
+    .doctors-vertical-grid.three-cols,
+    .doctors-vertical-grid.two-cols {
+        grid-template-columns: 1fr;
+    }
+    .center-nav-card.active::after {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .sim-stage-grid {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+    }
+
+    .brain-water-circle {
+        width: 202px;
+        height: 202px;
+    }
+
+    .brain-float-icon i {
+        font-size: 7.4rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+    }
+    .card, .center-showcase-panel {
+        padding: 1.35rem;
+    }
+    .center-nav-Main {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .top-bar-badge span {
+        font-size: 0.72rem;
+    }
+    .tab-btn {
+        width: 100%;
+    }
+}
+
+/* ==========================================================================
+   מניעת גלילה אופקית (Horizontal Overflow Fix) ושמירה על רוחב מסך מדויק
+   ========================================================================== */
+html, body {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+.main-wrapper,
+.section-block,
+.section-muted,
+.page-banner,
+.hero-section,
+.site-footer {
+    max-width: 100%;
+    overflow-x: clip;
+}
+
+/* חובה ב-CSS Grid כדי שעמודות לא ירחיבו את הדף הצידה */
+.grid-2 > *,
+.grid-3 > *,
+.grid-4 > *,
+.grid-asymmetric > *,
+.sim-stage-grid > *,
+.footer-grid > *,
+.centers-grid-nav > *,
+.doctors-profile-grid > *,
+.doctors-vertical-grid > * {
+    min-width: 0;
+    max-width: 100%;
+}
+
+.card,
+.card-subtle,
+.callout-box,
+.accordion-item,
+.sim-visual-box,
+.sim-info-box {
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
 }

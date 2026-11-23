@@ -1,6 +1,6 @@
 /* ==========================================================================
    CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js)
-   גרסה מתוקנת - כולל בורר שפות מעוצב, תרגום נסתר, חזרה לעברית ושיתוף מהיר
+   כולל בורר שפות מעוצב, תרגום נסתר, חזרה לעברית, שיתוף מהיר והדגמת עיגול מים ומוח
    ========================================================================== */
 
 function getCorrectPath(filename) {
@@ -478,6 +478,57 @@ function initGlobalEventDelegation() {
         if (accTrigger) {
             const targetId = accTrigger.getAttribute('data-acc-target');
             toggleAccordion(targetId, accTrigger);
+            return;
+        }
+
+        const simBtn = e.target.closest('[data-sim-posture]');
+        if (simBtn) {
+            const posture = simBtn.getAttribute('data-sim-posture');
+            const visualBox = document.getElementById('simVisualBox');
+            const statusBadge = document.getElementById('simStatusBadge');
+            const stateTag = document.getElementById('simStateTag');
+            const stateTitle = document.getElementById('simStateTitle');
+            const stateDesc = document.getElementById('simStateDesc');
+            const stateTip = document.getElementById('simStateTip');
+
+            document.querySelectorAll('[data-sim-posture]').forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-pressed', 'false');
+            });
+            simBtn.classList.add('active');
+            simBtn.setAttribute('aria-pressed', 'true');
+
+            if (visualBox) visualBox.setAttribute('data-state', posture);
+
+            if (posture === 'standing') {
+                if (statusBadge) statusBadge.textContent = 'מצב עמידה/ישיבה: המפלס ירד והמוח שקע';
+                if (stateTag) {
+                    stateTag.textContent = 'בעמידה או ישיבה';
+                    stateTag.className = 'badge-pill badge-amber';
+                }
+                if (stateTitle) stateTitle.textContent = 'מפלס הנוזל יורד והמוח צונח כלפי מטה';
+                if (stateDesc) {
+                    stateDesc.textContent = 'כאשר עומדים או יושבים ויש דליפת CSF, מפלס הנוזל התומך יורד והמוח מאבד חלק מהציפה שלו, מה שיוצר משיכה ומתיחה על קרומי המוח ועצבי הגולגולת.';
+                }
+                if (stateTip) {
+                    stateTip.className = 'callout-box callout-amber';
+                    stateTip.innerHTML = '<strong>מה מרגישים בפועל:</strong> כאב ראש תנוחתי, לחץ או צפצוף באוזניים, בחילה, כאב בצוואר ובשכמות וערפול מוחי.';
+                }
+            } else {
+                if (statusBadge) statusBadge.textContent = 'מצב שכיבה: הנוזל מלא והמוח מאוזן';
+                if (stateTag) {
+                    stateTag.textContent = 'בשכיבה מאוזנת';
+                    stateTag.className = 'badge-pill badge-emerald';
+                }
+                if (stateTitle) stateTitle.textContent = 'מפלס הנוזל מלא והמוח צף ברוגע';
+                if (stateDesc) {
+                    stateDesc.textContent = 'כאשר שוכבים במאוזן, נוזל המוח־שדרה (CSF) עוטף את המוח באופן מאוזן ותומך בו. המתח על קרומי המוח והעצבים פוחת.';
+                }
+                if (stateTip) {
+                    stateTip.className = 'callout-box callout-emerald';
+                    stateTip.innerHTML = '<strong>מה מרגישים בפועל:</strong> הקלה הדרגתית בכאב הראש ושיפור בתחושת היציבות והבהירות.';
+                }
+            }
             return;
         }
 

@@ -291,7 +291,7 @@
 
                 </div>
 
-                <!-- 2. לשונית תסמינים קליניים -->
+                <!-- 2. לשונית תסמינים קליניים + אשף הכוונה ראשונית בסוף -->
                 <div id="med-tab-symptoms" role="tabpanel" class="stack-lg hidden">
                     <div class="stack-sm">
                         <h2>הקשת הרחבה של התסמינים הקליניים</h2>
@@ -351,6 +351,29 @@
                             <p class="stat-desc">תרשים קליני מסכם: פיזור התסמינים הרב-מערכתיים בדליפת נוזל מוח-שדרה (CSF
                                 Leak)</p>
                         </div>
+                    </div>
+
+                    <!-- אשף הכוונה ראשונית לתסמינים בסוף לשונית התסמינים -->
+                    <div class="card stack-md csf-triage-card" id="csfSymptomWizard">
+                        <div class="card-header-flex">
+                            <div class="icon-box icon-purple"><i class="fa-solid fa-clipboard-question"
+                                    aria-hidden="true"></i></div>
+                            <div>
+                                <h2>אשף הכוונה ראשונית: האם התסמינים מתאימים לדליפת CSF?</h2>
+                                <span class="stat-desc">5 שאלות קצרות להבנת דפוס התסמינים לקראת שיחה עם רופא (אינו
+                                    מהווה אבחון רפואי)</span>
+                            </div>
+                        </div>
+
+                        <div class="wizard-progress-wrap">
+                            <div class="wizard-progress-text" id="wizardStepText">שאלה 1 מתוך 5</div>
+                            <div class="wizard-progress-track" aria-hidden="true">
+                                <div class="wizard-progress-fill" id="wizardProgressFill" style="width: 20%;"></div>
+                            </div>
+                        </div>
+
+                        <div id="wizardQuestionArea" class="stack-sm"></div>
+                        <div id="wizardResultArea" class="hidden stack-md"></div>
                     </div>
                 </div>
 

@@ -1,6 +1,6 @@
 /* ==========================================================================
    CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js)
-   כולל בורר שפות מעוצב, תרגום נסתר, חזרה לעברית, שיתוף מהיר והדגמת עיגול מים ומוח
+   כולל ניווט נקי, בורר שפות, שיתוף מהיר, נגישות, הדגמת עיגול מים ומוח ואשף תסמינים
    ========================================================================== */
 
 function getCorrectPath(filename) {
@@ -114,7 +114,7 @@ const SHARED_HEADER_FALLBACK = `<!-- הודעות טוסט מערכתיות -->
             <a href="RESEARCH_URL" data-page="research" class="nav-link spa-link">חדשות ומחקרים</a>
             <a href="FAQ_URL" data-page="faq" class="nav-link spa-link">שאלות נפוצות</a>
             <a href="CAREGIVERS_URL" data-page="caregivers" class="nav-link spa-link">משפחה ומלווים</a>
-            <a href="CONTACT_URL" data-page="contact" class="nav-link spa-link">צור קשר</a>
+            <a href="CONTACT_URL" data-page="contact" class="spa-link">צור קשר</a>
             <a href="COMMUNITY_URL" target="_blank" rel="noopener noreferrer" class="nav-link">קהילה</a>
         </nav>
 
@@ -125,7 +125,7 @@ const SHARED_HEADER_FALLBACK = `<!-- הודעות טוסט מערכתיות -->
             </a>
         </div>
 
-        <button type="button" id="mobileMenuBtn" class="mobile-menu-btn" aria-label="פתיחת תפריט ניווט בנייד">
+        <button type="button" id="mobileMenuBtn" class="mobile-menu-btn" aria-label="פתיחת תפריט ניווט בנייד" aria-expanded="false" aria-controls="mobileMenu">
             <i class="fa-solid fa-bars" aria-hidden="true"></i>
         </button>
     </div>
@@ -233,11 +233,6 @@ const ALL_SITE_PAGES = [
 const runtimePagesCache = {};
 let isInternalNavigation = false;
 
-const isInCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
-const communityUrl = isInCenters
-    ? '../community/Pages/index.html'
-    : 'community/Pages/index.html';
-
 function getFilePathForPage(pageKey) {
     const inCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
     if (pageKey && pageKey.startsWith('center-')) {
@@ -271,6 +266,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     restoreAccessibilityState();
     loadGoogleTranslate();
     initQuickShareWidget();
+    initSymptomWizard();
 
     const currentPage = detectCurrentPageKey();
     const mainContainer = document.getElementById('page-content');
@@ -373,6 +369,7 @@ async function navigateToPage(pageKey, pushToHistory = true) {
         closeMobileNav();
         renderTranslateWidgets();
         initQuickShareWidget();
+        initSymptomWizard();
         window.scrollTo({ top: 0, behavior: 'instant' });
 
     } catch (err) {
@@ -394,12 +391,14 @@ window.addEventListener('popstate', (event) => {
 
 function highlightActiveNav(pageKey) {
     const activeTopKey = (pageKey && pageKey.startsWith('center-')) ? 'doctors' : pageKey;
-    document.querySelectorAll('.nav-link').forEach(link => {
+    document.querySelectorAll('.site-header .nav-link').forEach(link => {
         const linkPage = link.getAttribute('data-page');
-        if (linkPage === activeTopKey) {
-            link.classList.add('active');
+        const isActive = linkPage === activeTopKey;
+        link.classList.toggle('active', isActive);
+        if (isActive) {
+            link.setAttribute('aria-current', 'page');
         } else {
-            link.classList.remove('active');
+            link.removeAttribute('aria-current');
         }
     });
 }
@@ -481,6 +480,7 @@ function initGlobalEventDelegation() {
             return;
         }
 
+        /* הדגמת עיגול מים ומוח (שכיבה לעומת עמידה) */
         const simBtn = e.target.closest('[data-sim-posture]');
         if (simBtn) {
             const posture = simBtn.getAttribute('data-sim-posture');
@@ -501,7 +501,7 @@ function initGlobalEventDelegation() {
             if (visualBox) visualBox.setAttribute('data-state', posture);
 
             if (posture === 'standing') {
-                if (statusBadge) statusBadge.textContent = 'מצב עמידה/ישיבה: המפלס ירד והמוח שקע';
+                if (statusBadge) statusBadge.textContent = 'מצב עמידה/ישיבה: דליפת CSF, ירידת מפלס ושקיעת המוח';
                 if (stateTag) {
                     stateTag.textContent = 'בעמידה או ישיבה';
                     stateTag.className = 'badge-pill badge-amber';
@@ -515,20 +515,47 @@ function initGlobalEventDelegation() {
                     stateTip.innerHTML = '<strong>מה מרגישים בפועל:</strong> כאב ראש תנוחתי, לחץ או צפצוף באוזניים, בחילה, כאב בצוואר ובשכמות וערפול מוחי.';
                 }
             } else {
-                if (statusBadge) statusBadge.textContent = 'מצב שכיבה: הנוזל מלא והמוח מאוזן';
+                if (statusBadge) statusBadge.textContent = 'מצב שכיבה: העיגול מלא בנוזל והמוח צף';
                 if (stateTag) {
                     stateTag.textContent = 'בשכיבה מאוזנת';
                     stateTag.className = 'badge-pill badge-emerald';
                 }
-                if (stateTitle) stateTitle.textContent = 'מפלס הנוזל מלא והמוח צף ברוגע';
+                if (stateTitle) stateTitle.textContent = 'מפלס הנוזל מלא והמוח צף בתמיכה מלאה';
                 if (stateDesc) {
-                    stateDesc.textContent = 'כאשר שוכבים במאוזן, נוזל המוח־שדרה (CSF) עוטף את המוח באופן מאוזן ותומך בו. המתח על קרומי המוח והעצבים פוחת.';
+                    stateDesc.textContent = 'כאשר שוכבים במאוזן, המכל עוטף את המוח באופן מלא ומאוזן. המוח צף בתוך הנוזל והמתיחה על קרומי המוח והעצבים פוחתת.';
                 }
                 if (stateTip) {
                     stateTip.className = 'callout-box callout-emerald';
-                    stateTip.innerHTML = '<strong>מה מרגישים בפועל:</strong> הקלה הדרגתית בכאב הראש ושיפור בתחושת היציבות והבהירות.';
+                    stateTip.innerHTML = '<strong>מה מרגישים בפועל:</strong> הקלה הדרגתית בכאב הראש ושיפור בבהירות המחשבה ובנוחות.';
                 }
             }
+            return;
+        }
+
+        /* אשף הכוונה ראשונית לתסמינים */
+        const wizardChoiceBtn = e.target.closest('[data-wizard-choice]');
+        if (wizardChoiceBtn) {
+            const choiceIdx = Number(wizardChoiceBtn.getAttribute('data-wizard-choice'));
+            wizardState.answers[wizardState.step] = choiceIdx;
+            if (wizardState.step < WIZARD_QUESTIONS.length - 1) {
+                wizardState.step += 1;
+                renderWizardStep();
+            } else {
+                renderWizardResult();
+            }
+            return;
+        }
+
+        if (e.target.closest('#wizardBackBtn')) {
+            if (wizardState.step > 0) {
+                wizardState.step -= 1;
+                renderWizardStep();
+            }
+            return;
+        }
+
+        if (e.target.closest('#wizardRestartBtn')) {
+            initSymptomWizard();
             return;
         }
 
@@ -587,12 +614,18 @@ function initGlobalEventDelegation() {
 
 function toggleMobileNav() {
     const menu = document.getElementById('mobileMenu');
-    if (menu) menu.classList.toggle('hidden');
+    const btn = document.getElementById('mobileMenuBtn');
+    if (!menu) return;
+    const willOpen = menu.classList.contains('hidden');
+    menu.classList.toggle('hidden');
+    if (btn) btn.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
 }
 
 function closeMobileNav() {
     const menu = document.getElementById('mobileMenu');
+    const btn = document.getElementById('mobileMenuBtn');
     if (menu) menu.classList.add('hidden');
+    if (btn) btn.setAttribute('aria-expanded', 'false');
 }
 
 function switchMedicalTab(tabKey, activeBtn) {
@@ -656,6 +689,172 @@ function toggleAccordion(id, triggerBtn) {
         if (icon) icon.classList.remove('rotate-180');
         if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'false');
     }
+}
+
+/* ==========================================================================
+   אשף הכוונה ראשונית לתסמינים (CSF Symptom Wizard)
+   ========================================================================== */
+const WIZARD_QUESTIONS = [
+    {
+        id: 'posture',
+        question: '1. איך הכאב או התסמינים המרכזיים מגיבים לתנוחת הגוף?',
+        options: [
+            { label: 'מחמירים בעמידה, ישיבה או מאמץ ומוקלים בשכיבה שטוחה', scoreLeak: 3, scoreRebound: 0 },
+            { label: 'מופיעים או מתגברים בעיקר בשכיבה ומוקלים בעמידה או בהגבהת ראש', scoreLeak: 0, scoreRebound: 3 },
+            { label: 'קבועים פחות או יותר ללא שינוי ברור בין שכיבה לעמידה', scoreLeak: 0, scoreRebound: 0 }
+        ]
+    },
+    {
+        id: 'trigger',
+        question: '2. האם היה אירוע או רקע רפואי סביב תחילת התסמינים?',
+        options: [
+            { label: 'כן — ניקור מותני (LP), אפידורל, ניתוח/פרוצדורה או חבלה/מאמץ פתאומי', scoreLeak: 2, scoreRebound: 0 },
+            { label: 'עברתי לאחרונה טלאי דם (EBP) או סגירת דליפה/פיסטולה', scoreLeak: 0, scoreRebound: 2 },
+            { label: 'התחיל בהדרגה או בפתאומיות ללא אירוע ברור שזכור לי', scoreLeak: 1, scoreRebound: 0 }
+        ]
+    },
+    {
+        id: 'associated',
+        question: '3. האם מופיעים תסמינים נלווים אופייניים לתת-לחץ תוך-גולגולתי?',
+        options: [
+            { label: 'כן — טנטון/אטימות באוזניים, כאב עורף/צוואר/שכמות, בחילה, סחרחורת או ערפול מוחי', scoreLeak: 2, scoreRebound: 0 },
+            { label: 'יותר לחץ במצח, מאחורי העיניים או שינוי בראייה', scoreLeak: 0, scoreRebound: 1 },
+            { label: 'לא שמתי לב לתסמינים נלווים כאלה', scoreLeak: 0, scoreRebound: 0 }
+        ]
+    },
+    {
+        id: 'timeline',
+        question: '4. כמה זמן התסמינים נמשכים?',
+        options: [
+            { label: 'כמה שבועות עד חודשים או יותר, עם השפעה ברורה על התפקוד היומי', scoreLeak: 2, scoreRebound: 1 },
+            { label: 'כמה ימים עד שבועיים (כולל ימים ראשונים אחרי פרוצדורה)', scoreLeak: 1, scoreRebound: 1 },
+            { label: 'רק לעיתים רחוקות מאוד', scoreLeak: 0, scoreRebound: 0 }
+        ]
+    },
+    {
+        id: 'mri',
+        question: '5. האם בוצעה הדמיה (כמו MRI מוח) ומה נאמר לגביה?',
+        options: [
+            { label: 'כן, ה-MRI היה תקין או שלא מצאו סיבה ברורה למרות התסמינים', scoreLeak: 2, scoreRebound: 0 },
+            { label: 'נמצאו סימנים לתת-לחץ תוך-גולגולתי / דליפה / פיסטולה', scoreLeak: 3, scoreRebound: 0 },
+            { label: 'עוד לא עשיתי בדיקת הדמיה בנושא הזה', scoreLeak: 1, scoreRebound: 0 }
+        ]
+    }
+];
+
+const wizardState = {
+    step: 0,
+    answers: []
+};
+
+function initSymptomWizard() {
+    const qArea = document.getElementById('wizardQuestionArea');
+    const rArea = document.getElementById('wizardResultArea');
+    if (!qArea || !rArea) return;
+
+    wizardState.step = 0;
+    wizardState.answers = [];
+    qArea.classList.remove('hidden');
+    rArea.classList.add('hidden');
+    renderWizardStep();
+}
+
+function renderWizardStep() {
+    const qArea = document.getElementById('wizardQuestionArea');
+    const stepText = document.getElementById('wizardStepText');
+    const fill = document.getElementById('wizardProgressFill');
+    if (!qArea) return;
+
+    const current = WIZARD_QUESTIONS[wizardState.step];
+    const total = WIZARD_QUESTIONS.length;
+
+    if (stepText) stepText.textContent = `שאלה ${wizardState.step + 1} מתוך ${total}`;
+    if (fill) fill.style.width = `${((wizardState.step + 1) / total) * 100}%`;
+
+    const optionsHtml = current.options.map((opt, idx) => `
+        <button type="button" class="wizard-option-btn" data-wizard-choice="${idx}">
+            <span>${opt.label}</span>
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+        </button>
+    `).join('');
+
+    const backBtnHtml = wizardState.step > 0
+        ? `<button type="button" class="wizard-back-btn" id="wizardBackBtn"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> לשאלה הקודמת</button>`
+        : `<span></span>`;
+
+    qArea.innerHTML = `
+        <div class="wizard-question-title">${current.question}</div>
+        <div class="wizard-options-list">${optionsHtml}</div>
+        <div class="wizard-footer-nav">${backBtnHtml}</div>
+    `;
+}
+
+function renderWizardResult() {
+    const qArea = document.getElementById('wizardQuestionArea');
+    const rArea = document.getElementById('wizardResultArea');
+    const stepText = document.getElementById('wizardStepText');
+    const fill = document.getElementById('wizardProgressFill');
+    if (!qArea || !rArea) return;
+
+    let leakScore = 0;
+    let reboundScore = 0;
+
+    wizardState.answers.forEach((choiceIdx, qIdx) => {
+        const q = WIZARD_QUESTIONS[qIdx];
+        const opt = q && q.options[choiceIdx];
+        if (opt) {
+            leakScore += opt.scoreLeak;
+            reboundScore += opt.scoreRebound;
+        }
+    });
+
+    qArea.classList.add('hidden');
+    rArea.classList.remove('hidden');
+    if (stepText) stepText.textContent = 'סיכום הכוונה ראשונית';
+    if (fill) fill.style.width = '100%';
+
+    let resultHtml = '';
+    if (reboundScore >= 4 && reboundScore > leakScore) {
+        resultHtml = `
+            <div class="callout-box callout-amber stack-sm">
+                <span class="badge-pill badge-amber">דפוס שעשוי להתאים ל"לחץ חוזר" (Rebound High Pressure)</span>
+                <h3>התשובות מתארות החמרה בשכיבה — כדאי לעדכן את הרופא המטפל</h3>
+                <p>כאשר מתרחשת אטימה מוצלחת של דליפה או פיסטולה, חלק מהמטופלים חווים עליית לחץ זמנית שמתגברת בשכיבה או מלווה בלחץ באזור המצח והעיניים. חשוב לדווח לרופא המטפל להנחיה מדויקת.</p>
+            </div>
+        `;
+    } else if (leakScore >= 5) {
+        resultHtml = `
+            <div class="callout-box callout-sky stack-sm">
+                <span class="badge-pill badge-sky">התאמה גבוהה לדפוס תנוחתי (דליפת CSF / SIH)</span>
+                <h3>הדפוס שתיארת מזכיר מאפיינים מוכרים של דליפת נוזל מוח־שדרה</h3>
+                <p>שילוב של תגובה לתנוחה (בעיקר הקלה בשכיבה שטוחה) ותסמינים נלווים מתאים לדפוס שמוכר בדליפות CSF ופיסטולות ורידיות. כדאי להגיע לרופא נוירולוג או מומחה בתחום עם תיעוד מסודר של התסמינים ושל תנוחות הגוף.</p>
+                <p><strong>נקודה חשובה:</strong> גם אם בדיקת MRI מוח ראשונית יצאה תקינה, הדבר אינו שולל לחלוטין דליפה או פיסטולה ורידית — לעיתים נדרשת הערכה מעמיקה והדמיות ייעודיות לפי שיקול דעת רפואי.</p>
+            </div>
+        `;
+    } else {
+        resultHtml = `
+            <div class="callout-box callout-slate stack-sm">
+                <span class="badge-pill badge-slate">דפוס חלקי או פחות אופייני לדליפה תנוחתית קלאסית</span>
+                <h3>התסמינים לא מציגים תמונה תנוחתית מובהקת של דליפת CSF</h3>
+                <p>ייתכן שמדובר במצב רפואי אחר או בשלב מוקדם/שונה של בירור. מומלץ להמשיך בירור מסודר אצל רופא נוירולוג ולתעד מתי התסמינים מופיעים ומה משפיע עליהם.</p>
+            </div>
+        `;
+    }
+
+    resultHtml += `
+        <p class="stat-desc"><strong>הבהרה:</strong> כלי זה נועד להכוונה והכנה לשיחה רפואית בלבד ואינו מהווה אבחון רפואי או המלצה טיפולית.</p>
+        <div class="wizard-actions-row">
+            <button type="button" class="wizard-restart-btn" id="wizardRestartBtn">
+                <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+                <span>התחלה מחדש</span>
+            </button>
+            <a href="doctors.html" data-page="doctors" class="spa-link btn-emerald-block" style="margin-top: 0; width: auto;">
+                <span>לרופאים ומרכזים רפואיים</span>
+            </a>
+        </div>
+    `;
+
+    rArea.innerHTML = resultHtml;
 }
 
 function downloadDoctorBrief() {

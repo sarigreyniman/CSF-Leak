@@ -1,7 +1,6 @@
 /* ==========================================================================
    CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js)
-   כולל ניווט נקי, בורר שפות, שיתוף מהיר, נגישות, הדגמת עיגול מים ומוח,
-   אשף תסמינים והדמיית אטימות וטנטון
+   ניווט נקי, נגישות, שיתוף מהיר, תרגום שפות וקוקיז לכל האתר
    ========================================================================== */
 
 function getCorrectPath(filename) {
@@ -267,9 +266,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     restoreAccessibilityState();
     loadGoogleTranslate();
     initQuickShareWidget();
-    initSymptomWizard();
-    setSensoryMode(tinnitusSim.mode);
-    updateTinnitusAudioUi();
+    initCookieNotice();
+
+    if (typeof window.initInfoPage === 'function') {
+        window.initInfoPage();
+    }
 
     const currentPage = detectCurrentPageKey();
     const mainContainer = document.getElementById('page-content');
@@ -340,14 +341,16 @@ function preloadAllPagesInBackground(currentPage) {
     setTimeout(() => {
         ALL_SITE_PAGES.forEach(pageKey => {
             if (pageKey !== currentPage && !runtimePagesCache[pageKey]) {
-                fetchAndCachePage(pageKey).catch(() => { });
+                fetchAndCachePage(pageKey).catch(() => {});
             }
         });
     }, 400);
 }
 
 async function navigateToPage(pageKey, pushToHistory = true) {
-    stopTinnitusAudio(true);
+    if (typeof window.onBeforeNavigatePage === 'function') {
+        window.onBeforeNavigatePage();
+    }
 
     const mainContainer = document.getElementById('page-content');
     const targetFile = getFilePathForPage(pageKey);
@@ -374,9 +377,9 @@ async function navigateToPage(pageKey, pushToHistory = true) {
         closeMobileNav();
         renderTranslateWidgets();
         initQuickShareWidget();
-        initSymptomWizard();
-        setSensoryMode(tinnitusSim.mode);
-        updateTinnitusAudioUi();
+        if (typeof window.initInfoPage === 'function') {
+            window.initInfoPage();
+        }
         window.scrollTo({ top: 0, behavior: 'instant' });
 
     } catch (err) {
@@ -466,123 +469,6 @@ function initGlobalEventDelegation() {
             return;
         }
 
-        const medTabBtn = e.target.closest('[data-med-tab]');
-        if (medTabBtn) {
-            stopTinnitusAudio(true);
-            const tabKey = medTabBtn.getAttribute('data-med-tab');
-            switchMedicalTab(tabKey, medTabBtn);
-            return;
-        }
-
-        const centerTabBtn = e.target.closest('[data-center-tab]');
-        if (centerTabBtn) {
-            const centerKey = centerTabBtn.getAttribute('data-center-tab');
-            switchMedicalCenter(centerKey, centerTabBtn);
-            return;
-        }
-
-        const accTrigger = e.target.closest('[data-acc-target]');
-        if (accTrigger) {
-            const targetId = accTrigger.getAttribute('data-acc-target');
-            toggleAccordion(targetId, accTrigger);
-            return;
-        }
-
-        /* הדגמת עיגול מים ומוח (שכיבה לעומת עמידה) */
-        const simBtn = e.target.closest('[data-sim-posture]');
-        if (simBtn) {
-            const posture = simBtn.getAttribute('data-sim-posture');
-            const visualBox = document.getElementById('simVisualBox');
-            const statusBadge = document.getElementById('simStatusBadge');
-            const stateTag = document.getElementById('simStateTag');
-            const stateTitle = document.getElementById('simStateTitle');
-            const stateDesc = document.getElementById('simStateDesc');
-            const stateTip = document.getElementById('simStateTip');
-
-            document.querySelectorAll('[data-sim-posture]').forEach(b => {
-                b.classList.remove('active');
-                b.setAttribute('aria-pressed', 'false');
-            });
-            simBtn.classList.add('active');
-            simBtn.setAttribute('aria-pressed', 'true');
-
-            if (visualBox) visualBox.setAttribute('data-state', posture);
-
-            if (posture === 'standing') {
-                if (statusBadge) statusBadge.textContent = 'מצב עמידה/ישיבה: דליפת CSF, ירידת מפלס ושקיעת המוח';
-                if (stateTag) {
-                    stateTag.textContent = 'בעמידה או ישיבה';
-                    stateTag.className = 'badge-pill badge-amber';
-                }
-                if (stateTitle) stateTitle.textContent = 'מפלס הנוזל יורד והמוח צונח כלפי מטה';
-                if (stateDesc) {
-                    stateDesc.textContent = 'כאשר עומדים או יושבים ויש דליפת CSF, מפלס הנוזל התומך יורד והמוח מאבד חלק מהציפה שלו, מה שיוצר משיכה ומתיחה על קרומי המוח ועצבי הגולגולת.';
-                }
-                if (stateTip) {
-                    stateTip.className = 'callout-box callout-amber';
-                    stateTip.innerHTML = '<strong>מה מרגישים בפועל:</strong> כאב ראש תנוחתי, לחץ או צפצוף באוזניים, בחילה, כאב בצוואר ובשכמות וערפול מוחי.';
-                }
-            } else {
-                if (statusBadge) statusBadge.textContent = 'מצב שכיבה: העיגול מלא בנוזל והמוח צף';
-                if (stateTag) {
-                    stateTag.textContent = 'בשכיבה מאוזנת';
-                    stateTag.className = 'badge-pill badge-emerald';
-                }
-                if (stateTitle) stateTitle.textContent = 'מפלס הנוזל מלא והמוח צף בתמיכה מלאה';
-                if (stateDesc) {
-                    stateDesc.textContent = 'כאשר שוכבים במאוזן, המכל עוטף את המוח באופן מלא ומאוזן. המוח צף בתוך הנוזל והמתיחה על קרומי המוח והעצבים פוחתת.';
-                }
-                if (stateTip) {
-                    stateTip.className = 'callout-box callout-emerald';
-                    stateTip.innerHTML = '<strong>מה מרגישים בפועל:</strong> הקלה הדרגתית בכאב הראש ושיפור בבהירות המחשבה ובנוחות.';
-                }
-            }
-            return;
-        }
-
-        /* אשף הכוונה ראשונית לתסמינים */
-        const wizardChoiceBtn = e.target.closest('[data-wizard-choice]');
-        if (wizardChoiceBtn) {
-            const choiceIdx = Number(wizardChoiceBtn.getAttribute('data-wizard-choice'));
-            wizardState.answers[wizardState.step] = choiceIdx;
-            if (wizardState.step < WIZARD_QUESTIONS.length - 1) {
-                wizardState.step += 1;
-                renderWizardStep();
-            } else {
-                renderWizardResult();
-            }
-            return;
-        }
-
-        if (e.target.closest('#wizardBackBtn')) {
-            if (wizardState.step > 0) {
-                wizardState.step -= 1;
-                renderWizardStep();
-            }
-            return;
-        }
-
-        if (e.target.closest('#wizardRestartBtn')) {
-            initSymptomWizard();
-            return;
-        }
-
-        /* הדמיית חוויה חושית: אטימות וטנטון */
-        const sensoryBtn = e.target.closest('[data-sensory-mode]');
-        if (sensoryBtn) {
-            setSensoryMode(sensoryBtn.getAttribute('data-sensory-mode'));
-            return;
-        }
-
-        if (e.target.closest('#toggleTinnitusAudioBtn')) {
-            if (tinnitusSim.isPlaying) {
-                stopTinnitusAudio();
-            } else {
-                startTinnitusAudio();
-            }
-            return;
-        }
-
         const sharePresetBtn = e.target.closest('[data-share-preset]');
         if (sharePresetBtn) {
             const presetKey = sharePresetBtn.getAttribute('data-share-preset');
@@ -627,25 +513,6 @@ function initGlobalEventDelegation() {
         }
     });
 
-    document.addEventListener('input', (e) => {
-        if (e.target && e.target.id === 'tinnitusVolumeRange') {
-            tinnitusSim.volumePct = Number(e.target.value) || 20;
-            const valEl = document.getElementById('tinnitusVolumeValue');
-            if (valEl) {
-                valEl.textContent = tinnitusSim.volumePct <= 25
-                    ? `נמוכה מאוד (${tinnitusSim.volumePct}%)`
-                    : `בינונית-נמוכה (${tinnitusSim.volumePct}%)`;
-            }
-            if (tinnitusSim.isPlaying && tinnitusSim.gainNode && tinnitusSim.ctx) {
-                tinnitusSim.gainNode.gain.setTargetAtTime(
-                    Math.max(0.0002, getTinnitusGainValue()),
-                    tinnitusSim.ctx.currentTime,
-                    0.08
-                );
-            }
-        }
-    });
-
     document.addEventListener('submit', (e) => {
         if (e.target && e.target.id === 'mainContactForm') {
             e.preventDefault();
@@ -669,384 +536,6 @@ function closeMobileNav() {
     const btn = document.getElementById('mobileMenuBtn');
     if (menu) menu.classList.add('hidden');
     if (btn) btn.setAttribute('aria-expanded', 'false');
-}
-
-function switchMedicalTab(tabKey, activeBtn) {
-    document.querySelectorAll('#medicalTabContainer .tab-btn').forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-    });
-
-    if (activeBtn) {
-        activeBtn.classList.add('active');
-        activeBtn.setAttribute('aria-selected', 'true');
-    }
-
-    ['mechanism', 'symptoms', 'imaging', 'treatment', 'preparation'].forEach(key => {
-        const panel = document.getElementById('med-tab-' + key);
-        if (panel) {
-            if (key === tabKey) {
-                panel.classList.remove('hidden');
-            } else {
-                panel.classList.add('hidden');
-            }
-        }
-    });
-}
-
-function switchMedicalCenter(centerKey, activeBtn) {
-    document.querySelectorAll('.center-nav-card').forEach(btn => {
-        btn.classList.remove('active');
-        btn.setAttribute('aria-selected', 'false');
-    });
-
-    if (activeBtn) {
-        activeBtn.classList.add('active');
-        activeBtn.setAttribute('aria-selected', 'true');
-    }
-
-    ['szmc', 'ichilov', 'rambam', 'sheba'].forEach(key => {
-        const panel = document.getElementById('center-panel-' + key);
-        if (panel) {
-            if (key === centerKey) {
-                panel.classList.remove('hidden');
-            } else {
-                panel.classList.add('hidden');
-            }
-        }
-    });
-}
-
-function toggleAccordion(id, triggerBtn) {
-    const content = document.getElementById('content-' + id);
-    const icon = document.getElementById('icon-' + id);
-    if (!content) return;
-
-    const isHidden = content.classList.contains('hidden');
-    if (isHidden) {
-        content.classList.remove('hidden');
-        if (icon) icon.classList.add('rotate-180');
-        if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'true');
-    } else {
-        if (id === 'sym-tinnitus') {
-            stopTinnitusAudio();
-        }
-        content.classList.add('hidden');
-        if (icon) icon.classList.remove('rotate-180');
-        if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'false');
-    }
-}
-
-/* ==========================================================================
-   אשף הכוונה ראשונית לתסמינים (CSF Symptom Wizard)
-   ========================================================================== */
-const WIZARD_QUESTIONS = [
-    {
-        id: 'posture',
-        question: '1. איך הכאב או התסמינים המרכזיים מגיבים לתנוחת הגוף?',
-        options: [
-            { label: 'מחמירים בעמידה, ישיבה או מאמץ ומוקלים בשכיבה שטוחה', scoreLeak: 3, scoreRebound: 0 },
-            { label: 'מופיעים או מתגברים בעיקר בשכיבה ומוקלים בעמידה או בהגבהת ראש', scoreLeak: 0, scoreRebound: 3 },
-            { label: 'קבועים פחות או יותר ללא שינוי ברור בין שכיבה לעמידה', scoreLeak: 0, scoreRebound: 0 }
-        ]
-    },
-    {
-        id: 'trigger',
-        question: '2. האם היה אירוע או רקע רפואי סביב תחילת התסמינים?',
-        options: [
-            { label: 'כן — ניקור מותני (LP), אפידורל, ניתוח/פרוצדורה או חבלה/מאמץ פתאומי', scoreLeak: 2, scoreRebound: 0 },
-            { label: 'עברתי לאחרונה טלאי דם (EBP) או סגירת דליפה/פיסטולה', scoreLeak: 0, scoreRebound: 2 },
-            { label: 'התחיל בהדרגה או בפתאומיות ללא אירוע ברור שזכור לי', scoreLeak: 1, scoreRebound: 0 }
-        ]
-    },
-    {
-        id: 'associated',
-        question: '3. האם מופיעים תסמינים נלווים אופייניים לתת-לחץ תוך-גולגולתי?',
-        options: [
-            { label: 'כן — טנטון/אטימות באוזניים, כאב עורף/צוואר/שכמות, בחילה, סחרחורת או ערפול מוחי', scoreLeak: 2, scoreRebound: 0 },
-            { label: 'יותר לחץ במצח, מאחורי העיניים או שינוי בראייה', scoreLeak: 0, scoreRebound: 1 },
-            { label: 'לא שמתי לב לתסמינים נלווים כאלה', scoreLeak: 0, scoreRebound: 0 }
-        ]
-    },
-    {
-        id: 'timeline',
-        question: '4. כמה זמן התסמינים נמשכים?',
-        options: [
-            { label: 'כמה שבועות עד חודשים או יותר, עם השפעה ברורה על התפקוד היומי', scoreLeak: 2, scoreRebound: 1 },
-            { label: 'כמה ימים עד שבועיים (כולל ימים ראשונים אחרי פרוצדורה)', scoreLeak: 1, scoreRebound: 1 },
-            { label: 'רק לעיתים רחוקות מאוד', scoreLeak: 0, scoreRebound: 0 }
-        ]
-    },
-    {
-        id: 'mri',
-        question: '5. האם בוצעה הדמיה (כמו MRI מוח) ומה נאמר לגביה?',
-        options: [
-            { label: 'כן, ה-MRI היה תקין או שלא מצאו סיבה ברורה למרות התסמינים', scoreLeak: 2, scoreRebound: 0 },
-            { label: 'נמצאו סימנים לתת-לחץ תוך-גולגולתי / דליפה / פיסטולה', scoreLeak: 3, scoreRebound: 0 },
-            { label: 'עוד לא עשיתי בדיקת הדמיה בנושא הזה', scoreLeak: 1, scoreRebound: 0 }
-        ]
-    }
-];
-
-const wizardState = {
-    step: 0,
-    answers: []
-};
-
-function initSymptomWizard() {
-    const qArea = document.getElementById('wizardQuestionArea');
-    const rArea = document.getElementById('wizardResultArea');
-    if (!qArea || !rArea) return;
-
-    wizardState.step = 0;
-    wizardState.answers = [];
-    qArea.classList.remove('hidden');
-    rArea.classList.add('hidden');
-    renderWizardStep();
-}
-
-function renderWizardStep() {
-    const qArea = document.getElementById('wizardQuestionArea');
-    const stepText = document.getElementById('wizardStepText');
-    const fill = document.getElementById('wizardProgressFill');
-    if (!qArea) return;
-
-    const current = WIZARD_QUESTIONS[wizardState.step];
-    const total = WIZARD_QUESTIONS.length;
-
-    if (stepText) stepText.textContent = `שאלה ${wizardState.step + 1} מתוך ${total}`;
-    if (fill) fill.style.width = `${((wizardState.step + 1) / total) * 100}%`;
-
-    const optionsHtml = current.options.map((opt, idx) => `
-        <button type="button" class="wizard-option-btn" data-wizard-choice="${idx}">
-            <span>${opt.label}</span>
-            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
-        </button>
-    `).join('');
-
-    const backBtnHtml = wizardState.step > 0
-        ? `<button type="button" class="wizard-back-btn" id="wizardBackBtn"><i class="fa-solid fa-arrow-right" aria-hidden="true"></i> לשאלה הקודמת</button>`
-        : `<span></span>`;
-
-    qArea.innerHTML = `
-        <div class="wizard-question-title">${current.question}</div>
-        <div class="wizard-options-list">${optionsHtml}</div>
-        <div class="wizard-footer-nav">${backBtnHtml}</div>
-    `;
-}
-
-function renderWizardResult() {
-    const qArea = document.getElementById('wizardQuestionArea');
-    const rArea = document.getElementById('wizardResultArea');
-    const stepText = document.getElementById('wizardStepText');
-    const fill = document.getElementById('wizardProgressFill');
-    if (!qArea || !rArea) return;
-
-    let leakScore = 0;
-    let reboundScore = 0;
-
-    wizardState.answers.forEach((choiceIdx, qIdx) => {
-        const q = WIZARD_QUESTIONS[qIdx];
-        const opt = q && q.options[choiceIdx];
-        if (opt) {
-            leakScore += opt.scoreLeak;
-            reboundScore += opt.scoreRebound;
-        }
-    });
-
-    qArea.classList.add('hidden');
-    rArea.classList.remove('hidden');
-    if (stepText) stepText.textContent = 'סיכום הכוונה ראשונית';
-    if (fill) fill.style.width = '100%';
-
-    let resultHtml = '';
-    if (reboundScore >= 4 && reboundScore > leakScore) {
-        resultHtml = `
-            <div class="callout-box callout-amber stack-sm">
-                <span class="badge-pill badge-amber">דפוס שעשוי להתאים ל"לחץ חוזר" (Rebound High Pressure)</span>
-                <h3>התשובות מתארות החמרה בשכיבה — כדאי לעדכן את הרופא המטפל</h3>
-                <p>כאשר מתרחשת אטימה מוצלחת של דליפה או פיסטולה, חלק מהמטופלים חווים עליית לחץ זמנית שמתגברת בשכיבה או מלווה בלחץ באזור המצח והעיניים. חשוב לדווח לרופא המטפל להנחיה מדויקת.</p>
-            </div>
-        `;
-    } else if (leakScore >= 5) {
-        resultHtml = `
-            <div class="callout-box callout-sky stack-sm">
-                <span class="badge-pill badge-sky">התאמה גבוהה לדפוס תנוחתי (דליפת CSF / SIH)</span>
-                <h3>הדפוס שתיארת מזכיר מאפיינים מוכרים של דליפת נוזל מוח־שדרה</h3>
-                <p>שילוב של תגובה לתנוחה (בעיקר הקלה בשכיבה שטוחה) ותסמינים נלווים מתאים לדפוס שמוכר בדליפות CSF ופיסטולות ורידיות. כדאי להגיע לרופא נוירולוג או מומחה בתחום עם תיעוד מסודר של התסמינים ושל תנוחות הגוף.</p>
-                <p><strong>נקודה חשובה:</strong> גם אם בדיקת MRI מוח ראשונית יצאה תקינה, הדבר אינו שולל לחלוטין דליפה או פיסטולה ורידית — לעיתים נדרשת הערכה מעמיקה והדמיות ייעודיות לפי שיקול דעת רפואי.</p>
-            </div>
-        `;
-    } else {
-        resultHtml = `
-            <div class="callout-box callout-slate stack-sm">
-                <span class="badge-pill badge-slate">דפוס חלקי או פחות אופייני לדליפה תנוחתית קלאסית</span>
-                <h3>התסמינים לא מציגים תמונה תנוחתית מובהקת של דליפת CSF</h3>
-                <p>ייתכן שמדובר במצב רפואי אחר או בשלב מוקדם/שונה של בירור. מומלץ להמשיך בירור מסודר אצל רופא נוירולוג ולתעד מתי התסמינים מופיעים ומה משפיע עליהם.</p>
-            </div>
-        `;
-    }
-
-    resultHtml += `
-        <p class="stat-desc"><strong>הבהרה:</strong> כלי זה נועד להכוונה והכנה לשיחה רפואית בלבד ואינו מהווה אבחון רפואי או המלצה טיפולית.</p>
-        <div class="wizard-actions-row">
-            <button type="button" class="wizard-restart-btn" id="wizardRestartBtn">
-                <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
-                <span>התחלה מחדש</span>
-            </button>
-            <a href="doctors.html" data-page="doctors" class="spa-link btn-emerald-block" style="margin-top: 0; width: auto;">
-                <span>לרופאים ומרכזים רפואיים</span>
-            </a>
-        </div>
-    `;
-
-    rArea.innerHTML = resultHtml;
-}
-
-/* ==========================================================================
-   הדמיית חוויה חושית: אטימות באוזניים וטנטון (Web Audio API)
-   ========================================================================== */
-const tinnitusSim = {
-    ctx: null,
-    osc: null,
-    gainNode: null,
-    isPlaying: false,
-    mode: 'normal',
-    volumePct: 20
-};
-
-function getTinnitusGainValue() {
-    const baseMax = tinnitusSim.mode === 'muffled-tinnitus' ? 0.045 : 0.025;
-    return (tinnitusSim.volumePct / 100) * baseMax;
-}
-
-function startTinnitusAudio() {
-    try {
-        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContextClass) {
-            showToast('הדפדפן אינו תומך בהפקת שמע להדמיה זו');
-            return;
-        }
-
-        if (!tinnitusSim.ctx) {
-            tinnitusSim.ctx = new AudioContextClass();
-        }
-        if (tinnitusSim.ctx.state === 'suspended') {
-            tinnitusSim.ctx.resume();
-        }
-
-        stopTinnitusAudio(true);
-
-        const osc = tinnitusSim.ctx.createOscillator();
-        const gainNode = tinnitusSim.ctx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(3100, tinnitusSim.ctx.currentTime);
-
-        gainNode.gain.setValueAtTime(0.0001, tinnitusSim.ctx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(
-            Math.max(0.0002, getTinnitusGainValue()),
-            tinnitusSim.ctx.currentTime + 0.15
-        );
-
-        osc.connect(gainNode);
-        gainNode.connect(tinnitusSim.ctx.destination);
-        osc.start();
-
-        tinnitusSim.osc = osc;
-        tinnitusSim.gainNode = gainNode;
-        tinnitusSim.isPlaying = true;
-        updateTinnitusAudioUi();
-    } catch (err) {
-        showToast('לא ניתן להפעיל שמע כרגע');
-    }
-}
-
-function stopTinnitusAudio(silent = false) {
-    if (tinnitusSim.osc) {
-        try {
-            tinnitusSim.osc.stop();
-            tinnitusSim.osc.disconnect();
-        } catch (e) { }
-        tinnitusSim.osc = null;
-    }
-    if (tinnitusSim.gainNode) {
-        try {
-            tinnitusSim.gainNode.disconnect();
-        } catch (e) { }
-        tinnitusSim.gainNode = null;
-    }
-    tinnitusSim.isPlaying = false;
-    if (!silent) updateTinnitusAudioUi();
-}
-
-function updateTinnitusAudioUi() {
-    const btn = document.getElementById('toggleTinnitusAudioBtn');
-    const label = document.getElementById('tinnitusAudioLabel');
-    if (!btn || !label) return;
-
-    btn.classList.toggle('playing', tinnitusSim.isPlaying);
-    btn.setAttribute('aria-pressed', tinnitusSim.isPlaying ? 'true' : 'false');
-    btn.innerHTML = tinnitusSim.isPlaying
-        ? '<i class="fa-solid fa-stop" aria-hidden="true"></i> <span id="tinnitusAudioLabel">עצור צליל טנטון</span>'
-        : '<i class="fa-solid fa-play" aria-hidden="true"></i> <span id="tinnitusAudioLabel">השמע צליל טנטון עדין</span>';
-}
-
-function setSensoryMode(mode) {
-    tinnitusSim.mode = mode;
-
-    const box = document.getElementById('sensoryVisualBox');
-    const badge = document.getElementById('tinnitusWaveBadge');
-    const pill = document.getElementById('sensoryStatePill');
-    const title = document.getElementById('sensoryStateTitle');
-    const desc = document.getElementById('sensoryStateDesc');
-    const note = document.getElementById('sensoryStateNote');
-
-    document.querySelectorAll('[data-sensory-mode]').forEach(btn => {
-        const isActive = btn.getAttribute('data-sensory-mode') === mode;
-        btn.classList.toggle('active', isActive);
-        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-    });
-
-    if (box) box.setAttribute('data-sensory', mode);
-
-    if (mode === 'muffled-tinnitus') {
-        if (badge) badge.textContent = 'אטימות ("כמו במטוס") + צפצוף טנטון';
-        if (pill) {
-            pill.textContent = 'אטימות וטנטון';
-            pill.className = 'badge-pill badge-amber';
-        }
-        if (title) title.textContent = 'תחושת אוזניים אטומות לצד צליל טנטון פנימי';
-        if (desc) {
-            desc.textContent = 'במצב של ירידת לחץ וציפה, חלק מהמתמודדים חווים תחושה של "פקק" או אטימות באוזניים (דומה לשינוי גובה בטיסה) יחד עם טנטון שמתחרה בקולות הסביבה ומכביד על הריכוז.';
-        }
-        if (note) {
-            note.className = 'callout-box callout-amber';
-            note.innerHTML = '<strong>מה עוזר בפועל:</strong> סביבה שקטה יותר, דיבור ברור ובקצב נוח, והבנה שזו תופעה פיזיולוגית ולא חוסר קשב.';
-        }
-    } else {
-        if (badge) badge.textContent = 'מצב רגיל: ללא אטימות או זמזום';
-        if (pill) {
-            pill.textContent = 'שמיעה מאוזנת';
-            pill.className = 'badge-pill badge-sky';
-        }
-        if (title) title.textContent = 'כך נשמעת ומרגישה סביבה רגילה';
-        if (desc) {
-            desc.textContent = 'במצב זה הצלילים ברורים והאוזניים אינן מרגישות לחץ או "פקק". בדליפת CSF או פיסטולה ורידית, ירידת הלחץ והשינוי בציפה עשויים לגרום לתחושת מלאות/אטימות באוזניים ולטנטון (צפצוף או זמזום פנימי) שמקשים להקשיב ולשוחח.';
-        }
-        if (note) {
-            note.className = 'callout-box callout-sky';
-            note.innerHTML = '<strong>למה חשוב להראות זאת לבני משפחה?</strong> כשאדם עייף או מתוח משילוב של כאב, אטימות וצפצוף באוזניים, שיחה רגילה ברקע רועש דורשת ממנו הרבה יותר מאמץ.';
-        }
-    }
-
-    if (tinnitusSim.isPlaying && tinnitusSim.gainNode && tinnitusSim.ctx) {
-        tinnitusSim.gainNode.gain.setTargetAtTime(
-            Math.max(0.0002, getTinnitusGainValue()),
-            tinnitusSim.ctx.currentTime,
-            0.08
-        );
-    }
 }
 
 function downloadDoctorBrief() {
@@ -1206,7 +695,7 @@ function applyAccessibilityClasses() {
 function saveAccessibilityState() {
     try {
         localStorage.setItem('csf_leak_acc_state', JSON.stringify(accState));
-    } catch (e) { }
+    } catch (e) {}
 }
 
 function restoreAccessibilityState() {
@@ -1219,7 +708,7 @@ function restoreAccessibilityState() {
             });
             applyAccessibilityClasses();
         }
-    } catch (e) { }
+    } catch (e) {}
 }
 
 /* ==========================================================================
@@ -1318,7 +807,7 @@ function initCookieNotice() {
     let hasStorage = false;
     try {
         hasStorage = localStorage.getItem('csf_leak_cookie_consent') === 'accepted';
-    } catch (e) { }
+    } catch (e) {}
 
     if (hasCookie || hasStorage) return;
 
@@ -1341,9 +830,7 @@ function initCookieNotice() {
         document.cookie = `csf_leak_cookie_consent=accepted; max-age=${maxAge}; path=/; SameSite=Lax`;
         try {
             localStorage.setItem('csf_leak_cookie_consent', 'accepted');
-        } catch (e) { }
+        } catch (e) {}
         banner.classList.add('hidden');
     });
 }
-
-document.addEventListener('DOMContentLoaded', initCookieNotice);

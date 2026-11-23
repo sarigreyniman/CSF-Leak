@@ -1,6 +1,7 @@
 /* ==========================================================================
    CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js)
-   כולל ניווט נקי, בורר שפות, שיתוף מהיר, נגישות, הדגמת עיגול מים ומוח ואשף תסמינים
+   כולל ניווט נקי, בורר שפות, שיתוף מהיר, נגישות, הדגמת עיגול מים ומוח,
+   אשף תסמינים והדמיית אטימות וטנטון
    ========================================================================== */
 
 function getCorrectPath(filename) {
@@ -267,6 +268,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadGoogleTranslate();
     initQuickShareWidget();
     initSymptomWizard();
+    setSensoryMode(tinnitusSim.mode);
+    updateTinnitusAudioUi();
 
     const currentPage = detectCurrentPageKey();
     const mainContainer = document.getElementById('page-content');
@@ -337,13 +340,15 @@ function preloadAllPagesInBackground(currentPage) {
     setTimeout(() => {
         ALL_SITE_PAGES.forEach(pageKey => {
             if (pageKey !== currentPage && !runtimePagesCache[pageKey]) {
-                fetchAndCachePage(pageKey).catch(() => {});
+                fetchAndCachePage(pageKey).catch(() => { });
             }
         });
     }, 400);
 }
 
 async function navigateToPage(pageKey, pushToHistory = true) {
+    stopTinnitusAudio(true);
+
     const mainContainer = document.getElementById('page-content');
     const targetFile = getFilePathForPage(pageKey);
 
@@ -370,6 +375,8 @@ async function navigateToPage(pageKey, pushToHistory = true) {
         renderTranslateWidgets();
         initQuickShareWidget();
         initSymptomWizard();
+        setSensoryMode(tinnitusSim.mode);
+        updateTinnitusAudioUi();
         window.scrollTo({ top: 0, behavior: 'instant' });
 
     } catch (err) {
@@ -461,6 +468,7 @@ function initGlobalEventDelegation() {
 
         const medTabBtn = e.target.closest('[data-med-tab]');
         if (medTabBtn) {
+            stopTinnitusAudio(true);
             const tabKey = medTabBtn.getAttribute('data-med-tab');
             switchMedicalTab(tabKey, medTabBtn);
             return;
@@ -559,6 +567,22 @@ function initGlobalEventDelegation() {
             return;
         }
 
+        /* הדמיית חוויה חושית: אטימות וטנטון */
+        const sensoryBtn = e.target.closest('[data-sensory-mode]');
+        if (sensoryBtn) {
+            setSensoryMode(sensoryBtn.getAttribute('data-sensory-mode'));
+            return;
+        }
+
+        if (e.target.closest('#toggleTinnitusAudioBtn')) {
+            if (tinnitusSim.isPlaying) {
+                stopTinnitusAudio();
+            } else {
+                startTinnitusAudio();
+            }
+            return;
+        }
+
         const sharePresetBtn = e.target.closest('[data-share-preset]');
         if (sharePresetBtn) {
             const presetKey = sharePresetBtn.getAttribute('data-share-preset');
@@ -600,6 +624,25 @@ function initGlobalEventDelegation() {
         if (e.target.closest('#downloadPdfBtn')) {
             downloadDoctorBrief();
             return;
+        }
+    });
+
+    document.addEventListener('input', (e) => {
+        if (e.target && e.target.id === 'tinnitusVolumeRange') {
+            tinnitusSim.volumePct = Number(e.target.value) || 20;
+            const valEl = document.getElementById('tinnitusVolumeValue');
+            if (valEl) {
+                valEl.textContent = tinnitusSim.volumePct <= 25
+                    ? `נמוכה מאוד (${tinnitusSim.volumePct}%)`
+                    : `בינונית-נמוכה (${tinnitusSim.volumePct}%)`;
+            }
+            if (tinnitusSim.isPlaying && tinnitusSim.gainNode && tinnitusSim.ctx) {
+                tinnitusSim.gainNode.gain.setTargetAtTime(
+                    Math.max(0.0002, getTinnitusGainValue()),
+                    tinnitusSim.ctx.currentTime,
+                    0.08
+                );
+            }
         }
     });
 
@@ -685,6 +728,9 @@ function toggleAccordion(id, triggerBtn) {
         if (icon) icon.classList.add('rotate-180');
         if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'true');
     } else {
+        if (id === 'sym-tinnitus') {
+            stopTinnitusAudio();
+        }
         content.classList.add('hidden');
         if (icon) icon.classList.remove('rotate-180');
         if (triggerBtn) triggerBtn.setAttribute('aria-expanded', 'false');
@@ -857,6 +903,152 @@ function renderWizardResult() {
     rArea.innerHTML = resultHtml;
 }
 
+/* ==========================================================================
+   הדמיית חוויה חושית: אטימות באוזניים וטנטון (Web Audio API)
+   ========================================================================== */
+const tinnitusSim = {
+    ctx: null,
+    osc: null,
+    gainNode: null,
+    isPlaying: false,
+    mode: 'normal',
+    volumePct: 20
+};
+
+function getTinnitusGainValue() {
+    const baseMax = tinnitusSim.mode === 'muffled-tinnitus' ? 0.045 : 0.025;
+    return (tinnitusSim.volumePct / 100) * baseMax;
+}
+
+function startTinnitusAudio() {
+    try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) {
+            showToast('הדפדפן אינו תומך בהפקת שמע להדמיה זו');
+            return;
+        }
+
+        if (!tinnitusSim.ctx) {
+            tinnitusSim.ctx = new AudioContextClass();
+        }
+        if (tinnitusSim.ctx.state === 'suspended') {
+            tinnitusSim.ctx.resume();
+        }
+
+        stopTinnitusAudio(true);
+
+        const osc = tinnitusSim.ctx.createOscillator();
+        const gainNode = tinnitusSim.ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(3100, tinnitusSim.ctx.currentTime);
+
+        gainNode.gain.setValueAtTime(0.0001, tinnitusSim.ctx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(
+            Math.max(0.0002, getTinnitusGainValue()),
+            tinnitusSim.ctx.currentTime + 0.15
+        );
+
+        osc.connect(gainNode);
+        gainNode.connect(tinnitusSim.ctx.destination);
+        osc.start();
+
+        tinnitusSim.osc = osc;
+        tinnitusSim.gainNode = gainNode;
+        tinnitusSim.isPlaying = true;
+        updateTinnitusAudioUi();
+    } catch (err) {
+        showToast('לא ניתן להפעיל שמע כרגע');
+    }
+}
+
+function stopTinnitusAudio(silent = false) {
+    if (tinnitusSim.osc) {
+        try {
+            tinnitusSim.osc.stop();
+            tinnitusSim.osc.disconnect();
+        } catch (e) { }
+        tinnitusSim.osc = null;
+    }
+    if (tinnitusSim.gainNode) {
+        try {
+            tinnitusSim.gainNode.disconnect();
+        } catch (e) { }
+        tinnitusSim.gainNode = null;
+    }
+    tinnitusSim.isPlaying = false;
+    if (!silent) updateTinnitusAudioUi();
+}
+
+function updateTinnitusAudioUi() {
+    const btn = document.getElementById('toggleTinnitusAudioBtn');
+    const label = document.getElementById('tinnitusAudioLabel');
+    if (!btn || !label) return;
+
+    btn.classList.toggle('playing', tinnitusSim.isPlaying);
+    btn.setAttribute('aria-pressed', tinnitusSim.isPlaying ? 'true' : 'false');
+    btn.innerHTML = tinnitusSim.isPlaying
+        ? '<i class="fa-solid fa-stop" aria-hidden="true"></i> <span id="tinnitusAudioLabel">עצור צליל טנטון</span>'
+        : '<i class="fa-solid fa-play" aria-hidden="true"></i> <span id="tinnitusAudioLabel">השמע צליל טנטון עדין</span>';
+}
+
+function setSensoryMode(mode) {
+    tinnitusSim.mode = mode;
+
+    const box = document.getElementById('sensoryVisualBox');
+    const badge = document.getElementById('tinnitusWaveBadge');
+    const pill = document.getElementById('sensoryStatePill');
+    const title = document.getElementById('sensoryStateTitle');
+    const desc = document.getElementById('sensoryStateDesc');
+    const note = document.getElementById('sensoryStateNote');
+
+    document.querySelectorAll('[data-sensory-mode]').forEach(btn => {
+        const isActive = btn.getAttribute('data-sensory-mode') === mode;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+
+    if (box) box.setAttribute('data-sensory', mode);
+
+    if (mode === 'muffled-tinnitus') {
+        if (badge) badge.textContent = 'אטימות ("כמו במטוס") + צפצוף טנטון';
+        if (pill) {
+            pill.textContent = 'אטימות וטנטון';
+            pill.className = 'badge-pill badge-amber';
+        }
+        if (title) title.textContent = 'תחושת אוזניים אטומות לצד צליל טנטון פנימי';
+        if (desc) {
+            desc.textContent = 'במצב של ירידת לחץ וציפה, חלק מהמתמודדים חווים תחושה של "פקק" או אטימות באוזניים (דומה לשינוי גובה בטיסה) יחד עם טנטון שמתחרה בקולות הסביבה ומכביד על הריכוז.';
+        }
+        if (note) {
+            note.className = 'callout-box callout-amber';
+            note.innerHTML = '<strong>מה עוזר בפועל:</strong> סביבה שקטה יותר, דיבור ברור ובקצב נוח, והבנה שזו תופעה פיזיולוגית ולא חוסר קשב.';
+        }
+    } else {
+        if (badge) badge.textContent = 'מצב רגיל: ללא אטימות או זמזום';
+        if (pill) {
+            pill.textContent = 'שמיעה מאוזנת';
+            pill.className = 'badge-pill badge-sky';
+        }
+        if (title) title.textContent = 'כך נשמעת ומרגישה סביבה רגילה';
+        if (desc) {
+            desc.textContent = 'במצב זה הצלילים ברורים והאוזניים אינן מרגישות לחץ או "פקק". בדליפת CSF או פיסטולה ורידית, ירידת הלחץ והשינוי בציפה עשויים לגרום לתחושת מלאות/אטימות באוזניים ולטנטון (צפצוף או זמזום פנימי) שמקשים להקשיב ולשוחח.';
+        }
+        if (note) {
+            note.className = 'callout-box callout-sky';
+            note.innerHTML = '<strong>למה חשוב להראות זאת לבני משפחה?</strong> כשאדם עייף או מתוח משילוב של כאב, אטימות וצפצוף באוזניים, שיחה רגילה ברקע רועש דורשת ממנו הרבה יותר מאמץ.';
+        }
+    }
+
+    if (tinnitusSim.isPlaying && tinnitusSim.gainNode && tinnitusSim.ctx) {
+        tinnitusSim.gainNode.gain.setTargetAtTime(
+            Math.max(0.0002, getTinnitusGainValue()),
+            tinnitusSim.ctx.currentTime,
+            0.08
+        );
+    }
+}
+
 function downloadDoctorBrief() {
     showToast("מוריד את מדריך ההנחיות לרופא (PDF)...");
     const link = document.createElement('a');
@@ -1014,7 +1206,7 @@ function applyAccessibilityClasses() {
 function saveAccessibilityState() {
     try {
         localStorage.setItem('csf_leak_acc_state', JSON.stringify(accState));
-    } catch (e) {}
+    } catch (e) { }
 }
 
 function restoreAccessibilityState() {
@@ -1027,7 +1219,7 @@ function restoreAccessibilityState() {
             });
             applyAccessibilityClasses();
         }
-    } catch (e) {}
+    } catch (e) { }
 }
 
 /* ==========================================================================
@@ -1126,7 +1318,7 @@ function initCookieNotice() {
     let hasStorage = false;
     try {
         hasStorage = localStorage.getItem('csf_leak_cookie_consent') === 'accepted';
-    } catch (e) {}
+    } catch (e) { }
 
     if (hasCookie || hasStorage) return;
 
@@ -1149,7 +1341,7 @@ function initCookieNotice() {
         document.cookie = `csf_leak_cookie_consent=accepted; max-age=${maxAge}; path=/; SameSite=Lax`;
         try {
             localStorage.setItem('csf_leak_cookie_consent', 'accepted');
-        } catch (e) {}
+        } catch (e) { }
         banner.classList.add('hidden');
     });
 }

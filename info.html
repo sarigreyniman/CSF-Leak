@@ -291,7 +291,7 @@
 
                 </div>
 
-                <!-- 2. לשונית תסמינים קליניים + אשף הכוונה ראשונית בסוף -->
+                <!-- 2. לשונית תסמינים קליניים + אקורדיונים לאשף ולהדמיית אטימות וטנטון -->
                 <div id="med-tab-symptoms" role="tabpanel" class="stack-lg hidden">
                     <div class="stack-sm">
                         <h2>הקשת הרחבה של התסמינים הקליניים</h2>
@@ -353,27 +353,112 @@
                         </div>
                     </div>
 
-                    <!-- אשף הכוונה ראשונית לתסמינים בסוף לשונית התסמינים -->
-                    <div class="card stack-md csf-triage-card" id="csfSymptomWizard">
-                        <div class="card-header-flex">
-                            <div class="icon-box icon-purple"><i class="fa-solid fa-clipboard-question"
-                                    aria-hidden="true"></i></div>
-                            <div>
-                                <h2>אשף הכוונה ראשונית: האם התסמינים מתאימים לדליפת CSF?</h2>
-                                <span class="stat-desc">5 שאלות קצרות להבנת דפוס התסמינים לקראת שיחה עם רופא (אינו
-                                    מהווה אבחון רפואי)</span>
+                    <!-- כלים אינטראקטיביים בתוך אקורדיונים לשמירה על עמוד נקי -->
+                    <div class="stack-sm">
+                        <!-- אקורדיון 1: אשף הכוונה ראשונית לתסמינים -->
+                        <div class="accordion-item" id="csfSymptomWizard">
+                            <button type="button" class="accordion-trigger" data-acc-target="sym-wizard"
+                                aria-expanded="false">
+                                <span class="accordion-title-wrap">
+                                    <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-sym-wizard"
+                                        aria-hidden="true"></i>
+                                    <span>אשף הכוונה ראשונית: האם התסמינים מתאימים לדליפת CSF?</span>
+                                </span>
+                                <span class="badge-pill badge-purple">5 שאלות קצרות</span>
+                            </button>
+                            <div id="content-sym-wizard" class="accordion-body hidden stack-md">
+                                <p class="stat-desc">5 שאלות קצרות להבנת דפוס התסמינים לקראת שיחה עם רופא (אינו מהווה
+                                    אבחון רפואי)</p>
+                                <div class="wizard-progress-wrap">
+                                    <div class="wizard-progress-text" id="wizardStepText">שאלה 1 מתוך 5</div>
+                                    <div class="wizard-progress-track" aria-hidden="true">
+                                        <div class="wizard-progress-fill" id="wizardProgressFill" style="width: 20%;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div id="wizardQuestionArea" class="stack-sm"></div>
+                                <div id="wizardResultArea" class="hidden stack-md"></div>
                             </div>
                         </div>
 
-                        <div class="wizard-progress-wrap">
-                            <div class="wizard-progress-text" id="wizardStepText">שאלה 1 מתוך 5</div>
-                            <div class="wizard-progress-track" aria-hidden="true">
-                                <div class="wizard-progress-fill" id="wizardProgressFill" style="width: 20%;"></div>
+                        <!-- אקורדיון 2: הדמיית חוויה חושית — אטימות באוזניים וטנטון (אחרי האשף) -->
+                        <div class="accordion-item" id="sensoryTinnitusSim">
+                            <button type="button" class="accordion-trigger" data-acc-target="sym-tinnitus"
+                                aria-expanded="false">
+                                <span class="accordion-title-wrap">
+                                    <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-sym-tinnitus"
+                                        aria-hidden="true"></i>
+                                    <span>הדמיית חוויה חושית: אטימות באוזניים וטנטון (המחשה לסביבה)</span>
+                                </span>
+                                <span class="badge-pill badge-sky">שמע והמחשה</span>
+                            </button>
+                            <div id="content-sym-tinnitus" class="accordion-body hidden stack-md">
+                                <div class="callout-box callout-amber">
+                                    <strong>שים/י לב לפני הפעלה:</strong> הצליל מופק בעוצמה נמוכה ועדינה להמחשה בלבד.
+                                    אם יש רגישות לרעש או טנטון קיים, מומלץ להתחיל בעוצמה נמוכה מאוד או להשתמש בכפתור
+                                    העצירה בכל רגע.
+                                </div>
+
+                                <div class="sensory-controls-row">
+                                    <div class="sim-controls" role="group" aria-label="בחירת מצב חושי">
+                                        <button type="button" class="sim-toggle-btn active" data-sensory-mode="normal"
+                                            aria-pressed="true">
+                                            <i class="fa-solid fa-volume-high" aria-hidden="true"></i>
+                                            <span>שמיעה רגילה</span>
+                                        </button>
+                                        <button type="button" class="sim-toggle-btn"
+                                            data-sensory-mode="muffled-tinnitus" aria-pressed="false">
+                                            <i class="fa-solid fa-wave-square" aria-hidden="true"></i>
+                                            <span>אטימות וטנטון (עמידה/עומס)</span>
+                                        </button>
+                                    </div>
+
+                                    <button type="button" class="sensory-sound-btn" id="toggleTinnitusAudioBtn"
+                                        aria-pressed="false">
+                                        <i class="fa-solid fa-play" aria-hidden="true"></i>
+                                        <span id="tinnitusAudioLabel">השמע צליל טנטון עדין</span>
+                                    </button>
+                                </div>
+
+                                <div class="sensory-stage-grid">
+                                    <div class="sensory-visual-box" data-sensory="normal" id="sensoryVisualBox">
+                                        <div class="ear-muffle-ring" aria-hidden="true">
+                                            <div class="ear-inner-core">
+                                                <i class="fa-solid fa-ear-listen"></i>
+                                            </div>
+                                            <div class="tinnitus-wave-badge" id="tinnitusWaveBadge">מצב רגיל: ללא
+                                                אטימות או זמזום</div>
+                                        </div>
+
+                                        <div class="sensory-vol-wrap">
+                                            <label for="tinnitusVolumeRange" class="form-label"
+                                                style="margin-bottom: 0.25rem;">
+                                                עוצמת הדמיית הטנטון: <span id="tinnitusVolumeValue">נמוכה מאוד
+                                                    (20%)</span>
+                                            </label>
+                                            <input type="range" id="tinnitusVolumeRange" min="5" max="60" value="20"
+                                                class="sensory-range">
+                                        </div>
+                                    </div>
+
+                                    <div class="sensory-info-box stack-sm">
+                                        <span class="badge-pill badge-sky" id="sensoryStatePill">שמיעה מאוזנת</span>
+                                        <h3 id="sensoryStateTitle">כך נשמעת ומרגישה סביבה רגילה</h3>
+                                        <p id="sensoryStateDesc">
+                                            במצב זה הצלילים ברורים והאוזניים אינן מרגישות לחץ או "פקק". בדליפת CSF או
+                                            פיסטולה ורידית, ירידת הלחץ והשינוי בציפה עשויים לגרום לתחושת מלאות/אטימות
+                                            באוזניים ולטנטון (צפצוף או זמזום פנימי) שמקשים להקשיב ולשוחח.
+                                        </p>
+                                        <div class="callout-box callout-sky" id="sensoryStateNote">
+                                            <strong>למה חשוב להראות זאת לבני משפחה?</strong> כשאדם עייף או מתוח משילוב
+                                            של כאב, אטימות וצפצוף באוזניים, שיחה רגילה ברקע רועש דורשת ממנו הרבה יותר
+                                            מאמץ.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-
-                        <div id="wizardQuestionArea" class="stack-sm"></div>
-                        <div id="wizardResultArea" class="hidden stack-md"></div>
                     </div>
                 </div>
 

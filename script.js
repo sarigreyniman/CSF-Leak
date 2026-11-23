@@ -1,6 +1,6 @@
 /* ==========================================================================
    CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js)
-   גרסה מתוקנת - כולל בורר שפות מעוצב, תרגום נסתר וחזרה חלקה לעברית
+   גרסה מתוקנת - כולל בורר שפות מעוצב, תרגום נסתר, חזרה לעברית ושיתוף מהיר
    ========================================================================== */
 
 function getCorrectPath(filename) {
@@ -270,6 +270,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadSharedLayout();
     restoreAccessibilityState();
     loadGoogleTranslate();
+    initQuickShareWidget();
 
     const currentPage = detectCurrentPageKey();
     const mainContainer = document.getElementById('page-content');
@@ -371,6 +372,7 @@ async function navigateToPage(pageKey, pushToHistory = true) {
         highlightActiveNav(pageKey);
         closeMobileNav();
         renderTranslateWidgets();
+        initQuickShareWidget();
         window.scrollTo({ top: 0, behavior: 'instant' });
 
     } catch (err) {
@@ -476,6 +478,44 @@ function initGlobalEventDelegation() {
         if (accTrigger) {
             const targetId = accTrigger.getAttribute('data-acc-target');
             toggleAccordion(targetId, accTrigger);
+            return;
+        }
+
+        const sharePresetBtn = e.target.closest('[data-share-preset]');
+        if (sharePresetBtn) {
+            const presetKey = sharePresetBtn.getAttribute('data-share-preset');
+            const textarea = document.getElementById('quickShareText');
+            const waBtn = document.getElementById('whatsappQuickShareBtn');
+
+            document.querySelectorAll('[data-share-preset]').forEach(b => b.classList.remove('active'));
+            sharePresetBtn.classList.add('active');
+
+            if (textarea && SHARE_PRESETS[presetKey]) {
+                textarea.value = SHARE_PRESETS[presetKey];
+                if (waBtn) {
+                    waBtn.href = 'https://wa.me/?text=' + encodeURIComponent(textarea.value);
+                }
+            }
+            return;
+        }
+
+        if (e.target.closest('#copyQuickShareBtn')) {
+            const textarea = document.getElementById('quickShareText');
+            if (textarea) {
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(textarea.value).then(() => {
+                        showToast('הטקסט הועתק! אפשר להדביק ולשלוח בכל אפליקציה');
+                    }).catch(() => {
+                        textarea.select();
+                        document.execCommand('copy');
+                        showToast('הטקסט הועתק! אפשר להדביק ולשלוח בכל אפליקציה');
+                    });
+                } else {
+                    textarea.select();
+                    document.execCommand('copy');
+                    showToast('הטקסט הועתק! אפשר להדביק ולשלוח בכל אפליקציה');
+                }
+            }
             return;
         }
 
@@ -586,6 +626,51 @@ function showToast(msg) {
         setTimeout(() => {
             toast.classList.remove('show');
         }, 4200);
+    }
+}
+
+/* ==========================================================================
+   שיתוף מהיר עם הסביבה (Quick Share Templates)
+   ========================================================================== */
+const SHARE_PRESETS = {
+    family: `היי ❤️ רציתי לשתף במשהו שיעזור להבין מה עובר עליי בתקופה האחרונה.
+אני מתמודד/ת עם דליפת נוזל מוחי־שדרתי (CSF) ותת־לחץ תוך־גולגולתי. זו בעיה מכנית-פיזיולוגית: כשאני עומד/ת או יושב/ת, הנוזל שמגן על המוח יורד כלפי מטה ונוצר מתח שגורם לכאב ראש תנוחתי חזק, סחרחורת, ערפול מוחי ועייפות.
+כשאני שוכב/ת במאוזן, הנוזל מתאזן והתסמינים נרגעים — לכן שכיבה שטוחה היא צורך רפואי ולא פינוק.
+אפשר לקרוא הסבר קצר וברור לבני משפחה ומלווים כאן:
+https://csfleak.org.il/caregivers.html`,
+
+    work: `שלום,
+רציתי לעדכן שאני מתמודד/ת כעת עם מצב רפואי נוירולוגי הנקרא דליפת נוזל מוחי־שדרתי (CSF) ותת־לחץ תוך־גולגולתי.
+המאפיין המרכזי של המצב הוא כאב ראש תנוחתי ותסמינים נוירולוגיים שמחמירים בישיבה או בעמידה, ומוקלים משמעותית בשכיבה מאוזנת.
+מסיבה זו נדרשת ממני מנוחה בשכיבה והתאמת אופן העבודה/הלימודים בתקופה הקרובה בהתאם להנחיות הרופא המטפל.
+למידע תמציתי על המצב הרפואי:
+https://csfleak.org.il/info.html`,
+
+    friends: `היי! רק רציתי לעדכן למה קצת קשה לי לשבת או להיפגש כרגיל בתקופה האחרונה 🙏
+יש לי מצב שנקרא דליפת CSF (ירידה בלחץ הנוזל סביב המוח ועמוד השדרה). בעמידה או בישיבה זה גורם לכאב ראש חזק וערפול, ובשכיבה זה נרגע.
+לכן אני צריך/ה הרבה שכיבה שטוחה ומנוחה כרגע, ומעריך/ה מאוד את ההבנה והסבלנות ❤️
+אם מסקרן לקרוא בקצרה מה זה:
+https://csfleak.org.il/faq.html`
+};
+
+function initQuickShareWidget() {
+    const textarea = document.getElementById('quickShareText');
+    const waBtn = document.getElementById('whatsappQuickShareBtn');
+    if (!textarea || !waBtn) return;
+
+    if (!textarea.value.trim()) {
+        textarea.value = SHARE_PRESETS.family;
+    }
+
+    const syncWhatsappHref = () => {
+        waBtn.href = 'https://wa.me/?text=' + encodeURIComponent(textarea.value);
+    };
+
+    syncWhatsappHref();
+
+    if (!textarea.dataset.bound) {
+        textarea.dataset.bound = 'true';
+        textarea.addEventListener('input', syncWhatsappHref);
     }
 }
 

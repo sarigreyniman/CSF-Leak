@@ -1,6 +1,6 @@
 /* ==========================================================================
    CSF Leak IL - קובץ הלוגיקה והסקריפטים המרכזי (script.js)
-   ניווט נקי, נגישות, שיתוף מהיר, תרגום שפות וקוקיז לכל האתר
+   ניווט נקי, נגישות, שיתוף מהיר, תרגום שפות, קוקיז, FAQ ומילון כיס
    ========================================================================== */
 
 function getCorrectPath(filename) {
@@ -232,6 +232,55 @@ const ALL_SITE_PAGES = [
 
 const runtimePagesCache = {};
 let isInternalNavigation = false;
+let activeGlossaryFilter = 'sih';
+
+const POCKET_GLOSSARY_TERMS = [
+    {
+        key: 'sih',
+        code: 'SIH',
+        heTitle: 'תת־לחץ תוך־גולגולתי ספונטני',
+        enTitle: 'Spontaneous Intracranial Hypotension (SIH)',
+        heDesc: 'ירידה בלחץ ובציפה של נוזל השדרה (CSF) סביב המוח ועמוד השדרה ללא פעולה רפואית קודמת, שלרוב מתבטאת בכאב ראש שמחמיר בעמידה או בישיבה ומוקל בשכיבה.',
+        enDesc: 'Low CSF volume/pressure causing orthostatic headache and brainstem/dural traction without a prior dural puncture.',
+        clinicTip: 'בעברית אפשר לומר "תת-לחץ תוך-גולגולתי" ולציין אם הכאב משתנה בשכיבה לעומת עמידה.'
+    },
+    {
+        key: 'cvf',
+        code: 'CVF / פיסטולה ורידית',
+        heTitle: 'פיסטולה CSF ורידית',
+        enTitle: 'CSF-Venous Fistula (CVF)',
+        heDesc: 'חיבור לא תקין וזעיר בין שק נוזל השדרה לבין וריד סמוך בעמוד השדרה, שבו נוזל ה-CSF מתנקז ישר למערכת הוורידים — לעיתים קרובות כאשר MRI מוח רגיל נראה תקין.',
+        enDesc: 'An abnormal connection between the spinal subarachnoid space and an adjacent epidural/paraspinal vein, often occult on standard brain MRI.',
+        clinicTip: 'אם ה-MRI תקין והחשד גבוה, כדאי לשאול את הרופא/רדיולוג אם נדרשת בדיקה דינמית לחיפוש CVF.'
+    },
+    {
+        key: 'dsm',
+        code: 'DSM',
+        heTitle: 'מיאלוגרפיה דינמית (בחיסור דיגיטלי)',
+        enTitle: 'Digital Subtraction Myelography (DSM)',
+        heDesc: 'בדיקת הדמיה בזמן אמת (תחת שיקוף רנטגן והזרקת חומר ניגוד לנוזל השדרה) שנועדה לעקוב אחרי זרימה מהירה של נוזל או לאתר פיסטולה ורידית.',
+        enDesc: 'Real-time fluoroscopic myelography used to capture rapid CSF leaks and CSF-venous fistulas with high temporal resolution.',
+        clinicTip: 'במרפאה או בהפניה אפשר לשאול איזה פרוטוקול הדמיה מתאים לבירור (DSM, CT myelography או MRI עמוד שדרה).'
+    },
+    {
+        key: 'ebp',
+        code: 'EBP',
+        heTitle: 'טלאי דם אפידורלי',
+        enTitle: 'Epidural Blood Patch (EBP)',
+        heDesc: 'הזרקת דם עצמי (או חומר אטימה ייעודי) לחלל האפידורלי בעמוד השדרה כדי להעלות לחץ מקומי ולאטום דליפה, לרוב תוך הקפדה על מנוחה וחוק ה-BLT.',
+        enDesc: 'Injection of autologous blood (or fibrin sealant) into the epidural space to restore CSF pressure and seal a dural defect.',
+        clinicTip: 'כדאי לברר מראש מה הנחיות המנוחה וה-BLT אחרי הפעולה ומה נחשב סימן שדורש עדכון.'
+    },
+    {
+        key: 'rebound',
+        code: 'Rebound Pressure',
+        heTitle: 'לחץ חוזר (עודף לחץ זמני אחרי אטימה)',
+        enTitle: 'Rebound Intracranial Hypertension (Rebound Pressure)',
+        heDesc: 'עליית לחץ זמנית שיכולה להופיע אחרי שהדליפה או הפיסטולה נאטמת — לרוב מורגשת במצח או מאחורי העיניים ומתגברת בשכיבה.',
+        enDesc: 'Transient elevated CSF pressure after leak closure, often felt frontally/retro-orbitally and worse when lying flat.',
+        clinicTip: 'אם הכאב מתהפך ומתגבר בשכיבה אחרי טיפול, חשוב לעדכן את הרופא המטפל כדי לקבל הנחיה מסודרת.'
+    }
+];
 
 function getFilePathForPage(pageKey) {
     const inCenters = window.location.pathname.includes('/centers/') || window.location.href.includes('/centers/');
@@ -267,6 +316,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     loadGoogleTranslate();
     initQuickShareWidget();
     initCookieNotice();
+    renderPocketGlossary();
 
     if (typeof window.initInfoPage === 'function') {
         window.initInfoPage();
@@ -377,6 +427,7 @@ async function navigateToPage(pageKey, pushToHistory = true) {
         closeMobileNav();
         renderTranslateWidgets();
         initQuickShareWidget();
+        renderPocketGlossary();
         if (typeof window.initInfoPage === 'function') {
             window.initInfoPage();
         }
@@ -411,6 +462,60 @@ function highlightActiveNav(pageKey) {
             link.removeAttribute('aria-current');
         }
     });
+}
+
+function toggleAccordion(id, triggerBtn) {
+    const content = document.getElementById('content-' + id);
+    const icon = document.getElementById('icon-' + id);
+    if (!content) return;
+
+    const isHidden = content.classList.contains('hidden');
+    content.classList.toggle('hidden', !isHidden);
+    if (icon) icon.classList.toggle('rotate-180', isHidden);
+    if (triggerBtn) triggerBtn.setAttribute('aria-expanded', isHidden ? 'true' : 'false');
+}
+
+function renderPocketGlossary() {
+    const listEl = document.getElementById('glossaryCardsList');
+    if (!listEl) return;
+
+    const query = (document.getElementById('glossarySearchInput')?.value || '').trim().toLowerCase();
+
+    const filtered = POCKET_GLOSSARY_TERMS.filter(item => {
+        if (query) {
+            const haystack = [
+                item.code,
+                item.heTitle,
+                item.enTitle,
+                item.heDesc,
+                item.enDesc
+            ].join(' ').toLowerCase();
+            return haystack.includes(query);
+        }
+        return item.key === activeGlossaryFilter;
+    });
+
+    if (!filtered.length) {
+        listEl.innerHTML = `<div class="callout-box callout-slate">לא נמצא מונח מתאים לחיפוש. נסו להקליד SIH, CVF, DSM, EBP או Rebound.</div>`;
+        return;
+    }
+
+    listEl.innerHTML = filtered.map(item => `
+        <article class="glossary-spotlight-card stack-sm">
+            <div class="glossary-spotlight-head">
+                <h3>${item.heTitle}</h3>
+                <span class="badge-pill badge-sky">${item.code}</span>
+            </div>
+            <p>${item.heDesc}</p>
+            <div class="glossary-en-panel" dir="ltr">
+                <div class="glossary-en-title">${item.enTitle}</div>
+                <p class="glossary-en-desc">${item.enDesc}</p>
+            </div>
+            <div class="callout-box callout-sky glossary-tip">
+                <strong>בשיחה במרפאה:</strong> ${item.clinicTip}
+            </div>
+        </article>
+    `).join('');
 }
 
 function initGlobalEventDelegation() {
@@ -469,6 +574,27 @@ function initGlobalEventDelegation() {
             return;
         }
 
+        const accTrigger = e.target.closest('[data-acc-target]');
+        if (accTrigger && document.body.getAttribute('data-current-page') === 'doctors') {
+            toggleAccordion(accTrigger.getAttribute('data-acc-target'), accTrigger);
+            return;
+        }
+
+        const filterPill = e.target.closest('[data-glossary-filter]');
+        if (filterPill) {
+            activeGlossaryFilter = filterPill.getAttribute('data-glossary-filter');
+            const searchInput = document.getElementById('glossarySearchInput');
+            if (searchInput) searchInput.value = '';
+
+            document.querySelectorAll('[data-glossary-filter]').forEach(btn => {
+                const active = btn.getAttribute('data-glossary-filter') === activeGlossaryFilter;
+                btn.classList.toggle('active', active);
+                btn.setAttribute('aria-selected', active ? 'true' : 'false');
+            });
+            renderPocketGlossary();
+            return;
+        }
+
         const sharePresetBtn = e.target.closest('[data-share-preset]');
         if (sharePresetBtn) {
             const presetKey = sharePresetBtn.getAttribute('data-share-preset');
@@ -510,6 +636,12 @@ function initGlobalEventDelegation() {
         if (e.target.closest('#downloadPdfBtn')) {
             downloadDoctorBrief();
             return;
+        }
+    });
+
+    document.addEventListener('input', (e) => {
+        if (e.target && e.target.id === 'glossarySearchInput') {
+            renderPocketGlossary();
         }
     });
 

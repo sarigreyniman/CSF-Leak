@@ -291,7 +291,7 @@
 
                 </div>
 
-                <!-- 2. לשונית תסמינים קליניים + אקורדיונים לאשף, אטימות וטנטון, ואור וערפול מוחי -->
+                <!-- 2. לשונית תסמינים קליניים + אקורדיונים לאשף ולהדמיית אטימות וטנטון -->
                 <div id="med-tab-symptoms" role="tabpanel" class="stack-lg hidden">
                     <div class="stack-sm">
                         <h2>הקשת הרחבה של התסמינים הקליניים</h2>
@@ -382,7 +382,7 @@
                             </div>
                         </div>
 
-                        <!-- אקורדיון 2: הדמיית חוויה חושית — אטימות באוזניים וטנטון -->
+                        <!-- אקורדיון 2: הדמיית חוויה חושית — אטימות באוזניים וטנטון (אחרי האשף) -->
                         <div class="accordion-item" id="sensoryTinnitusSim">
                             <button type="button" class="accordion-trigger" data-acc-target="sym-tinnitus"
                                 aria-expanded="false">
@@ -454,71 +454,6 @@
                                             <strong>למה חשוב להראות זאת לבני משפחה?</strong> כשאדם עייף או מתוח משילוב
                                             של כאב, אטימות וצפצוף באוזניים, שיחה רגילה ברקע רועש דורשת ממנו הרבה יותר
                                             מאמץ.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- אקורדיון 3: הדמיית רגישות לאור וערפול מוחי -->
-                        <div class="accordion-item" id="sensoryLightFogSim">
-                            <button type="button" class="accordion-trigger" data-acc-target="sym-light-fog"
-                                aria-expanded="false">
-                                <span class="accordion-title-wrap">
-                                    <i class="fa-solid fa-circle-chevron-down accordion-icon" id="icon-sym-light-fog"
-                                        aria-hidden="true"></i>
-                                    <span>הדמיית רגישות לאור וערפול מוחי (Brain Fog)</span>
-                                </span>
-                                <span class="badge-pill badge-purple">אור וקוגניציה</span>
-                            </button>
-                            <div id="content-sym-light-fog" class="accordion-body hidden stack-md">
-                                <div class="callout-box callout-sky">
-                                    <strong>להמחשה לבני משפחה וסביבה:</strong> אפשר לבחור מצב ולהתרשם בעדינות איך
-                                    נראית רגישות לאור בוהק או תחושת ערפול מוחי (קושי למקד או לאסוף מחשבות). לחיצה
-                                    על "מצב רגיל" מחזירה מיד לתצוגה הרגילה.
-                                </div>
-
-                                <div class="sim-controls" role="group" aria-label="בחירת מצב אור וריכוז">
-                                    <button type="button" class="sim-toggle-btn active" data-light-fog-mode="normal"
-                                        aria-pressed="true">
-                                        <i class="fa-solid fa-sun" aria-hidden="true"></i>
-                                        <span>מצב רגיל (ברור ומפוקס)</span>
-                                    </button>
-                                    <button type="button" class="sim-toggle-btn" data-light-fog-mode="photophobia"
-                                        aria-pressed="false">
-                                        <i class="fa-solid fa-eye" aria-hidden="true"></i>
-                                        <span>רגישות לאור (סנוור ועומס)</span>
-                                    </button>
-                                    <button type="button" class="sim-toggle-btn" data-light-fog-mode="brain-fog"
-                                        aria-pressed="false">
-                                        <i class="fa-solid fa-cloud" aria-hidden="true"></i>
-                                        <span>ערפול מוחי (טשטוש וקושי במיקוד)</span>
-                                    </button>
-                                </div>
-
-                                <div class="sensory-stage-grid">
-                                    <div class="light-fog-preview-box" data-lf-mode="normal" id="lightFogPreviewBox">
-                                        <div class="light-fog-sample" id="lightFogSample">
-                                            <span class="badge-pill badge-sky" id="lightFogBadge">תצוגה רגילה</span>
-                                            <h4 id="lightFogSampleTitle">דוגמה לקריאה ושליפת מילים</h4>
-                                            <p id="lightFogSampleText">
-                                                במצב מאוזן קל לקרוא שורה אחרי שורה, לחבר בין רעיונות ולהגיב מיד לשאלות
-                                                שמתנהלות סביבך.
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                    <div class="sensory-info-box stack-sm">
-                                        <span class="badge-pill badge-emerald" id="lightFogStatePill">מיקוד מלא</span>
-                                        <h3 id="lightFogStateTitle">כך מרגישה תצוגה בהירה וצלולה</h3>
-                                        <p id="lightFogStateDesc">
-                                            בדליפת CSF או תת-לחץ תוך-גולגולתי, שילוב של שינוי בלחץ הנוזל ועייפות
-                                            עצבית עשוי לעורר רגישות לאור בוהק (פוטופוביה) או תחושה של "ערפל" שקשה
-                                            לחשוב דרכו.
-                                        </p>
-                                        <div class="callout-box callout-sky" id="lightFogStateTip">
-                                            <strong>איך אפשר לעזור?</strong> תאורה רכה יותר, זמן מנוחה בין משימות
-                                            וסבלנות כשאדם עוצר לרגע לחפש מילה.
                                         </div>
                                     </div>
                                 </div>
@@ -726,7 +661,7 @@
                 </div>
 
                 <!-- 5. לשונית הכנה לפגישה רפואית -->
-                <div id="med-tab-preparation" role="tabpanel" class="stack-lg hidden">
+                <div id="med-tab-preparation" role="tabpanel" class="stack-md hidden">
                     <div class="stack-sm">
                         <h2>הכנה לפגישה רפואית 📝</h2>
                         <p>כשהולכים לרופא בנושא, כדאי להתמקד ולהגיע מוכנים עם הנתונים הבאים:</p>
@@ -768,124 +703,6 @@
                             </li>
                         </ul>
                     </div>
-
-                    <!-- מחולל דף הכנה לפגישה עם רופא (תצוגה + העתקה / הדפסה נקייה) -->
-                    <div class="card stack-md doctor-prep-builder" id="doctorPrepBuilder">
-                        <div class="card-header-flex">
-                            <div class="icon-box icon-sky"><i class="fa-solid fa-file-waveform" aria-hidden="true"></i>
-                            </div>
-                            <div>
-                                <h3>מחולל סיכום אישי לפגישה עם רופא</h3>
-                                <span class="stat-desc">סמנו את הפרטים הרלוונטיים וקבלו דף סיכום מסודר להעתקה או
-                                    להדפסה</span>
-                            </div>
-                        </div>
-
-                        <div class="prep-builder-grid">
-                            <!-- צד ימין: טופס סימון קצר -->
-                            <div class="stack-sm prep-form-col">
-                                <div>
-                                    <label class="form-label" for="prepStartWhen">1. מתי התחילו התסמינים ומה קרה סביב
-                                        ההתחלה?</label>
-                                    <input type="text" id="prepStartWhen" class="form-input"
-                                        placeholder="לדוגמה: לפני 4 חודשים, אחרי ניקור מותני / אפידורל / ללא אירוע ברור">
-                                </div>
-
-                                <div>
-                                    <span class="form-label">2. תסמינים מרכזיים (בחרו כל מה שרלוונטי):</span>
-                                    <div class="prep-chips-wrap" id="prepSymptomsGroup">
-                                        <label class="prep-chip"><input type="checkbox"
-                                                value="כאב ראש תנוחתי (מחמיר בעמידה/ישיבה, מוקל בשכיבה)"
-                                                checked><span>כאב ראש תנוחתי</span></label>
-                                        <label class="prep-chip"><input type="checkbox"
-                                                value="לחץ או כאב בעורף, בצוואר ובין השכמות"><span>צוואר
-                                                ושכמות</span></label>
-                                        <label class="prep-chip"><input type="checkbox"
-                                                value="טנטון או תחושת אטימות/מלאות באוזניים"><span>טנטון / אטימות
-                                                באוזניים</span></label>
-                                        <label class="prep-chip"><input type="checkbox"
-                                                value="רגישות לאור או טשטוש ראייה"><span>רגישות לאור /
-                                                ראייה</span></label>
-                                        <label class="prep-chip"><input type="checkbox"
-                                                value="סחרחורת, חוסר יציבות או בחילה"><span>סחרחורת /
-                                                בחילה</span></label>
-                                        <label class="prep-chip"><input type="checkbox"
-                                                value="ערפול מוחי (Brain Fog) וקושי בריכוז"><span>ערפול
-                                                מוחי</span></label>
-                                    </div>
-                                </div>
-
-                                <div class="grid-2">
-                                    <div>
-                                        <label class="form-label" for="prepStandingTime">3. כמה זמן לוקח להחמרה
-                                            בעמידה/ישיבה?</label>
-                                        <select id="prepStandingTime" class="form-input">
-                                            <option value="תוך דקות ספורות">תוך דקות ספורות</option>
-                                            <option value="תוך 15–30 דקות" selected>תוך 15–30 דקות</option>
-                                            <option value="אחרי שעה או יותר (מחמיר לקראת ערב)">אחרי שעה+ (מחמיר בערב)
-                                            </option>
-                                            <option value="קבוע לאורך היום ללא שינוי ברור">קבוע לאורך היום</option>
-                                        </select>
-                                    </div>
-                                    <div>
-                                        <label class="form-label" for="prepLyingTime">4. כמה זמן לוקח להקלה בשכיבה
-                                            שטוחה?</label>
-                                        <select id="prepLyingTime" class="form-input">
-                                            <option value="תוך 5–15 דקות">תוך 5–15 דקות</option>
-                                            <option value="תוך 15–45 דקות" selected>תוך 15–45 דקות</option>
-                                            <option value="רק אחרי שכיבה ממושכת של שעות">אחרי שכיבה ממושכת</option>
-                                            <option value="שכיבה דווקא מחמירה את הלחץ">שכיבה דווקא מחמירה</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div>
-                                    <label class="form-label" for="prepTestsDone">5. בדיקות וטיפולים שכבר בוצעו:</label>
-                                    <input type="text" id="prepTestsDone" class="form-input"
-                                        placeholder="לדוגמה: MRI מוח עם חומר ניגוד (תקין), טלאי דם ראשון לפני חודשיים">
-                                </div>
-
-                                <div>
-                                    <label class="form-label" for="prepDailyImpact">6. השפעה על התפקוד ושאלה מרכזית
-                                        לרופא:</label>
-                                    <textarea id="prepDailyImpact" class="form-input" rows="2"
-                                        placeholder="לדוגמה: מתקשה לשבת מול מחשב מעל 20 דקות. שאלה: האם יש מקום להדמיית עמוד שדרה / מיאלוגרפיה?"></textarea>
-                                </div>
-                            </div>
-
-                            <!-- צד שמאל: תצוגה מקדימה חיה + שפה + העתקה והדפסה -->
-                            <div class="prep-preview-col stack-sm">
-                                <div class="prep-preview-toolbar">
-                                    <div class="sim-controls" role="group" aria-label="בחירת שפת הסיכום">
-                                        <button type="button" class="sim-toggle-btn active" data-prep-lang="he"
-                                            aria-pressed="true">עברית</button>
-                                        <button type="button" class="sim-toggle-btn" data-prep-lang="en"
-                                            aria-pressed="false">English (לייעוץ בחו"ל)</button>
-                                    </div>
-                                </div>
-
-                                <div class="prep-sheet-box" id="prepSheetPreview">
-                                    <div class="prep-sheet-header">
-                                        <strong id="prepSheetTitle">סיכום תסמינים ותנוחות לקראת פגישה רפואית</strong>
-                                        <span class="stat-desc" id="prepSheetSub">מסמך הכנה אישי • CSF Leak IL</span>
-                                    </div>
-                                    <pre class="prep-sheet-body" id="prepSheetOutput"></pre>
-                                </div>
-
-                                <div class="prep-actions-row">
-                                    <button type="button" class="btn-emerald-block" id="copyDoctorPrepBtn"
-                                        style="margin-top: 0;">
-                                        <i class="fa-solid fa-copy" aria-hidden="true"></i>
-                                        <span>העתק סיכום</span>
-                                    </button>
-                                    <button type="button" class="wizard-restart-btn" id="printDoctorPrepBtn">
-                                        <i class="fa-solid fa-print" aria-hidden="true"></i>
-                                        <span>הדפסה / שמירה כ-PDF</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -896,7 +713,6 @@
     <div id="site-footer-placeholder"></div>
 
     <script src="/script.js"></script>
-    <script src="/info.js"></script>
 </body>
 
 </html>

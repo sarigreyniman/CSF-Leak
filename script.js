@@ -575,7 +575,7 @@ function initGlobalEventDelegation() {
         }
 
         const accTrigger = e.target.closest('[data-acc-target]');
-        if (accTrigger && document.body.getAttribute('data-current-page') === 'doctors') {
+        if (accTrigger && document.body.getAttribute('data-current-page') === 'faq') {
             toggleAccordion(accTrigger.getAttribute('data-acc-target'), accTrigger);
             return;
         }
